@@ -1,5 +1,5 @@
 /**
- * Cloudflare Pages Function: GET & POST /api/settings
+ * Cloudflare Function: GET & POST /api/settings
  *
  * Stores coordinator-configured session, PK01 submission deadline, department,
  * institution name, and active R2 logo pointer inside Cloudflare KV (system_settings).
@@ -58,7 +58,7 @@ export async function onRequestGet(context) {
   const { env } = context;
   const kvBound = Boolean(env && env.JADUAL_KV);
   const r2Bound = Boolean(getR2Bucket(env));
-  const aiBound = Boolean((env && env.GEMINI_API_KEY) || (env && env.AI));
+  const aiBound = Boolean(env && env.AI);
   const pinMeta = await resolvePinMeta(env);
 
   let settings = { ...DEFAULT_SETTINGS };

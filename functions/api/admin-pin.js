@@ -1,5 +1,5 @@
 /**
- * Cloudflare Pages Function: POST /api/admin-pin
+ * Cloudflare Function: POST /api/admin-pin
  *
  * Allows an authenticated coordinator to update the Admin PIN stored in Cloudflare KV.
  * If ADMIN_PIN or ADMIN_PASSCODE is locked via Cloudflare Environment Secrets,

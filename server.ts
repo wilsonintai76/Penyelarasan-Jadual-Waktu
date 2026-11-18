@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import { GoogleGenAI, Type } from '@google/genai';
 
 const PORT = 3000;
 const SIM_DIR = path.resolve(process.cwd(), '.local-cf-sim');
@@ -259,7 +258,9 @@ async function startServer() {
       .json({
         kvBound: true,
         r2Bound: true,
-        aiBound: Boolean((process.env.GEMINI_API_KEY || '').trim()),
+        aiBound: Boolean(
+          (process.env.CLOUDFLARE_ACCOUNT_ID || '').trim() && (process.env.CLOUDFLARE_API_TOKEN || '').trim()
+        ),
         passcodeRequired: true,
         pinSource: pinMeta.source,
         settings
@@ -387,18 +388,22 @@ async function startServer() {
     }
   });
 
-  // POST /api/extract-pdf (Server-side Gemini Vision PDF page extractor)
+  // POST /api/extract-pdf (Cloudflare Workers AI vision PDF page extractor)
   app.post('/api/extract-pdf', async (req, res) => {
     if (!checkPasscode(req)) {
       res.status(401).json({ error: 'UNAUTHORIZED', message: 'PIN Admin tidak sah atau tidak dibekalkan.' });
       return;
     }
     try {
-      const apiKey = (process.env.GEMINI_API_KEY || '').trim();
-      if (!apiKey) {
+      const accountId = (process.env.CLOUDFLARE_ACCOUNT_ID || '').trim();
+      const apiToken = (process.env.CLOUDFLARE_API_TOKEN || '').trim();
+      const model = (process.env.CF_VISION_MODEL || '@cf/meta/llama-4-scout-17b-16e-instruct').trim();
+
+      if (!accountId || !apiToken) {
         res.status(503).json({
-          error: 'GEMINI_NOT_CONFIGURED',
-          message: 'GEMINI_API_KEY belum ditetapkan pada pelayan. Sila semak Settings > Secrets atau muat naik fail JSON.'
+          error: 'WORKERS_AI_NOT_CONFIGURED',
+          message:
+            'CLOUDFLARE_ACCOUNT_ID dan CLOUDFLARE_API_TOKEN belum ditetapkan. Pengekstrakan PDF menggunakan Cloudflare Workers AI.'
         });
         return;
       }
@@ -413,66 +418,42 @@ async function startServer() {
         return;
       }
 
-      const ai = new GoogleGenAI({
-        apiKey,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build'
-          }
-        }
-      });
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-4-hydrogen',
-        contents: {
-          parts: [
-            {
-              inlineData: {
-                mimeType,
-                data: imageBase64
-              }
-            },
-            {
-              text: `${EXTRACTION_PROMPT}\nPage ${pageNumber}.`
-            }
-          ]
+      const aiRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
+          'Content-Type': 'application/json'
         },
-        config: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              entries: {
-                type: Type.ARRAY,
-                items: {
-                  type: Type.OBJECT,
-                  properties: {
-                    Cohort: { type: Type.STRING },
-                    Course_Code: { type: Type.STRING },
-                    Course_Name: { type: Type.STRING },
-                    Credit: { type: Type.INTEGER },
-                    Day: { type: Type.STRING },
-                    Start_Time: { type: Type.STRING },
-                    End_Time: { type: Type.STRING },
-                    Venue: { type: Type.STRING },
-                    Lecturer: { type: Type.STRING },
-                    Status: { type: Type.STRING }
-                  },
-                  required: ['Cohort', 'Course_Code', 'Day', 'Start_Time', 'End_Time']
-                }
-              }
-            },
-            required: ['entries']
-          }
-        }
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'user',
+              content: [
+                { type: 'text', text: `${EXTRACTION_PROMPT}\nPage ${pageNumber}. Return ONLY raw JSON.` },
+                { type: 'image_url', image_url: { url: `data:${mimeType};base64,${imageBase64}` } }
+              ]
+            }
+          ],
+          max_tokens: 4096
+        })
       });
 
-      const rawText = (response.text || '{"entries":[]}').trim();
-      const parsed = JSON.parse(rawText);
+      const payload: any = await aiRes.json();
+      if (!aiRes.ok || payload?.success === false) {
+        res.status(aiRes.ok ? 502 : aiRes.status).json({
+          error: 'WORKERS_AI_UPSTREAM_ERROR',
+          message: `Ralat Workers AI (${aiRes.status}): ${JSON.stringify(payload?.errors || payload).slice(0, 220)}`
+        });
+        return;
+      }
+
+      const rawText = String(payload?.result?.response ?? payload?.result?.text ?? '{}');
+      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+      const parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : { entries: [] };
 
       res.status(200).json({
         ok: true,
-        engine: 'Gemini Vision (gemini-4-hydrogen)',
+        engine: `Cloudflare Workers AI (${model})`,
         entries: Array.isArray(parsed.entries) ? parsed.entries : []
       });
     } catch (err: any) {

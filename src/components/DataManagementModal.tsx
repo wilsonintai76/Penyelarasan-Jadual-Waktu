@@ -1567,7 +1567,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                     )}
                   </div>
                   <p className="text-[11px] text-slate-600">
-                    Menggunakan <code>GEMINI_API_KEY</code> atau Cloudflare Workers AI binding (<code>AI</code>) di <code>/api/extract-pdf</code>.
+                    Menggunakan binding Cloudflare Workers AI (<code>AI</code>) di <code>/api/extract-pdf</code>.
                   </p>
                 </div>
               </div>
@@ -1575,11 +1575,11 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
                 <h4 className="font-black text-slate-900 text-xs sm:text-sm flex items-center gap-1.5">
                   <Server className="w-4 h-4 text-blue-600" />
-                  <span>Panduan Pemasangan Penuh di Cloudflare Pages</span>
+                  <span>Panduan Pemasangan Penuh di Cloudflare Workers</span>
                 </h4>
                 <ol className="list-decimal list-inside space-y-1.5 text-[11px] text-slate-700 leading-relaxed">
                   <li>
-                    Buka <b>Cloudflare Dashboard → Workers &amp; Pages → Projek Anda → Settings → Bindings</b>.
+                    Buka <b>Cloudflare Dashboard → Workers &amp; Pages → Worker Anda → Settings → Bindings</b>.
                   </li>
                   <li>
                     Tambah <b>KV Namespace binding</b> dengan nama pembolehubah tepat <code>JADUAL_KV</code>.
@@ -1588,7 +1588,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                     Tambah <b>R2 Bucket binding</b> dengan nama pembolehubah tepat <code>JADUAL_R2</code> (untuk simpanan logo Politeknik).
                   </li>
                   <li>
-                    Untuk ekstraksi PDF Jadual Induk terus di web: tambah sama ada <b>Workers AI binding</b> bernama <code>AI</code> atau Environment Secret <code>GEMINI_API_KEY</code>.
+                    Untuk ekstraksi PDF Jadual Induk terus di web: pastikan <b>Workers AI binding</b> bernama <code>AI</code> tersedia.
                   </li>
                   <li>
                     Tetapkan Environment Secret <code>ADMIN_PIN</code> (pilihan) jika anda ingin mengunci PIN penyelaras di peringkat Cloudflare, atau tukar PIN terus melalui tab <b>Tetapan Sesi &amp; Logo (R2)</b>.

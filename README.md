@@ -10,7 +10,7 @@ Aplikasi web untuk penyelarasan jadual kuliah dan penjanaan Borang PK01, Jabatan
 **Prerequisites:** Node.js
 
 1. `npm install`
-2. Set `GEMINI_API_KEY` in [.env.local](.env.local) (optional — deployed environments fall back to Cloudflare Workers AI)
+2. Optional: copy [.env.example](.env.example) to `.env.local` and set `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_API_TOKEN` to enable PDF extraction locally (the deployed Worker uses its `AI` binding instead)
 3. `npm run dev` — Express server in [server.ts](server.ts)
 
 ## Deploy to Cloudflare
@@ -57,7 +57,7 @@ npm run cf:dev        # build + local Worker runtime (http://localhost:8787)
 | --- | --- | --- | --- |
 | `JADUAL_KV` | KV namespace | `jkm-timetable-kv` | `/api/jadual`, `/api/jadual-history`, `/api/settings`, `/api/admin-pin`, `/api/verify-pin`, `/api/logo`, `/api/extract-pdf` |
 | `JADUAL_R2` | R2 bucket | `jkm-timetable-r2` | `/api/logo` (custom logo upload) |
-| `AI` | Workers AI | — | `/api/extract-pdf` when `GEMINI_API_KEY` is not set |
+| `AI` | Workers AI | — | `/api/extract-pdf` |
 | `ASSETS` | Static assets | `dist/` | SPA |
 
 `/api/logo` also accepts the legacy binding names `R2_BUCKET`, `LOGO_BUCKET`, and `ASSETS_BUCKET`.
@@ -69,9 +69,8 @@ Set these with `npx wrangler secret put <NAME>` (never commit them):
 | Secret | Purpose |
 | --- | --- |
 | `ADMIN_PIN` / `ADMIN_PASSCODE` | Admin PIN for upload/settings endpoints. When unset, the PIN stored in KV (`admin_pin_config`) is used, falling back to the built-in default `2026`. Set this in production. |
-| `GEMINI_API_KEY` | Gemini-based PDF extraction for `/api/extract-pdf`. |
 
 ## Security notes
 
 - `cf_timetable_config*.json`, `cloudflare_config*.json`, `.dev.vars`, and `local-secrets/` are git-ignored and must never be committed or placed under `public/` (Vite copies `public/` into the deployed bundle).
-- Credentials previously stored in `public/assets/aistudio/cf_timetable_config_b04d6eea.json` were rejected by GitHub push protection and have been removed from the repository; rotate any key that was in that file.
+- Credentials previously stored in a downloaded AI Studio config file were rejected by GitHub push protection and have been removed from the repository; rotate any key that was in that file.

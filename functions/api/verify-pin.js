@@ -1,5 +1,5 @@
 /**
- * Cloudflare Pages Function: POST /api/verify-pin
+ * Cloudflare Function: POST /api/verify-pin
  *
  * Verifies the Coordinator/Admin PIN without exposing the secret PIN to the browser.
  * Priority: env.ADMIN_PIN / env.ADMIN_PASSCODE -> KV key 'admin_pin_config' -> initial default PIN.

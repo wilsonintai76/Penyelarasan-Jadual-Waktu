@@ -1,5 +1,5 @@
 /**
- * Cloudflare Pages Function: GET, POST & DELETE /api/logo
+ * Cloudflare Function: GET, POST & DELETE /api/logo
  *
  * Stores and serves the official Politeknik logo binary from Cloudflare R2,
  * and keeps system_settings in Cloudflare KV synchronized.

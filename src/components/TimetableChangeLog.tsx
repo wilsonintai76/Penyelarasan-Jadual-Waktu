@@ -83,7 +83,7 @@ function getSourceBadge(source: TimetableChangeSource) {
   return (
     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md border bg-emerald-100 text-emerald-800 border-emerald-200 text-[10px] font-bold">
       <Cloud className="w-3 h-3" />
-      <span>Desktop Push -&gt; Cloudflare KV</span>
+      <span>Muat Naik Web -&gt; Cloudflare KV</span>
     </span>
   );
 }

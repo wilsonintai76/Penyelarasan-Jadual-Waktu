@@ -29,7 +29,7 @@
     }
   ],
 
-  // Fallback OCR/extraction path for /api/extract-pdf when GEMINI_API_KEY is absent.
+  // Vision/OCR path for /api/extract-pdf.
   "ai": {
     "binding": "AI"
   },

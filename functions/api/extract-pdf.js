@@ -1,8 +1,8 @@
 /**
- * Cloudflare Pages Function: POST /api/extract-pdf
+ * Cloudflare Function: POST /api/extract-pdf
  *
  * Extracts structured JKM timetable slots from a rendered PDF page image
- * using Gemini API (env.GEMINI_API_KEY) or Cloudflare Workers AI (env.AI).
+ * using Cloudflare Workers AI (env.AI binding).
  */
 const EXTRACTION_PROMPT = `You are a precision timetable extractor for Jabatan Kejuruteraan Mekanikal (JKM), Politeknik Kuching Sarawak (aSc Timetables / PLSP-02(1a) grid).
 Extract ALL scheduled class slots visible on this timetable page into a JSON array.
@@ -16,32 +16,6 @@ Rules:
 7. Lecturer: lecturer code(s) separated by "/" if multiple (e.g. "JANN", "JFOZ/JMNH").
 8. Status: "D".
 Return ONLY a valid JSON object with shape { "entries": [...] }.`;
-
-const RESPONSE_SCHEMA = {
-  type: 'OBJECT',
-  properties: {
-    entries: {
-      type: 'ARRAY',
-      items: {
-        type: 'OBJECT',
-        properties: {
-          Cohort: { type: 'STRING' },
-          Course_Code: { type: 'STRING' },
-          Course_Name: { type: 'STRING' },
-          Credit: { type: 'INTEGER' },
-          Day: { type: 'STRING' },
-          Start_Time: { type: 'STRING' },
-          End_Time: { type: 'STRING' },
-          Venue: { type: 'STRING' },
-          Lecturer: { type: 'STRING' },
-          Status: { type: 'STRING' }
-        },
-        required: ['Cohort', 'Course_Code', 'Day', 'Start_Time', 'End_Time']
-      }
-    }
-  },
-  required: ['entries']
-};
 
 const PIN_CONFIG_KEY = 'admin_pin_config';
 const INITIAL_DEFAULT_PIN = '2026';
@@ -98,60 +72,7 @@ export async function onRequestPost(context) {
       );
     }
 
-    const geminiKey = (env && env.GEMINI_API_KEY ? String(env.GEMINI_API_KEY) : '').trim();
-
-    if (geminiKey) {
-      const apiRes = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-4-hydrogen:generateContent?key=${encodeURIComponent(geminiKey)}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'User-Agent': 'aistudio-build'
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  { inlineData: { mimeType, data: imageBase64 } },
-                  { text: `${EXTRACTION_PROMPT}\nPage ${pageNumber}.` }
-                ]
-              }
-            ],
-            generationConfig: {
-              responseMimeType: 'application/json',
-              responseSchema: RESPONSE_SCHEMA
-            }
-          })
-        }
-      );
-
-      if (!apiRes.ok) {
-        const errText = await apiRes.text();
-        return new Response(
-          JSON.stringify({
-            error: 'GEMINI_UPSTREAM_ERROR',
-            message: `Ralat Gemini API (${apiRes.status}): ${errText.slice(0, 220)}`
-          }),
-          { status: apiRes.status, headers: { 'Content-Type': 'application/json; charset=utf-8' } }
-        );
-      }
-
-      const geminiJson = await apiRes.json();
-      const rawText =
-        geminiJson?.candidates?.[0]?.content?.parts?.[0]?.text || '{"entries":[]}';
-      const parsed = JSON.parse(rawText);
-      return new Response(
-        JSON.stringify({
-          ok: true,
-          engine: 'Gemini Vision (gemini-4-hydrogen)',
-          entries: Array.isArray(parsed.entries) ? parsed.entries : []
-        }),
-        { status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8' } }
-      );
-    }
-
-    // Optional Cloudflare Workers AI fallback if env.AI binding exists
+    // Cloudflare Workers AI vision extraction
     if (env && env.AI) {
       const aiRes = await env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
         messages: [
@@ -181,7 +102,7 @@ export async function onRequestPost(context) {
     return new Response(
       JSON.stringify({
         error: 'AI_NOT_CONFIGURED',
-        message: 'GEMINI_API_KEY atau binding Cloudflare Workers AI belum dikonfigurasi pada Cloudflare Pages.'
+        message: 'Binding Cloudflare Workers AI (AI) belum dikonfigurasi.'
       }),
       { status: 503, headers: { 'Content-Type': 'application/json; charset=utf-8' } }
     );

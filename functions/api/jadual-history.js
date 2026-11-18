@@ -1,8 +1,8 @@
 /**
- * Cloudflare Pages Function: GET /api/jadual-history
+ * Cloudflare Function: GET /api/jadual-history
  *
- * Reads the upload history log (`<kv_key>_history`) pushed by the NiceGUI
- * desktop admin uploader (`ppkj_timetable_uploader_en.py`) from Cloudflare KV.
+ * Reads the upload history log (`<kv_key>_history`) written by POST /api/jadual
+ * from Cloudflare KV.
  */
 export async function onRequestGet(context) {
   const { env, request } = context;

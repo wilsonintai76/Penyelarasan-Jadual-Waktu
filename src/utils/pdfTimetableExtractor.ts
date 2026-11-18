@@ -206,7 +206,7 @@ export async function extractTimetableFromPdf(
 
   const totalPages = pdfDoc.numPages;
   const collectedRaw: unknown[] = [];
-  let lastEngine = 'Gemini Vision (Web Upload)';
+  let lastEngine = 'Cloudflare Workers AI (Web Upload)';
 
   try {
     for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {

@@ -9,6 +9,8 @@ coverage/
 .local-cf-sim/
 .wrangler/
 .dev.vars
+__pycache__/
+*.pyc
 cf_timetable_config*.json
 cloudflare_config*.json
 local-secrets/

@@ -1,8 +1,8 @@
 /**
- * Cloudflare Pages Function: GET & POST /api/jadual
+ * Cloudflare Function: GET & POST /api/jadual
  *
  * Reads and publishes the live master timetable JSON directly to/from Cloudflare KV.
- * Bindings in Cloudflare Pages Dashboard:
+ * Bindings (wrangler.jsonc / Cloudflare dashboard):
  *   KV Namespace Binding: JADUAL_KV
  *   Optional Env Secret:  ADMIN_PASSCODE (if set, POST requires matching X-Admin-Passcode)
  */
