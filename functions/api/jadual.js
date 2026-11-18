@@ -7,7 +7,7 @@
  *   R2 Bucket Binding:    JADUAL_R2 (versioned snapshots of the previous master)
  *   Optional Env Secret:  ADMIN_PASSCODE (if set, POST requires matching X-Admin-Passcode)
  */
-import { snapshotBeforeOverwrite } from './_backup.js';
+import { snapshotBeforeOverwrite, putFallbackMirror } from './_backup.js';
 
 const DEFAULT_KEY = 'jadual_induk_jkm';
 const PIN_CONFIG_KEY = 'admin_pin_config';
@@ -185,6 +185,13 @@ export async function onRequestPost(context) {
 
     const serialized = JSON.stringify(rawEntries);
     await env.JADUAL_KV.put(kvKey, serialized);
+
+    // Refresh the R2 fallback mirror so /api/jadual-fallback tracks KV.
+    try {
+      await putFallbackMirror(env, kvKey, serialized);
+    } catch {
+      // mirror refresh is best-effort; publishing must still succeed
+    }
 
     const cohortsCount = new Set(rawEntries.map((r) => String(r.Cohort || '').trim()).filter(Boolean)).size;
     const timestamp = new Date().toISOString();

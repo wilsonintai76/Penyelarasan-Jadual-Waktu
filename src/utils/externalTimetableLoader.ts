@@ -367,7 +367,7 @@ export async function fetchLatestExternalTimetable(): Promise<ExternalTimetableF
 
   const envJsonUrl = (import.meta.env.VITE_TIMETABLE_JSON_URL || '').trim();
   const jsonFallbackUrl =
-    envJsonUrl || (manifest.jsonFallbackUrl || '').trim() || '/data/jadual.json';
+    envJsonUrl || (manifest.jsonFallbackUrl || '').trim() || '/api/jadual-fallback';
 
   let kvBound = false;
   let latestRemoteLog: TimetableChangeLogEntry | null = null;
@@ -449,7 +449,7 @@ export async function fetchLatestExternalTimetable(): Promise<ExternalTimetableF
     }
   }
 
-  // 3. Fallback: External JSON file (default /data/jadual.json)
+  // 3. Fallback: R2 mirror endpoint (default /api/jadual-fallback)
   if (jsonFallbackUrl) {
     try {
       const jsonRes = await fetch(appendCacheBuster(jsonFallbackUrl, now), { cache: 'no-store' });
@@ -481,7 +481,7 @@ export async function fetchLatestExternalTimetable(): Promise<ExternalTimetableF
     kvBound,
     latestRemoteLog,
     errorMessage:
-      'Gagal memuatkan data daripada Cloudflare KV, Google Sheets CSV, atau fail luaran /data/jadual.json.'
+      'Gagal memuatkan data daripada Cloudflare KV, Google Sheets CSV, atau sandaran /api/jadual-fallback.'
   };
 }
 

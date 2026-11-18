@@ -8,6 +8,7 @@
 import * as jadual from '../functions/api/jadual.js';
 import * as jadualHistory from '../functions/api/jadual-history.js';
 import * as jadualBackups from '../functions/api/jadual-backups.js';
+import * as jadualFallback from '../functions/api/jadual-fallback.js';
 import * as settings from '../functions/api/settings.js';
 import * as version from '../functions/api/version.js';
 import * as logo from '../functions/api/logo.js';
@@ -19,6 +20,7 @@ const ROUTES = {
   '/api/jadual': jadual,
   '/api/jadual-history': jadualHistory,
   '/api/jadual-backups': jadualBackups,
+  '/api/jadual-fallback': jadualFallback,
   '/api/settings': settings,
   '/api/version': version,
   '/api/logo': logo,

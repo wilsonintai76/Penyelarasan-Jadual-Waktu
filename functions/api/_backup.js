@@ -6,6 +6,7 @@
  */
 export const BACKUP_PREFIX = 'backups/';
 export const BACKUP_RETENTION = 20;
+export const FALLBACK_PREFIX = 'fallback/';
 
 export function getBackupBucket(env) {
   return (env && (env.JADUAL_R2 || env.R2_BUCKET)) || null;
@@ -45,4 +46,27 @@ export async function listBackups(env, kvKey) {
   return (listed.objects || [])
     .map((object) => ({ key: object.key, size: object.size, uploaded: object.uploaded }))
     .sort((a, b) => (a.key < b.key ? 1 : -1));
+}
+
+/**
+ * Live mirror of the current master, served by /api/jadual-fallback when KV is
+ * unavailable. Rewritten on every publish so the fallback never goes stale.
+ */
+export async function putFallbackMirror(env, kvKey, rawData) {
+  const bucket = getBackupBucket(env);
+  if (!bucket || !rawData) return null;
+
+  const key = `${FALLBACK_PREFIX}${kvKey}.json`;
+  await bucket.put(key, rawData, {
+    httpMetadata: { contentType: 'application/json; charset=utf-8' }
+  });
+  return key;
+}
+
+export async function getFallbackMirror(env, kvKey) {
+  const bucket = getBackupBucket(env);
+  if (!bucket) return null;
+
+  const object = await bucket.get(`${FALLBACK_PREFIX}${kvKey}.json`);
+  return object ? object.text() : null;
 }

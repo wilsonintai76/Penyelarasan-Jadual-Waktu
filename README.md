@@ -51,6 +51,12 @@ npm run deploy        # vite build + wrangler deploy (stamps the app version)
 npm run cf:dev        # build + local Worker runtime (http://localhost:8787)
 ```
 
+Source precedence in [externalTimetableLoader.ts](src/utils/externalTimetableLoader.ts): **1) Cloudflare KV** → 2) Google Sheets CSV (if configured) → 3) `/api/jadual-fallback`.
+
+`/api/jadual-fallback` serves an R2 mirror (`fallback/jadual_induk_jkm.json`) that is rewritten on every
+publish and restore, so the fallback tracks the latest upload instead of a build-time snapshot. If the
+mirror is missing it serves the bundled `/data/jadual.json`.
+
 ## Versioning
 
 The version lives in [package.json](./package.json) `version` — a single source of truth.

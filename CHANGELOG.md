@@ -4,6 +4,19 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.2.0] - 2026-11-18
+
+### Added
+
+- `GET /api/jadual-fallback`: serves the timetable from an R2 mirror that is rewritten on every
+  publish and restore, so the fallback path always reflects the latest upload. Falls back to the
+  bundled `/data/jadual.json` snapshot when the mirror has not been seeded yet.
+
+### Changed
+
+- The client fallback source is now `/api/jadual-fallback` (previously the static `/data/jadual.json`),
+  declared in `public/timetable-source.json` and `VITE_TIMETABLE_JSON_URL`.
+
 ## [1.1.0] - 2026-11-18
 
 ### Added

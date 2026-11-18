@@ -8,7 +8,7 @@
  * Snapshots are written by POST /api/jadual before each publish.
  */
 import { checkAdminPin } from './jadual.js';
-import { getBackupBucket, listBackups, snapshotBeforeOverwrite, BACKUP_PREFIX } from './_backup.js';
+import { getBackupBucket, listBackups, snapshotBeforeOverwrite, putFallbackMirror, BACKUP_PREFIX } from './_backup.js';
 
 const DEFAULT_KEY = 'jadual_induk_jkm';
 const HISTORY_SUFFIX = '_history';
@@ -102,6 +102,12 @@ export async function onRequestPost(context) {
 
     const serialized = JSON.stringify(restoredEntries);
     await env.JADUAL_KV.put(kvKey, serialized);
+
+    try {
+      await putFallbackMirror(env, kvKey, serialized);
+    } catch {
+      // mirror refresh is best-effort; the restore must still succeed
+    }
 
     const cohortsCount = new Set(
       restoredEntries.map((row) => String((row && row.Cohort) || '').trim()).filter(Boolean)
