@@ -32,6 +32,7 @@ import {
   TimetableChangeLogEntry
 } from '../types';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
+import { APP_VERSION_LABEL } from '../version';
 import {
   PdfPagePreview,
   inspectPdfPages,
@@ -926,7 +927,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
           {!requiresPinGate && activeSubTab === 'upload_timetable' && (
             <div className="space-y-4 text-xs">
               {/* Upload Dropzone */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-indigo-50 via-blue-50 to-slate-50 border-2 border-dashed border-indigo-300 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-linear-to-br from-indigo-50 via-blue-50 to-slate-50 border-2 border-dashed border-indigo-300 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="space-y-1 text-center sm:text-left">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-indigo-700 text-white text-[10px] font-bold uppercase">
                     <Sparkles className="w-3 h-3" /> Ekstraksi Pintar Web -&gt; Cloudflare KV
@@ -1184,7 +1185,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                             </td>
                             <td className="py-1.5 px-2.5">
                               <div className="font-mono font-bold text-slate-900">{entry.Course_Code}</div>
-                              <div className="text-[10px] text-slate-500 truncate max-w-[200px]">
+                              <div className="text-[10px] text-slate-500 truncate max-w-50">
                                 {entry.Course_Name}
                               </div>
                             </td>
@@ -1386,7 +1387,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                       </span>
                     </div>
 
-                    <div className="p-5 rounded-2xl bg-white border border-slate-200 flex flex-col items-center justify-center gap-2 min-h-[140px]">
+                    <div className="p-5 rounded-2xl bg-white border border-slate-200 flex flex-col items-center justify-center gap-2 min-h-35">
                       <PKSLogo size="xl" customLogo={systemSettings.logoUrl} />
                       <div className="text-[11px] font-semibold text-slate-600 text-center">
                         {systemSettings.logoStorage === 'r2'
@@ -1602,7 +1603,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
         {/* Modal Footer */}
         <div className="p-3 sm:p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-2 shrink-0">
           <span className="text-[11px] text-slate-500 hidden sm:inline">
-            Sesi Semasa: <b>{systemSettings.session}</b> · {timetable.length} slot aktif
+            Sesi Semasa: <b>{systemSettings.session}</b> · {timetable.length} slot aktif · {APP_VERSION_LABEL}
           </span>
           <button
             type="button"

@@ -1,14 +1,14 @@
 {
-  "name": "react-example",
+  "name": "jkm-penyelarasan-jadual",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
     "start": "node server.ts",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && node scripts/deploy.mjs",
     "cf:dev": "npm run build && wrangler dev",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"

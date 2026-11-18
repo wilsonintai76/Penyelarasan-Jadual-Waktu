@@ -267,10 +267,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* 1. Official Instructions Banner */}
-      <div className="no-print bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-lg border border-blue-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
+      <div className="no-print bg-linear-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-lg border border-blue-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
         <div>
           <span className="inline-block bg-blue-500/20 text-blue-300 text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-md mb-1.5 border border-blue-400/30">
-            {student.session} · Panduan Rasmi MK &amp; BD
+            {student.session} Â· Panduan Rasmi MK &amp; BD
           </span>
           <h2 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight leading-snug">
             Penyelarasan Jadual &amp; Penjanaan Borang PK01
@@ -321,9 +321,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               </p>
             </div>
             <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
-              <div className="font-black text-emerald-900 mb-1">3. Semak Had 12–18 Kredit</div>
+              <div className="font-black text-emerald-900 mb-1">3. Semak Had 12â€“18 Kredit</div>
               <p className="text-[11px] text-slate-700 leading-relaxed">
-                Jumlah jam kredit setiap semester mestilah antara <b>12 – 18 jam kredit</b>. Jika <b>&lt; 12</b> atau <b>&gt; 18 jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
+                Jumlah jam kredit setiap semester mestilah antara <b>12 â€“ 18 jam kredit</b>. Jika <b>&lt; 12</b> atau <b>&gt; 18 jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
               </p>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -711,7 +711,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           title={`Buang ${item.code}`}
                           className="ml-0.5 px-1.5 py-0.5 rounded-md bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 text-[10px] font-bold transition flex items-center gap-0.5"
                         >
-                          <span>Buang</span> ✕
+                          <span>Buang</span> âœ•
                         </button>
                       </span>
                     );
@@ -745,17 +745,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             {totalCredits < 12 ? (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-rose-50 text-rose-800 border-rose-300 flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                <span>Kurang Had (&lt; 12 Kredit) · Perlu Kebenaran KJ</span>
+                <span>Kurang Had (&lt; 12 Kredit) Â· Perlu Kebenaran KJ</span>
               </div>
             ) : totalCredits > 18 ? (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-amber-50 text-amber-900 border-amber-300 flex items-center gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span>Melebihi Had (&gt; 18 Kredit) · Perlu Kebenaran KJ</span>
+                <span>Melebihi Had (&gt; 18 Kredit) Â· Perlu Kebenaran KJ</span>
               </div>
             ) : (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>Beban Kredit Sah (12 – 18 Jam Kredit)</span>
+                <span>Beban Kredit Sah (12 â€“ 18 Jam Kredit)</span>
               </div>
             )}
           </div>
@@ -835,7 +835,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             ) : (
                               <span>Tumpang <b>{rp.Cohort}</b></span>
                             )}{' '}
-                            [{scheduleStr}] · Pensyarah: {lectStr}
+                            [{scheduleStr}] Â· Pensyarah: {lectStr}
                           </div>
 
                           {/* Candidate alternative section switcher */}
@@ -850,7 +850,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                 {rp.scoredCandidates.map((sc: any) => {
                                   const clashTag =
                                     sc.clashedBase.length === 0 && !sc.clashesWithOtherRepeat
-                                      ? '0 Terjejas ✓'
+                                      ? '0 Terjejas âœ“'
                                       : `Terjejas: ${sc.clashedBase.map((c: any) => c.Course_Code).join(', ') || 'MK berklash'}${sc.droppedCredits ? ` | gugur ${sc.droppedCredits} kr` : ''}`;
                                   return (
                                     <option key={sc.pkg.Cohort} value={sc.pkg.Cohort}>
@@ -864,7 +864,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
                           {rp.clashesWithOtherRepeat && (
                             <div className="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-rose-700 bg-rose-100 border border-rose-300 px-2 py-0.5 rounded-md">
-                              ⚠️ Bertindih dengan kursus MK/BD lain — sila tukar seksyen jika ada
+                              âš ï¸ Bertindih dengan kursus MK/BD lain â€” sila tukar seksyen jika ada
                             </div>
                           )}
                         </div>
@@ -960,7 +960,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   )}
                 </div>
                 <h3 className="font-bold text-slate-900 text-sm sm:text-base mt-1.5">
-                  Grafik Slot Masa Berlanggar (8.00 Pagi – 5.00 Petang)
+                  Grafik Slot Masa Berlanggar (8.00 Pagi â€“ 5.00 Petang)
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                   Sorotan jalur merah berjalur (<i>diagonal stripe overlay</i>) menunjukkan dengan jelas slot masa bertindih antara subjek semasa dan tumpang.
@@ -987,7 +987,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         <span>{d}</span>
                         {clashBands.length > 0 ? (
                           <span className="px-1.5 py-0.2 rounded-full bg-rose-500 text-white text-[9.5px] font-bold">
-                            {clashBands.length} ⚠️
+                            {clashBands.length} âš ï¸
                           </span>
                         ) : events.length > 0 ? (
                           <span className="text-[10px] opacity-75 font-mono">({events.length})</span>
@@ -1050,7 +1050,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             className="absolute top-0 bottom-0 bg-rose-600/30 border-x-2 border-rose-500 pointer-events-none z-10 flex flex-col items-center justify-start pt-1 animate-pulse"
                           >
                             <span className="bg-rose-900 text-rose-100 font-mono font-black text-[9px] px-1.5 py-0.5 rounded border border-rose-400 shadow-sm">
-                              ⚠️ BERTINDIH {cb.startStr}-{cb.endStr}
+                              âš ï¸ BERTINDIH {cb.startStr}-{cb.endStr}
                             </span>
                           </div>
                         ))}
@@ -1066,11 +1066,11 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             const left = getLeftPct(ev.startMin);
                             const width = getWidthPct(ev.startMin, ev.endMin);
 
-                            let barColor = 'bg-gradient-to-r from-blue-600 to-indigo-700 border-blue-400 text-white shadow-md';
+                            let barColor = 'bg-linear-to-r from-blue-600 to-indigo-700 border-blue-400 text-white shadow-md';
                             if (ev.hasClash) {
-                              barColor = 'bg-gradient-to-r from-rose-600 via-red-600 to-rose-700 border-2 border-rose-300 ring-2 ring-rose-500/50 text-white font-bold shadow-lg animate-pulse z-20';
+                              barColor = 'bg-linear-to-r from-rose-600 via-red-600 to-rose-700 border-2 border-rose-300 ring-2 ring-rose-500/50 text-white font-bold shadow-lg animate-pulse z-20';
                             } else if (ev.type === 'tumpang') {
-                              barColor = 'bg-gradient-to-r from-emerald-600 to-teal-700 border-emerald-400 text-white shadow-md';
+                              barColor = 'bg-linear-to-r from-emerald-600 to-teal-700 border-emerald-400 text-white shadow-md';
                             }
 
                             return (
@@ -1081,7 +1081,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                     width: `${width}%`
                                   }}
                                   className={`absolute top-0 bottom-0 rounded-xl p-2 flex items-center justify-between gap-1 overflow-hidden transition-all ${barColor}`}
-                                  title={`${ev.code} (${ev.start} - ${ev.end}) ${ev.venue} · ${ev.lecturer}${ev.hasClash ? ` [BERLANGGAR DENGAN ${ev.clashedWith?.join(', ')}]` : ''}`}
+                                  title={`${ev.code} (${ev.start} - ${ev.end}) ${ev.venue} Â· ${ev.lecturer}${ev.hasClash ? ` [BERLANGGAR DENGAN ${ev.clashedWith?.join(', ')}]` : ''}`}
                                 >
                                   <div className="min-w-0 truncate">
                                     <div className="flex items-center gap-1 truncate text-[11px] font-bold">
@@ -1090,7 +1090,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                       <span className="opacity-90 font-normal text-[10.5px] truncate">({ev.start} - {ev.end})</span>
                                     </div>
                                     <div className="text-[9.5px] opacity-85 truncate">
-                                      {ev.type === 'tumpang' ? `Tumpang ${ev.cohort}` : ev.cohort} · {ev.venue}
+                                      {ev.type === 'tumpang' ? `Tumpang ${ev.cohort}` : ev.cohort} Â· {ev.venue}
                                     </div>
                                   </div>
 
@@ -1151,7 +1151,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                       </span>
                                     </div>
                                     <div className="text-slate-600 text-[10.5px]">
-                                      Masa: <b>{ce.start} - {ce.end}</b> · Bilik: <b>{ce.venue}</b> · Pensyarah: <b>{ce.lecturer}</b>
+                                      Masa: <b>{ce.start} - {ce.end}</b> Â· Bilik: <b>{ce.venue}</b> Â· Pensyarah: <b>{ce.lecturer}</b>
                                     </div>
 
                                     {/* Action Suggestions */}
@@ -1364,7 +1364,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         }
 
                         const displayBadge = ev.hasInternalClash
-                          ? `⚠️ BERTINDIH · ${ev.statusLabel}`
+                          ? `âš ï¸ BERTINDIH Â· ${ev.statusLabel}`
                           : ev.statusLabel;
 
                         return (
@@ -1384,8 +1384,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                               {ev.code} - {ev.name}
                             </div>
                             <div className="flex items-center justify-between text-[10.5px] text-slate-600 pt-0.5">
-                              <span>📍 {ev.venue}</span>
-                              <span>👨‍🏫 {ev.lecturer} ({ev.credit} Kr)</span>
+                              <span>ðŸ“ {ev.venue}</span>
+                              <span>ðŸ‘¨â€ðŸ« {ev.lecturer} ({ev.credit} Kr)</span>
                             </div>
                           </div>
                         );
@@ -1503,7 +1503,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           <div className="font-bold text-[11px] leading-tight font-mono">{ev.code}</div>
                           <div className="text-[10px] leading-tight opacity-90 line-clamp-1">{ev.name}</div>
                           <div className="text-[9.5px] font-semibold mt-1 opacity-75">
-                            {ev.venue} · {ev.lecturer}
+                            {ev.venue} Â· {ev.lecturer}
                           </div>
                         </td>
                       );
@@ -1521,12 +1521,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                               className="p-1.5 rounded-lg bg-white/95 border border-rose-300 mb-1 last:mb-0 shadow-2xs"
                             >
                               <span className="inline-block bg-rose-600 text-white text-[8.5px] font-bold px-1.5 py-0.2 rounded mb-0.5">
-                                ⚠️ BERTINDIH · {ev.cohort} ({ev.displayStatus || 'D'})
+                                âš ï¸ BERTINDIH Â· {ev.cohort} ({ev.displayStatus || 'D'})
                               </span>
                               <div className="font-bold text-[10.5px] leading-tight text-rose-950 font-mono">
                                 {ev.code} ({ev.start}-{ev.end})
                               </div>
-                              <div className="text-[9px] text-slate-700">{ev.venue} · {ev.lecturer}</div>
+                              <div className="text-[9px] text-slate-700">{ev.venue} Â· {ev.lecturer}</div>
                             </div>
                           ))}
                         </td>

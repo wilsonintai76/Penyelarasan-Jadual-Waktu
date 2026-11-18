@@ -7,6 +7,7 @@ import { BottomNav } from './components/BottomNav';
 import { DataManagementModal, ModalSubTab, BindingsStatus } from './components/DataManagementModal';
 import { ToastContainer, ToastItem } from './components/ToastContainer';
 import { runFullAnalysis } from './utils/timetableSolver';
+import { APP_VERSION_LABEL, formatBuildStamp } from './version';
 import {
   fetchLatestExternalTimetable,
   fetchSystemSettings,
@@ -636,9 +637,12 @@ export default function App() {
         </section>
 
         {/* Subtle Footer Info */}
-        <footer className="no-print mt-8 pt-4 border-t border-slate-200 flex items-center justify-center text-center text-[11px] text-slate-500">
+        <footer className="no-print mt-8 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-center text-center gap-1 sm:gap-2 text-[11px] text-slate-500">
           <span>
             JKM {systemSettings.institutionName} · {systemSettings.session} · {activeSourceInfo.type !== 'none' ? activeSourceInfo.label : 'Sumber Luaran'} ({timetable.length} slot aktif)
+          </span>
+          <span className="text-slate-400" title={`Bina: ${formatBuildStamp()}`}>
+            · {APP_VERSION_LABEL}
           </span>
         </footer>
       </main>

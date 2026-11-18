@@ -2,7 +2,7 @@
 
 Aplikasi web untuk penyelarasan jadual kuliah dan penjanaan Borang PK01, Jabatan Kejuruteraan Mekanikal, Politeknik Kuching Sarawak.
 
-- Live: https://jkm-penyelarasan-jadual.wilsonintai76.workers.dev
+- Live: <https://jkm-penyelarasan-jadual.wilsonintai76.workers.dev>
 - Data jadual induk dibaca terus daripada Cloudflare KV (`/api/jadual`), dengan sandaran Google Sheets CSV atau `/data/jadual.json`.
 
 ## Run Locally
@@ -47,9 +47,29 @@ npx wrangler kv key get --namespace-id <KV_NAMESPACE_ID> jadual_induk_jkm --remo
 ### 3. Deploy
 
 ```bash
-npm run deploy        # vite build + wrangler deploy
+npm run deploy        # vite build + wrangler deploy (stamps the app version)
 npm run cf:dev        # build + local Worker runtime (http://localhost:8787)
 ```
+
+## Versioning
+
+The version lives in [package.json](./package.json) `version` — a single source of truth.
+
+- `vite.config.ts` injects it into the client at build time (`__APP_VERSION__`, `__APP_BUILT_AT__`), surfaced as a badge in the app footer and the Tetapan modal.
+- `scripts/deploy.mjs` passes it to the Worker as the `APP_VERSION` / `APP_BUILT_AT` runtime vars, so `GET /api/version` reports exactly what is deployed.
+
+Check the live version:
+
+```bash
+curl https://jkm-penyelarasan-jadual.wilsonintai76.workers.dev/api/version
+```
+
+Release checklist:
+
+1. Bump `version` in [package.json](./package.json) (`npm version patch|minor|major --no-git-tag-version`).
+2. Add an entry to [CHANGELOG.md](./CHANGELOG.md).
+3. `npm run deploy`, then confirm `/api/version` matches.
+4. Commit and tag (`git tag v<version>`) and push.
 
 ### Bindings
 
@@ -61,6 +81,23 @@ npm run cf:dev        # build + local Worker runtime (http://localhost:8787)
 | `ASSETS` | Static assets | `dist/` | SPA |
 
 `/api/logo` also accepts the legacy binding names `R2_BUCKET`, `LOGO_BUCKET`, and `ASSETS_BUCKET`.
+
+Runtime vars `APP_VERSION` and `APP_BUILT_AT` are injected by `npm run deploy` (not by `wrangler deploy` directly) and exposed by `GET /api/version`.
+
+### Timetable backups (R2)
+
+Every publish snapshots the previous master timetable to R2 before replacing it
+(`backups/jadual_induk_jkm-<timestamp>.json`, newest 20 kept).
+
+```bash
+# list snapshots
+curl -H "X-Admin-Pin: <PIN>" https://jkm-penyelarasan-jadual.wilsonintai76.workers.dev/api/jadual-backups
+
+# restore one (also snapshots the current master first, so it is reversible)
+curl -X POST -H "X-Admin-Pin: <PIN>" -H "Content-Type: application/json" \
+  -d '{"backupKey":"backups/jadual_induk_jkm-2026-11-18T00-54-40-480Z.json"}' \
+  https://jkm-penyelarasan-jadual.wilsonintai76.workers.dev/api/jadual-backups
+```
 
 ### Secrets
 

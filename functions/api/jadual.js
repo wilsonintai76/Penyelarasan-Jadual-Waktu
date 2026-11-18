@@ -4,13 +4,16 @@
  * Reads and publishes the live master timetable JSON directly to/from Cloudflare KV.
  * Bindings (wrangler.jsonc / Cloudflare dashboard):
  *   KV Namespace Binding: JADUAL_KV
+ *   R2 Bucket Binding:    JADUAL_R2 (versioned snapshots of the previous master)
  *   Optional Env Secret:  ADMIN_PASSCODE (if set, POST requires matching X-Admin-Passcode)
  */
+import { snapshotBeforeOverwrite } from './_backup.js';
+
 const DEFAULT_KEY = 'jadual_induk_jkm';
 const PIN_CONFIG_KEY = 'admin_pin_config';
 const INITIAL_DEFAULT_PIN = '2026';
 
-async function checkAdminPin(request, env) {
+export async function checkAdminPin(request, env) {
   const provided = (
     request.headers.get('X-Admin-Passcode') ||
     request.headers.get('X-Admin-Pin') ||
@@ -157,8 +160,9 @@ export async function onRequestPost(context) {
     }
 
     let previousSlots = 0;
+    let existingRaw = null;
     try {
-      const existingRaw = await env.JADUAL_KV.get(kvKey, { type: 'text' });
+      existingRaw = await env.JADUAL_KV.get(kvKey, { type: 'text' });
       if (existingRaw) {
         const parsedExisting = JSON.parse(existingRaw);
         if (Array.isArray(parsedExisting)) {
@@ -167,6 +171,16 @@ export async function onRequestPost(context) {
       }
     } catch {
       previousSlots = 0;
+    }
+
+    // Keep a restorable copy of the current master before replacing it.
+    let backupKey = null;
+    if (existingRaw) {
+      try {
+        backupKey = await snapshotBeforeOverwrite(env, kvKey, existingRaw);
+      } catch {
+        backupKey = null;
+      }
     }
 
     const serialized = JSON.stringify(rawEntries);
@@ -188,7 +202,8 @@ export async function onRequestPost(context) {
       newSlots: rawEntries.length,
       deltaSlots: rawEntries.length - previousSlots,
       cohortsCount,
-      engineLabel
+      engineLabel,
+      backupKey
     };
 
     await env.JADUAL_KV.put(historyKey, JSON.stringify([latestEntry]));
@@ -199,6 +214,7 @@ export async function onRequestPost(context) {
         kvKey,
         slotsCount: rawEntries.length,
         cohortsCount,
+        backupKey,
         latestLog: latestEntry
       }),
       {
