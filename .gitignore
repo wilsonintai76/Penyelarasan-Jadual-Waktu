@@ -7,4 +7,8 @@ coverage/
 .env*
 !.env.example
 .local-cf-sim/
+.wrangler/
+.dev.vars
 cf_timetable_config*.json
+cloudflare_config*.json
+local-secrets/
