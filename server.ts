@@ -1,0 +1,507 @@
+import 'dotenv/config';
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { GoogleGenAI, Type } from '@google/genai';
+
+const PORT = 3000;
+const SIM_DIR = path.resolve(process.cwd(), '.local-cf-sim');
+const KV_JADUAL_FILE = path.join(SIM_DIR, 'kv-jadual.json');
+const KV_HISTORY_FILE = path.join(SIM_DIR, 'kv-history.json');
+const KV_SETTINGS_FILE = path.join(SIM_DIR, 'kv-settings.json');
+const KV_PIN_FILE = path.join(SIM_DIR, 'kv-pin.json');
+const INITIAL_DEFAULT_PIN = '2026';
+const R2_DIR = path.join(SIM_DIR, 'r2');
+const R2_LOGO_BIN = path.join(R2_DIR, 'logo-politeknik.bin');
+const R2_LOGO_META = path.join(R2_DIR, 'logo-politeknik.meta.json');
+
+const DEFAULT_SETTINGS = {
+  session: 'Sesi II: 2026/2027',
+  deadline: '04 DIS 2026 (JUMAAT)',
+  department: 'JABATAN KEJURUTERAAN MEKANIKAL',
+  institutionName: 'POLITEKNIK KUCHING SARAWAK',
+  logoUrl: '',
+  logoFilename: '',
+  logoStorage: 'default' as 'r2' | 'default',
+  updatedAt: ''
+};
+
+function ensureSimDirs() {
+  if (!fs.existsSync(SIM_DIR)) fs.mkdirSync(SIM_DIR, { recursive: true });
+  if (!fs.existsSync(R2_DIR)) fs.mkdirSync(R2_DIR, { recursive: true });
+}
+
+function readJsonFile<T>(filePath: string, fallback: T): T {
+  try {
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      return JSON.parse(raw) as T;
+    }
+  } catch {
+    // ignore corrupt local sim file
+  }
+  return fallback;
+}
+
+function writeJsonFile(filePath: string, data: unknown) {
+  ensureSimDirs();
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+}
+
+function resolvePinMeta(): { pin: string; source: 'env' | 'kv' | 'default' } {
+  const envPin = (process.env.ADMIN_PIN || process.env.ADMIN_PASSCODE || '').trim();
+  if (envPin) return { pin: envPin, source: 'env' };
+
+  const stored = readJsonFile<{ pin?: string }>(KV_PIN_FILE, {});
+  const kvPin = String(stored?.pin || '').trim();
+  if (kvPin) return { pin: kvPin, source: 'kv' };
+
+  return { pin: INITIAL_DEFAULT_PIN, source: 'default' };
+}
+
+function checkPasscode(req: express.Request): boolean {
+  const provided = String(
+    req.header('X-Admin-Passcode') || req.header('X-Admin-Pin') || ''
+  ).trim();
+  if (!provided) return false;
+  return provided === resolvePinMeta().pin;
+}
+
+function computeVersionTag(rawData: string): string {
+  let hash = 2166136261;
+  for (let i = 0; i < rawData.length; i++) {
+    hash ^= rawData.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `"kv-${rawData.length}-${(hash >>> 0).toString(16)}"`;
+}
+
+const EXTRACTION_PROMPT = `You are a precision timetable extractor for Jabatan Kejuruteraan Mekanikal (JKM), Politeknik Kuching Sarawak (aSc Timetables / PLSP-02(1a) grid).
+Extract ALL scheduled class slots visible on this timetable page into a JSON object { "entries": [...] }.
+Rules:
+1. Cohort / Section format: uppercase like "DAD1-S1", "DAD2-S2", "DKM1-S1", "DPU3-S1", "DTP1-S1" (fix OCR typos like -51 -> -S1, DKM1S1 -> DKM1-S1).
+2. Course_Code: uppercase alphanumeric code like "DJJ10243", "DBM10163", "DBS10042", "DUE10062", "MPU21072", "DJA20132", "DJU20102", "DJF52103". Fix OCR digit/letter confusion (0 vs O, 1 vs I, 8 vs B) where obvious.
+3. Credit: integer inferred from the last digit of Course_Code (e.g. DJJ10243 -> 3, DUE10062 -> 2, MPU22071 -> 1), default 3 if unclear.
+4. Day: MUST be Malay day name: "Isnin", "Selasa", "Rabu", "Khamis", or "Jumaat".
+5. Start_Time and End_Time: MUST be 24-hour HH:MM format (e.g. "08:00", "10:00", "13:00", "14:00", "17:00"). Remember afternoon slots 1.00-5.00 are 13:00-17:00! Read the horizontal span carefully for merged 2-hour or 3-hour blocks.
+6. Venue: room/lab code (e.g. "BK 21", "M14AT", "M13CAD", "BENGKEL", "BK TUANGAN").
+7. Lecturer: lecturer code(s) separated by "/" if multiple (e.g. "JANN", "JFOZ/JMNH").
+8. Status: "D".`;
+
+async function startServer() {
+  ensureSimDirs();
+
+  const app = express();
+  app.use(express.json({ limit: '30mb' }));
+
+  // GET /api/jadual (Cloudflare KV read)
+  app.get('/api/jadual', (_req, res) => {
+    if (!fs.existsSync(KV_JADUAL_FILE)) {
+      res.status(404).json({
+        error: 'KEY_NOT_FOUND',
+        message: 'Belum ada data jadual diterbitkan ke KV.'
+      });
+      return;
+    }
+    const rawData = fs.readFileSync(KV_JADUAL_FILE, 'utf-8');
+    const versionTag = computeVersionTag(rawData);
+    res
+      .status(200)
+      .set({
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+        Pragma: 'no-cache',
+        ETag: versionTag,
+        'X-Timetable-Version': versionTag
+      })
+      .send(rawData);
+  });
+
+  // POST /api/jadual (Cloudflare KV write)
+  app.post('/api/jadual', (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'Kod akses penyelaras tidak sah.' });
+      return;
+    }
+
+    const body = req.body;
+    const rawEntries = Array.isArray(body)
+      ? body
+      : body && Array.isArray(body.entries)
+        ? body.entries
+        : null;
+
+    if (!rawEntries || rawEntries.length === 0) {
+      res.status(400).json({ error: 'INVALID_PAYLOAD', message: 'Senarai slot jadual tidak boleh kosong.' });
+      return;
+    }
+
+    const existing = readJsonFile<unknown[]>(KV_JADUAL_FILE, []);
+    const previousSlots = Array.isArray(existing) ? existing.length : 0;
+
+    writeJsonFile(KV_JADUAL_FILE, rawEntries);
+
+    const cohortsCount = new Set(
+      rawEntries.map((r: any) => String(r?.Cohort || '').trim()).filter(Boolean)
+    ).size;
+
+    const latestEntry = {
+      id: `cf_${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      source: body?.source || 'web_pdf_upload',
+      filename: body?.filename || 'jadual_induk_jkm.pdf',
+      previousSlots,
+      newSlots: rawEntries.length,
+      deltaSlots: rawEntries.length - previousSlots,
+      cohortsCount,
+      engineLabel: body?.engineLabel || 'Cloudflare Web Upload'
+    };
+
+    writeJsonFile(KV_HISTORY_FILE, [latestEntry]);
+
+    res.status(200).json({
+      ok: true,
+      kvKey: 'jadual_induk_jkm',
+      slotsCount: rawEntries.length,
+      cohortsCount,
+      latestLog: latestEntry
+    });
+  });
+
+  // GET /api/jadual-history (Latest update log only)
+  app.get('/api/jadual-history', (_req, res) => {
+    const logs = readJsonFile<unknown[]>(KV_HISTORY_FILE, []);
+    res
+      .status(200)
+      .set({ 'Cache-Control': 'no-store, no-cache, must-revalidate' })
+      .json({
+        kvBound: true,
+        key: 'jadual_induk_jkm_history',
+        logs: Array.isArray(logs) ? logs.slice(0, 1) : []
+      });
+  });
+
+  // POST /api/verify-pin (Verify Coordinator PIN without exposing secret to browser)
+  app.post('/api/verify-pin', (req, res) => {
+    const provided = String(
+      req.body?.pin ||
+        req.header('X-Admin-Passcode') ||
+        req.header('X-Admin-Pin') ||
+        ''
+    ).trim();
+
+    if (!provided) {
+      res.status(400).json({ ok: false, error: 'PIN_REQUIRED', message: 'Sila masukkan PIN Admin.' });
+      return;
+    }
+
+    const expected = resolvePinMeta();
+    if (provided !== expected.pin) {
+      res.status(401).json({
+        ok: false,
+        error: 'INVALID_PIN',
+        message: 'PIN Admin tidak sah. Sila cuba lagi.'
+      });
+      return;
+    }
+
+    res.status(200).set({ 'Cache-Control': 'no-store' }).json({ ok: true, pinSource: expected.source });
+  });
+
+  // POST /api/admin-pin (Change Admin PIN stored in KV/local sim when not locked by env)
+  app.post('/api/admin-pin', (req, res) => {
+    const expected = resolvePinMeta();
+    if (expected.source === 'env') {
+      res.status(409).json({
+        error: 'ENV_PIN_LOCKED',
+        message:
+          'PIN dikawal oleh Environment Secret (ADMIN_PIN / ADMIN_PASSCODE). Sila ubah melalui tetapan persekitaran pelayan.'
+      });
+      return;
+    }
+
+    const currentPin = String(
+      req.body?.currentPin ||
+        req.header('X-Admin-Passcode') ||
+        req.header('X-Admin-Pin') ||
+        ''
+    ).trim();
+    const newPin = String(req.body?.newPin || '').trim();
+
+    if (currentPin !== expected.pin) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'PIN Admin semasa tidak sah.' });
+      return;
+    }
+
+    if (newPin.length < 4 || newPin.length > 12) {
+      res.status(400).json({
+        error: 'INVALID_NEW_PIN',
+        message: 'PIN baharu mestilah antara 4 hingga 12 aksara/digit.'
+      });
+      return;
+    }
+
+    writeJsonFile(KV_PIN_FILE, { pin: newPin, updatedAt: new Date().toISOString() });
+    res
+      .status(200)
+      .set({ 'Cache-Control': 'no-store' })
+      .json({ ok: true, message: 'PIN Admin baharu berjaya disimpan.' });
+  });
+
+  // GET /api/settings (System settings: session, deadline, department, R2 logo)
+  app.get('/api/settings', (_req, res) => {
+    const saved = readJsonFile(KV_SETTINGS_FILE, DEFAULT_SETTINGS);
+    const settings = { ...DEFAULT_SETTINGS, ...saved };
+    const pinMeta = resolvePinMeta();
+    res
+      .status(200)
+      .set({ 'Cache-Control': 'no-store, no-cache, must-revalidate' })
+      .json({
+        kvBound: true,
+        r2Bound: true,
+        aiBound: Boolean((process.env.GEMINI_API_KEY || '').trim()),
+        passcodeRequired: true,
+        pinSource: pinMeta.source,
+        settings
+      });
+  });
+
+  // POST /api/settings
+  app.post('/api/settings', (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'Kod akses penyelaras tidak sah.' });
+      return;
+    }
+
+    const existing = { ...DEFAULT_SETTINGS, ...readJsonFile(KV_SETTINGS_FILE, DEFAULT_SETTINGS) };
+    const body = req.body || {};
+    const updated = {
+      ...existing,
+      session: String(body.session ?? existing.session).trim() || DEFAULT_SETTINGS.session,
+      deadline: String(body.deadline ?? existing.deadline).trim() || DEFAULT_SETTINGS.deadline,
+      department: String(body.department ?? existing.department).trim() || DEFAULT_SETTINGS.department,
+      institutionName:
+        String(body.institutionName ?? existing.institutionName).trim() || DEFAULT_SETTINGS.institutionName,
+      updatedAt: new Date().toISOString()
+    };
+
+    writeJsonFile(KV_SETTINGS_FILE, updated);
+    res.status(200).json({ ok: true, settings: updated });
+  });
+
+  // GET /api/logo (Serve logo stored in R2)
+  app.get('/api/logo', (_req, res) => {
+    if (!fs.existsSync(R2_LOGO_BIN)) {
+      res.status(404).json({ error: 'LOGO_NOT_FOUND', message: 'Tiada logo kustom dimuat naik ke R2.' });
+      return;
+    }
+    const meta = readJsonFile<{ contentType?: string }>(R2_LOGO_META, { contentType: 'image/png' });
+    const bin = fs.readFileSync(R2_LOGO_BIN);
+    res
+      .status(200)
+      .set({
+        'Content-Type': meta.contentType || 'image/png',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+        Pragma: 'no-cache'
+      })
+      .send(bin);
+  });
+
+  // POST /api/logo (Upload logo to R2)
+  app.post('/api/logo', (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'Kod akses penyelaras tidak sah.' });
+      return;
+    }
+
+    try {
+      const { dataUrl, filename, contentType } = req.body || {};
+      const match = String(dataUrl || '').match(/^data:([^;]+);base64,(.+)$/);
+      if (!match) {
+        res.status(400).json({ error: 'INVALID_IMAGE', message: 'Format imej tidak sah.' });
+        return;
+      }
+
+      const detectedType = String(contentType || match[1] || 'image/png').toLowerCase();
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/webp'];
+      if (!allowedTypes.includes(detectedType)) {
+        res.status(400).json({ error: 'UNSUPPORTED_TYPE', message: 'Hanya fail PNG, JPG, SVG, atau WEBP dibenarkan.' });
+        return;
+      }
+
+      const buffer = Buffer.from(match[2], 'base64');
+      if (buffer.byteLength > 5 * 1024 * 1024) {
+        res.status(400).json({ error: 'FILE_TOO_LARGE', message: 'Saiz fail logo melebihi had 5MB.' });
+        return;
+      }
+
+      ensureSimDirs();
+      fs.writeFileSync(R2_LOGO_BIN, buffer);
+      writeJsonFile(R2_LOGO_META, {
+        contentType: detectedType,
+        filename: String(filename || 'logo-politeknik.png')
+      });
+
+      const version = Date.now();
+      const logoUrl = `/api/logo?v=${version}`;
+      const existing = { ...DEFAULT_SETTINGS, ...readJsonFile(KV_SETTINGS_FILE, DEFAULT_SETTINGS) };
+      const updated = {
+        ...existing,
+        logoUrl,
+        logoFilename: String(filename || 'logo-politeknik.png'),
+        logoStorage: 'r2' as const,
+        updatedAt: new Date(version).toISOString()
+      };
+      writeJsonFile(KV_SETTINGS_FILE, updated);
+
+      res.status(200).json({ ok: true, logoUrl, settings: updated });
+    } catch (err) {
+      res.status(500).json({ error: 'R2_UPLOAD_ERROR', message: String(err) });
+    }
+  });
+
+  // DELETE /api/logo (Reset logo to default)
+  app.delete('/api/logo', (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'Kod akses penyelaras tidak sah.' });
+      return;
+    }
+
+    try {
+      if (fs.existsSync(R2_LOGO_BIN)) fs.unlinkSync(R2_LOGO_BIN);
+      if (fs.existsSync(R2_LOGO_META)) fs.unlinkSync(R2_LOGO_META);
+
+      const existing = { ...DEFAULT_SETTINGS, ...readJsonFile(KV_SETTINGS_FILE, DEFAULT_SETTINGS) };
+      const updated = {
+        ...existing,
+        logoUrl: '',
+        logoFilename: '',
+        logoStorage: 'default' as const,
+        updatedAt: new Date().toISOString()
+      };
+      writeJsonFile(KV_SETTINGS_FILE, updated);
+
+      res.status(200).json({ ok: true, settings: updated });
+    } catch (err) {
+      res.status(500).json({ error: 'R2_DELETE_ERROR', message: String(err) });
+    }
+  });
+
+  // POST /api/extract-pdf (Server-side Gemini Vision PDF page extractor)
+  app.post('/api/extract-pdf', async (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'PIN Admin tidak sah atau tidak dibekalkan.' });
+      return;
+    }
+    try {
+      const apiKey = (process.env.GEMINI_API_KEY || '').trim();
+      if (!apiKey) {
+        res.status(503).json({
+          error: 'GEMINI_NOT_CONFIGURED',
+          message: 'GEMINI_API_KEY belum ditetapkan pada pelayan. Sila semak Settings > Secrets atau muat naik fail JSON.'
+        });
+        return;
+      }
+
+      const body = req.body || {};
+      const imageBase64 = String(body.imageBase64 || '').replace(/^data:[^;]+;base64,/, '');
+      const mimeType = String(body.mimeType || 'image/jpeg');
+      const pageNumber = Number(body.pageNumber || 1);
+
+      if (!imageBase64) {
+        res.status(400).json({ error: 'NO_IMAGE', message: 'Imej halaman PDF tidak diterima.' });
+        return;
+      }
+
+      const ai = new GoogleGenAI({
+        apiKey,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build'
+          }
+        }
+      });
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-4-hydrogen',
+        contents: {
+          parts: [
+            {
+              inlineData: {
+                mimeType,
+                data: imageBase64
+              }
+            },
+            {
+              text: `${EXTRACTION_PROMPT}\nPage ${pageNumber}.`
+            }
+          ]
+        },
+        config: {
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              entries: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    Cohort: { type: Type.STRING },
+                    Course_Code: { type: Type.STRING },
+                    Course_Name: { type: Type.STRING },
+                    Credit: { type: Type.INTEGER },
+                    Day: { type: Type.STRING },
+                    Start_Time: { type: Type.STRING },
+                    End_Time: { type: Type.STRING },
+                    Venue: { type: Type.STRING },
+                    Lecturer: { type: Type.STRING },
+                    Status: { type: Type.STRING }
+                  },
+                  required: ['Cohort', 'Course_Code', 'Day', 'Start_Time', 'End_Time']
+                }
+              }
+            },
+            required: ['entries']
+          }
+        }
+      });
+
+      const rawText = (response.text || '{"entries":[]}').trim();
+      const parsed = JSON.parse(rawText);
+
+      res.status(200).json({
+        ok: true,
+        engine: 'Gemini Vision (gemini-4-hydrogen)',
+        entries: Array.isArray(parsed.entries) ? parsed.entries : []
+      });
+    } catch (err: any) {
+      res.status(500).json({
+        error: 'PDF_EXTRACT_ERROR',
+        message: err?.message || String(err)
+      });
+    }
+  });
+
+  // Vite middleware in development, static dist in production
+  if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa'
+    });
+    app.use(vite.middlewares);
+  } else {
+    const distDir = path.resolve(process.cwd(), 'dist');
+    app.use(express.static(distDir));
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(distDir, 'index.html'));
+    });
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`JKM Timetable & PK01 server listening on http://localhost:${PORT}`);
+  });
+}
+
+startServer();

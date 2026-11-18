@@ -1,0 +1,6 @@
+{
+  "name": "Sistem Penyelarasan Jadual & Borang PK01 (JKM) - PKS",
+  "description": "Sistem penyelarasan jadual pintar, penyelesai pertindihan (clash solver), dan penjana rasmi Borang PK01 serta Jadual Kuliah Sesi II: 2026/2027 Jabatan Kejuruteraan Mekanikal Politeknik Kuching Sarawak.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

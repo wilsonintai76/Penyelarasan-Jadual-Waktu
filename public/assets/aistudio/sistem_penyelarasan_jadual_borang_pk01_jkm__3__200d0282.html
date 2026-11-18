@@ -1,0 +1,2284 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sistem Penyelarasan Jadual & Borang PK01 (JKM) - PKS</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN (Versi Tetap untuk Kestabilan Produksi) -->
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <!-- Google Fonts: Inter & Tinos (Formal A4 Print) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-official {
+      font-family: 'Tinos', 'Times New Roman', serif;
+    }
+
+    /* Print Specific Formatting for A4 Paper */
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 11px;
+      }
+      .no-print, header, nav, #control-panel, .tab-buttons, #mobileTimetableSection {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .page-break {
+        page-break-after: always;
+        break-after: page;
+      }
+      .print-sheet {
+        box-shadow: none !important;
+        border: 1px solid #000000 !important;
+        width: 100% !important;
+        max-width: 210mm !important;
+        padding: 8mm 10mm !important;
+        margin: 0 auto !important;
+      }
+      table {
+        page-break-inside: avoid;
+        border-collapse: collapse !important;
+        width: 100% !important;
+      }
+      th, td {
+        border-color: #000000 !important;
+      }
+      
+      /* Print target routing */
+      body.print-target-pk01 #view-planner,
+      body.print-target-pk01 #view-jadual {
+        display: none !important;
+      }
+      body.print-target-pk01 #view-pk01 {
+        display: block !important;
+      }
+
+      body.print-target-jadual #view-planner,
+      body.print-target-jadual #view-pk01 {
+        display: none !important;
+      }
+      body.print-target-jadual #view-jadual {
+        display: block !important;
+      }
+
+      body.print-target-all #view-planner {
+        display: none !important;
+      }
+      body.print-target-all #view-pk01,
+      body.print-target-all #view-jadual {
+        display: block !important;
+      }
+    }
+
+    /* Sasaran sentuh lebih besar pada skrin sentuh */
+    @media (pointer: coarse) {
+      #view-planner button, #view-planner select { min-height: 36px; }
+    }
+    /* Elak auto-zoom iOS apabila fokus pada input / select */
+    @media (max-width: 767px) {
+      #view-planner input, #view-planner select { font-size: 16px !important; }
+    }
+    /* Pratonton helaian A4 diskala muat skrin (tidak menjejas cetakan) */
+    .sheet-fit { transform-origin: top left; }
+    @media print { .sheet-fit { zoom: 1 !important; } }
+
+    .diagonal-stamp {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      transform: rotate(15deg);
+      border: 2px dashed #dc2626;
+      color: #dc2626;
+      padding: 5px 12px;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 9.5px;
+      line-height: 1.2;
+      background: rgba(254, 242, 242, 0.95);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header (Optimized for Desktop & Mobile) -->
+  <header class="no-print bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="bg-blue-600 text-white font-black px-2 sm:px-2.5 py-1 rounded-lg text-xs sm:text-sm tracking-wider shadow-inner">
+          JKM
+        </div>
+        <div>
+          <h1 class="text-xs sm:text-sm md:text-base font-bold text-white leading-tight truncate max-w-[215px] sm:max-w-none">
+            Sistem Penyelarasan Jadual &amp; Borang PK01 (JKM)
+          </h1>
+          <p class="text-[10px] sm:text-xs text-blue-300 truncate max-w-[215px] sm:max-w-none">
+            Politeknik Kuching Sarawak • Sesi II: 2026/2027
+          </p>
+        </div>
+      </div>
+
+      <!-- Action buttons & tabs -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <!-- Desktop & Tablet Top Tabs -->
+        <div class="hidden md:inline-flex bg-slate-800 p-1 rounded-xl text-xs font-medium border border-slate-700">
+          <button id="tabBtnPlanner" title="Perancang Clash" aria-label="Perancang Clash" onclick="switchTab('planner')" class="px-3 py-1.5 rounded-lg text-white bg-blue-600 flex items-center gap-1.5 transition">
+            <i data-lucide="sliders" class="w-4 h-4"></i><span class="hidden lg:inline">Perancang Clash</span>
+          </button>
+          <button id="tabBtnPK01" title="Borang PK01" aria-label="Borang PK01" onclick="switchTab('pk01')" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white flex items-center gap-1.5 transition">
+            <i data-lucide="file-check-2" class="w-4 h-4"></i><span class="hidden lg:inline">Borang PK01</span>
+          </button>
+          <button id="tabBtnJadual" title="Jadual Kuliah" aria-label="Jadual Kuliah" onclick="switchTab('jadual')" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white flex items-center gap-1.5 transition">
+            <i data-lucide="calendar" class="w-4 h-4"></i><span class="hidden lg:inline">Jadual Kuliah</span>
+          </button>
+        </div>
+
+        <!-- Desktop & Tablet Print Buttons -->
+        <div class="hidden sm:flex items-center gap-1.5">
+          <button onclick="triggerPrint('pk01')" title="Cetak PK01" class="px-2.5 sm:px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs rounded-xl shadow transition flex items-center gap-1">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i><span class="hidden xl:inline">Cetak PK01</span>
+          </button>
+          <button onclick="triggerPrint('jadual')" title="Cetak Jadual" class="px-2.5 sm:px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl shadow transition flex items-center gap-1">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i><span class="hidden xl:inline">Cetak Jadual</span>
+          </button>
+          <button onclick="triggerPrint('all')" title="Cetak Semua" class="px-2.5 sm:px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs rounded-xl shadow transition flex items-center gap-1">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i><span class="hidden xl:inline">Semua</span>
+          </button>
+        </div>
+
+        <!-- Mobile Quick Print Action Button -->
+        <div class="flex sm:hidden items-center">
+          <button onclick="triggerPrintCurrentActive()" class="px-2.5 py-1.5 bg-blue-600 active:bg-blue-700 text-white font-bold text-xs rounded-xl shadow flex items-center gap-1">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area with Bottom Padding on Mobile & Tablet for Fixed Menu -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 md:p-6 pb-28 lg:pb-6 space-y-4 sm:space-y-6">
+
+    <!-- VIEW 1: PLANNER & CLASH DETECTOR -->
+    <section id="view-planner" class="space-y-4 sm:space-y-6 block">
+      
+      <!-- Instructions Banner -->
+      <div class="no-print bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-lg border border-blue-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
+        <div>
+          <span class="inline-block bg-blue-500/20 text-blue-300 text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-md mb-1.5 border border-blue-400/30">
+            Sesi II: 2026/2027 • Panduan Rasmi MK &amp; BD
+          </span>
+          <h2 class="text-lg sm:text-xl md:text-2xl font-black tracking-tight leading-snug">Penyelarasan Jadual &amp; Penjanaan Borang PK01</h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-3xl leading-relaxed">
+            Utamakan pendaftaran kursus gagal (<b>C1/C2</b>) &amp; belum daftar (<b>BD - D</b>) dahulu di Bahagian B, diikuti kursus semasa yang tidak bertindih di Bahagian A.
+          </p>
+        </div>
+        <div class="w-full md:w-auto bg-blue-800/40 p-3 rounded-xl border border-blue-700 text-xs flex md:flex-col justify-between items-center md:items-start shrink-0">
+          <div class="text-blue-200 font-semibold flex items-center gap-1.5">
+            <i data-lucide="calendar-clock" class="w-4 h-4 text-amber-300"></i> Tarikh Akhir Hantar:
+          </div>
+          <div class="font-bold text-amber-300 text-sm">04 DIS 2026 (JUMAAT)</div>
+        </div>
+      </div>
+
+      <!-- Ringkasan Panduan Rasmi Pendaftaran MK & BD (Sesi II: 2026/2027) -->
+      <details class="no-print bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden group">
+        <summary class="px-4 py-3 bg-slate-50 hover:bg-slate-100 cursor-pointer flex items-center justify-between text-xs font-bold text-slate-800 select-none transition">
+          <span class="flex items-center gap-2">
+            <i data-lucide="book-open-check" class="w-4 h-4 text-blue-600"></i>
+            Rujuk Panduan Rasmi Pendaftaran Pelajar MK &amp; BD (4 Langkah Utama)
+          </span>
+          <span class="text-[11px] text-blue-600 font-semibold group-open:hidden">Klik untuk lihat ▼</span>
+          <span class="text-[11px] text-slate-500 font-semibold hidden group-open:inline">Tutup ▲</span>
+        </summary>
+        <div class="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs border-t border-slate-200 bg-white">
+          <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200">
+            <div class="font-black text-amber-900 mb-1">1. Daftar MK / BD Dahulu</div>
+            <p class="text-[11px] text-slate-700 leading-relaxed">
+              Daftar kursus gagal (<b>C1</b> atau <b>C2</b>) dan/atau kursus belum daftar (<b>BD - status D</b>) dahulu. Isi dalam <b>Bahagian B (PK01)</b> &amp; dapatkan T/T pensyarah mengajar.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-200">
+            <div class="font-black text-blue-900 mb-1">2. Daftar Kursus Semasa</div>
+            <p class="text-[11px] text-slate-700 leading-relaxed">
+              Daftar kursus semasa yang <b>tidak bertindih</b> di <b>Bahagian A (status D)</b>. Jika kursus semasa menumpang seksyen lain, isi di <b>Bahagian B (status D)</b> beserta T/T pensyarah.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <div class="font-black text-emerald-900 mb-1">3. Semak Had 12–18 Kredit</div>
+            <p class="text-[11px] text-slate-700 leading-relaxed">
+              Jumlah jam kredit setiap semester mestilah antara <b>12 – 18 jam kredit</b>. Jika <b>&lt; 12</b> atau <b>&gt; 18 jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-black text-slate-900 mb-1">4. Serahan Borang PK01</div>
+            <p class="text-[11px] text-slate-700 leading-relaxed">
+              Hantar Borang PK01 lengkap bertandatangan pensyarah kepada <b>Penasihat Akademik (PA)</b> &amp; seterusnya <b>Penyelaras Pendaftaran Kursus Jabatan</b> selewat-lewatnya <b>04 Disember 2026</b>.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Maklumat Pelajar Grid -->
+      <div class="no-print bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <div>
+          <label class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">Nama Penuh Pelajar</label>
+          <input type="text" id="studentName" value="MUHAMMAD AIMAN BIN RADZI" oninput="syncStudentInfo()" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">No. Pendaftaran</label>
+          <input type="text" id="studentRegNum" value="05DKM24F1028" oninput="syncStudentInfo()" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none uppercase font-mono">
+        </div>
+        <div>
+          <label class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">No. Telefon</label>
+          <input type="text" id="studentPhone" value="013-8899201" oninput="syncStudentInfo()" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase mb-1">Penasihat Akademik (PA)</label>
+          <input type="text" id="studentPA" value="PUAN JANE DANIELA MUGAN" oninput="syncStudentInfo()" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+      </div>
+
+      <!-- Selection of Class & Repeat Subject -->
+      <div class="no-print bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+          <i data-lucide="layers" class="w-4 h-4 text-indigo-600"></i>
+          <h3 class="font-bold text-sm text-slate-800">Pemilihan Seksyen Semasa & Kursus Mengulang</h3>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <!-- Seksyen Semasa -->
+          <div class="lg:col-span-5 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span> 1. Seksyen Semasa Pelajar (Kelas Asal)
+            </label>
+            <select id="currentCohortSelect" onchange="handleCohortChange()" class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none shadow-sm">
+              <optgroup label="Diploma Kejuruteraan Mekanikal (DKM)">
+                <option value="DKM3-S1" selected>DKM3-S1 (Semester 3 - Seksyen 1)</option>
+                <option value="DKM3-S2">DKM3-S2 (Semester 3 - Seksyen 2)</option>
+                <option value="DKM2-S1">DKM2-S1 (Semester 2 - Seksyen 1)</option>
+                <option value="DKM2-S2">DKM2-S2 (Semester 2 - Seksyen 2)</option>
+                <option value="DKM1-S1">DKM1-S1 (Semester 1 - Seksyen 1)</option>
+              </optgroup>
+              <optgroup label="Diploma Automotif (DAD)">
+                <option value="DAD3-S1">DAD3-S1 (Semester 3 - Seksyen 1)</option>
+                <option value="DAD2-S1">DAD2-S1 (Semester 2 - Seksyen 1)</option>
+                <option value="DAD1-S1">DAD1-S1 (Semester 1 - Seksyen 1)</option>
+              </optgroup>
+              <optgroup label="Diploma Pembuatan (DPU)">
+                <option value="DPU3-S1">DPU3-S1 (Semester 3 - Seksyen 1)</option>
+                <option value="DPU2-S1">DPU2-S1 (Semester 2 - Seksyen 1)</option>
+              </optgroup>
+              <optgroup label="Diploma Penyejukbekuan (DTP)">
+                <option value="DTP3-S1">DTP3-S1 (Semester 3 - Seksyen 1)</option>
+                <option value="DTP1-S1">DTP1-S1 (Semester 1 - Seksyen 1)</option>
+              </optgroup>
+            </select>
+            <span class="text-[11px] text-slate-500 mt-1.5 block leading-tight">Jadual waktu penuh kelas ini dimuatkan sebagai asas.</span>
+
+            <!-- Manual Drop / Prerequisite Manager -->
+            <div class="mt-3.5 pt-3 border-t border-slate-200">
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-[11px] font-bold text-slate-700 uppercase flex items-center gap-1.5">
+                  <i data-lucide="check-square" class="w-3.5 h-3.5 text-blue-600"></i> Kursus Kelas Asal (Pilihan Gugur)
+                </label>
+                <span class="text-[9.5px] text-slate-500 font-medium">Gugur prasyarat / had beban</span>
+              </div>
+              <div id="baseClassCoursesList" class="space-y-1.5 max-h-56 overflow-y-auto pr-1">
+                <!-- Dynamically populated current courses with drop/retain actions -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Course Repeat Adder -->
+          <div class="lg:col-span-7 bg-amber-50/70 p-3.5 rounded-xl border border-amber-200 flex flex-col justify-between">
+            <div>
+              <label class="block text-xs font-bold text-amber-900 uppercase mb-1.5 flex items-center justify-between gap-1">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span> 2. Tambah Kursus Bahagian B (MK / BD / Tumpang)
+                </span>
+                <span class="text-[10px] bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full font-bold shrink-0">Keutamaan No. 1</span>
+              </label>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-12 gap-2">
+                <div class="sm:col-span-6">
+                  <select id="repeatCourseSelect" class="w-full p-2 bg-white border border-amber-300 rounded-lg text-xs font-semibold focus:ring-2 focus:ring-amber-500 outline-none">
+                    <optgroup label="Kursus Mengulang (MK) / Belum Daftar (BD)">
+                      <option value="DJJ20273">DJJ20273 - Fluid Mechanics (Sem 2 - 3 Kredit)</option>
+                      <option value="DJJ20263">DJJ20263 - Thermodynamics (Sem 2 - 3 Kredit)</option>
+                      <option value="DBM20173">DBM20173 - Engineering Mathematics 2 (Sem 2 - 3 Kredit)</option>
+                      <option value="DJJ10243">DJJ10243 - Workshop Technology (Sem 1 - 3 Kredit)</option>
+                      <option value="DBM10163">DBM10163 - Engineering Mathematics 1 (Sem 1 - 3 Kredit)</option>
+                      <option value="DBS10042">DBS10042 - Engineering Science (Sem 1 - 2 Kredit)</option>
+                    </optgroup>
+                    <optgroup label="Tumpang Kursus Semasa (Seksyen Lain - Status D)">
+                      <option value="DJJ30323">DJJ30323 - Strength of Materials (Tumpang Seksyen - 3 Kredit)</option>
+                      <option value="DJJ30332">DJJ30332 - Computer Aided Design 1 (Tumpang Seksyen - 2 Kredit)</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <!-- Status Options per Official Sesi II 2026/2027 Guideline: C1, C2, D -->
+                <div class="sm:col-span-3">
+                  <select id="repeatCourseStatus" class="w-full p-2 bg-white border border-amber-300 rounded-lg text-xs font-semibold focus:ring-2 focus:ring-amber-500 outline-none">
+                    <option value="C1" selected>C1 (Ulang 1 / MK1)</option>
+                    <option value="C2">C2 (Ulang 2 / MK2)</option>
+                    <option value="D">D (BD / Tumpang Semasa)</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-3">
+                  <button type="button" onclick="addRepeatCourse()" class="w-full p-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chips/List of Selected Repeat Courses -->
+            <div class="mt-3 pt-2 border-t border-amber-200">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-[10px] font-bold text-amber-900 uppercase">Senarai Kursus Tumpang Didaftarkan:</span>
+                <button type="button" id="btnClearAllRepeat" onclick="clearAllRepeatCourses()" class="text-[10px] text-rose-600 hover:text-rose-800 font-bold underline flex items-center gap-1 transition">
+                  <i data-lucide="trash-2" class="w-3 h-3"></i> Kosongkan Semua
+                </button>
+              </div>
+              <div id="repeatCoursesChips" class="flex flex-wrap gap-1.5 min-h-[30px] items-center">
+                <!-- Dynamically rendered repeat chips -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Credit Hour Summary & Syarat 12 - 20 Kredit Widget -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+          <div class="flex items-center gap-3 sm:gap-4">
+            <div>
+              <span class="text-slate-500 block text-[9.5px] uppercase font-bold">Kredit Semasa (A)</span>
+              <span id="currentCreditsBadge" class="font-bold text-slate-800 text-sm">0 Jam</span>
+            </div>
+            <div class="text-slate-300">|</div>
+            <div>
+              <span class="text-slate-500 block text-[9.5px] uppercase font-bold">Kredit Tumpang (B)</span>
+              <span id="repeatCreditsBadge" class="font-bold text-emerald-600 text-sm">+0 Jam</span>
+            </div>
+            <div class="text-slate-300">|</div>
+            <div>
+              <span class="text-slate-500 block text-[9.5px] uppercase font-bold">Jumlah (A + B)</span>
+              <span id="totalCreditsBadge" class="font-black text-blue-600 text-sm">0 Jam</span>
+            </div>
+          </div>
+
+          <div id="creditRuleIndicator" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border flex items-center gap-1.5">
+            <!-- Dynamically populated compliance state -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendation & Clash Advisory Banner -->
+      <div id="recommendationBanner">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- TIMETABLE DISPLAY: DUAL UI (MOBILE CARDS VS DESKTOP GRID)   -->
+      <!-- ========================================================== -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <h3 class="font-bold text-slate-800 text-sm md:text-base flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-blue-600"></i> Visual Jadual Waktu Bersih Pelajar
+            </h3>
+            <p class="text-xs text-slate-500">Masa interaktif Isnin hingga Jumaat (8.00 pagi - 5.00 petang).</p>
+          </div>
+
+          <!-- Color Legends -->
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10.5px] sm:text-[11px]">
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-md font-medium">
+              <span class="w-2 h-2 bg-blue-600 rounded-xs"></span> Kekal
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md font-medium">
+              <span class="w-2 h-2 bg-emerald-600 rounded-xs"></span> Tumpang
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-md font-medium">
+              <span class="w-2 h-2 bg-rose-600 rounded-xs"></span> Digugurkan
+            </span>
+          </div>
+        </div>
+
+        <!-- 1. MOBILE & TABLET VIEW: KAD HARIAN (DAY AGENDA TIMELINE) -->
+        <div id="mobileTimetableSection" class="block lg:hidden space-y-3">
+          <!-- Day Quick Jump Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+            <button type="button" onclick="scrollToMobileDay('Isnin')" class="px-3 py-1 bg-slate-100 hover:bg-blue-600 hover:text-white rounded-lg font-bold text-slate-700 text-[11px] shrink-0 transition">Isnin</button>
+            <button type="button" onclick="scrollToMobileDay('Selasa')" class="px-3 py-1 bg-slate-100 hover:bg-blue-600 hover:text-white rounded-lg font-bold text-slate-700 text-[11px] shrink-0 transition">Selasa</button>
+            <button type="button" onclick="scrollToMobileDay('Rabu')" class="px-3 py-1 bg-slate-100 hover:bg-blue-600 hover:text-white rounded-lg font-bold text-slate-700 text-[11px] shrink-0 transition">Rabu</button>
+            <button type="button" onclick="scrollToMobileDay('Khamis')" class="px-3 py-1 bg-slate-100 hover:bg-blue-600 hover:text-white rounded-lg font-bold text-slate-700 text-[11px] shrink-0 transition">Khamis</button>
+            <button type="button" onclick="scrollToMobileDay('Jumaat')" class="px-3 py-1 bg-slate-100 hover:bg-blue-600 hover:text-white rounded-lg font-bold text-slate-700 text-[11px] shrink-0 transition">Jumaat</button>
+          </div>
+
+          <!-- Dynamic Container for Day Agenda Cards (1 col mobile, 2 cols tablet) -->
+          <div id="mobileTimetableCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
+            <!-- Dynamically populated via renderMobileTimetableCards() -->
+          </div>
+        </div>
+
+        <!-- 2. DESKTOP VIEW: FULL MATRIX GRID (8.00 AM - 5.00 PM) -->
+        <div id="desktopTimetableSection" class="hidden lg:block overflow-x-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left border-collapse text-xs min-w-[760px]">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 text-center font-bold">
+                <th class="p-2.5 border-r border-slate-200 w-24">HARI</th>
+                <th class="p-2 border-r border-slate-200 w-28">8.00 - 9.00</th>
+                <th class="p-2 border-r border-slate-200 w-28">9.00 - 10.00</th>
+                <th class="p-2 border-r border-slate-200 w-28">10.00 - 11.00</th>
+                <th class="p-2 border-r border-slate-200 w-28">11.00 - 12.00</th>
+                <th class="p-2 border-r border-slate-200 bg-amber-50/70 text-amber-900 w-24">12.00 - 1.00</th>
+                <th class="p-2 border-r border-slate-200 w-28">1.00 - 2.00</th>
+                <th class="p-2 border-r border-slate-200 w-28">2.00 - 3.00</th>
+                <th class="p-2 border-r border-slate-200 w-28">3.00 - 4.00</th>
+                <th class="p-2 w-28">4.00 - 5.00</th>
+              </tr>
+            </thead>
+            <tbody id="interactiveTimetableBody" class="divide-y divide-slate-200 bg-white">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- VIEW 2: OFFICIAL BORANG PK01 (PRINT READY A4 FORMAT) -->
+    <section id="view-pk01" class="hidden">
+      
+      <!-- Toolbar for screen view -->
+      <div class="no-print mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 bg-blue-50 border border-blue-200 p-3 rounded-xl">
+        <div class="text-xs text-blue-900">
+          <span class="font-bold">Pratonton Borang PK01:</span> Format rasmi A4 untuk simpanan PPKJ dan tandatangan PA / Pensyarah.
+        </div>
+        <button onclick="triggerPrint('pk01')" class="w-full sm:w-auto px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="printer" class="w-4 h-4"></i> Cetak Borang PK01 (A4)
+        </button>
+      </div>
+      <!-- Mobile & Tablet Scaled Preview Wrapper -->
+      <div class="overflow-x-auto pb-4">
+        <div class="sheet-fit">
+        <!-- A4 Document Sheet -->
+        <div class="print-sheet bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 font-official text-black w-full min-w-[794px] max-w-[210mm] mx-auto text-xs leading-normal relative page-break">
+          
+          <div class="diagonal-stamp">
+            SILA KEMBALIKAN<br>BORANG INI PADA<br>SELEWAT-LEWATNYA<br>
+            <span class="text-xs uppercase font-black text-black">04 DIS 2026 (JUMAAT)</span>
+          </div>
+
+          <!-- Official Document Header -->
+          <div class="flex items-center gap-4 border-b border-black pb-3 mb-3">
+            <div id="pkLogoContainer" class="w-20 shrink-0 text-center">
+              <!-- Logo populated via renderLogos() -->
+            </div>
+            <div class="flex-1 text-center pr-12">
+              <h2 class="text-sm font-bold uppercase tracking-wider">Politeknik Kuching Sarawak</h2>
+              <h1 class="text-base font-black uppercase tracking-normal mt-0.5">Borang Pendaftaran Kursus</h1>
+              <p class="text-[11px] italic font-semibold">(*Bagi kes pelajar mengulang kursus [MK], belum daftar [BD] &amp; menumpang seksyen)</p>
+            </div>
+            <div class="shrink-0 self-start">
+              <span class="font-bold text-xs border border-black px-2 py-0.5">Borang PK01</span>
+            </div>
+          </div>
+
+          <!-- Student & Department Information Grid -->
+          <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-xs mb-3">
+            <div class="flex"><span class="w-32 font-bold">JABATAN:</span> <span class="font-semibold">JABATAN KEJURUTERAAN MEKANIKAL</span></div>
+            <div class="flex"><span class="w-32 font-bold">PROGRAM:</span> <span id="pkProgram" class="font-semibold uppercase">DKM</span></div>
+            <div class="flex"><span class="w-32 font-bold">SESI:</span> <span class="font-semibold">SESI II: 2026/2027</span></div>
+            <div class="flex"><span class="w-32 font-bold">NO. TEL:</span> <span id="pkPhone" class="font-semibold">013-8899201</span></div>
+            <div class="flex"><span class="w-32 font-bold">NAMA PELAJAR:</span> <span id="pkName" class="font-bold uppercase">MUHAMMAD AIMAN BIN RADZI</span></div>
+            <div class="flex"><span class="w-32 font-bold">NO. PENDAFTARAN:</span> <span id="pkRegNum" class="font-bold font-mono">05DKM24F1028</span></div>
+            <div class="flex"><span class="w-32 font-bold">KELAS ASAL:</span> <span id="pkCurrentClassLabel" class="font-semibold">DKM3-S1</span></div>
+          </div>
+
+          <!-- Syarat 2 Warning Box (If < 12 or > 18 credits) -->
+          <div id="pkCreditWarningNotice" class="hidden"></div>
+
+          <!-- Section A: Kursus Seksyen Semasa -->
+          <div class="mb-3">
+            <h3 class="font-bold text-xs uppercase mb-1">(A) SENARAI KURSUS (SEKSYEN SEMASA):</h3>
+            <table class="w-full text-xs border border-black border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-center font-bold">
+                  <th class="border border-black p-1 w-8">BIL</th>
+                  <th class="border border-black p-1 w-24">KOD KURSUS</th>
+                  <th class="border border-black p-1 text-left px-2">NAMA KURSUS</th>
+                  <th class="border border-black p-1 w-24">SEKSYEN</th>
+                  <th class="border border-black p-1 w-16">STATUS</th>
+                  <th class="border border-black p-1 w-20">JAM KREDIT</th>
+                </tr>
+              </thead>
+              <tbody id="pkSectionATableBody">
+                <!-- Dynamically populated via populateBorangPK01() -->
+              </tbody>
+              <tfoot>
+                <tr class="font-bold bg-slate-50">
+                  <td colspan="5" class="border border-black p-1 text-right px-2">JUMLAH JAM KREDIT (A):</td>
+                  <td id="pkTotalCreditsA" class="border border-black p-1 text-center font-black">0</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Section B: Kursus Seksyen Tumpang (Status C1 / C2) -->
+          <div class="mb-3">
+            <h3 class="font-bold text-xs uppercase mb-1">(B) SENARAI KURSUS (SEKSYEN TUMPANG):</h3>
+            <table class="w-full text-xs border border-black border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-center font-bold">
+                  <th class="border border-black p-1 w-8">BIL</th>
+                  <th class="border border-black p-1 w-24">KOD KURSUS</th>
+                  <th class="border border-black p-1 text-left px-2">NAMA KURSUS</th>
+                  <th class="border border-black p-1 w-24">SEKSYEN TUMPANG</th>
+                  <th class="border border-black p-1 w-36">NAMA & T/T PENSYARAH<br><span class="text-[9px] font-normal">(Yang Ditumpang)</span></th>
+                  <th class="border border-black p-1 w-16">STATUS</th>
+                  <th class="border border-black p-1 w-20">JAM KREDIT</th>
+                </tr>
+              </thead>
+              <tbody id="pkSectionBTableBody">
+                <!-- Dynamically populated via populateBorangPK01() -->
+              </tbody>
+              <tfoot>
+                <tr class="font-bold bg-slate-50">
+                  <td colspan="6" class="border border-black p-1 text-right px-2">JUMLAH JAM KREDIT (B):</td>
+                  <td id="pkTotalCreditsB" class="border border-black p-1 text-center font-black">0</td>
+                </tr>
+                <tr class="font-black bg-slate-100 text-sm">
+                  <td colspan="6" class="border border-black p-1.5 text-right px-2">JUMLAH JAM KREDIT KESELURUHAN (A + B):</td>
+                  <td id="pkGrandTotalCredits" class="border border-black p-1.5 text-center font-black">0</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Signatures Section -->
+          <div class="grid grid-cols-3 gap-3 text-xs mt-4 pt-2 border-t border-black">
+            <div class="border border-black p-2 flex flex-col justify-between h-28">
+              <div>
+                <p class="font-bold">Nama Pelajar:</p>
+                <p id="pkSignStudentName" class="font-semibold uppercase mt-0.5">MUHAMMAD AIMAN BIN RADZI</p>
+              </div>
+              <div class="text-[10px]">
+                <div class="border-b border-dotted border-black mb-1"></div>
+                <p>Tandatangan: ___________________</p>
+                <p>Tarikh: ________________________</p>
+              </div>
+            </div>
+
+            <div class="border border-black p-2 flex flex-col justify-between h-28">
+              <div>
+                <p class="font-bold">Disokong Penasihat Akademik:</p>
+                <p id="pkSignPAName" class="font-semibold uppercase mt-0.5">PUAN JANE DANIELA MUGAN</p>
+              </div>
+              <div class="text-[10px]">
+                <div class="border-b border-dotted border-black mb-1"></div>
+                <p>Tandatangan & Cop: _____________</p>
+                <p>Tarikh: ________________________</p>
+              </div>
+            </div>
+
+            <div class="border border-black p-2 flex flex-col justify-between h-28">
+              <div>
+                <p class="font-bold">Diluluskan KJ / PKJ / KPro:</p>
+                <p id="kjSpecialCreditBox" class="text-[9.5px] italic mt-0.5">Kebenaran Beban Kredit Khas: [ &nbsp; ] Ya &nbsp; [ &nbsp; ] Tidak</p>
+              </div>
+              <div class="text-[10px]">
+                <div class="border-b border-dotted border-black mb-1"></div>
+                <p>Tandatangan & Cop: _____________</p>
+                <p>Tarikh: ________________________</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footnotes & Directives with Official C1 / C2 / D definition -->
+          <div class="mt-3 pt-1 border-t border-slate-300 text-[9.5px] text-slate-700 leading-tight space-y-0.5">
+            <p>1. Borang ini perlu diisi oleh pelajar mengulang kursus (MK), belum daftar (BD) dan yang menumpang seksyen lain selewat-lewatnya pada <b>04 Disember 2026 (Jumaat)</b>.</p>
+            <p>2. Jumlah jam kredit setiap semester adalah <b>12 – 18 jam kredit</b>. Jika jumlah jam kredit kurang dari 12 jam kredit atau melebihi 18 jam kredit, pelajar perlu mendapat kebenaran Ketua Jabatan.</p>
+            <p>3. Sila kembalikan borang ini berserta salinan Slip Pengesahan Pendaftaran Kursus kepada Penasihat Akademik (PA) dan seterusnya Penyelaras Pendaftaran Kursus Jabatan (PPKJ).</p>
+            <p class="font-semibold text-slate-900">Status: D - Daftar kali pertama / Belum Daftar (BD) / Tumpang Semasa; C1 - Mengulang Kursus kali pertama (MK1); C2 - Mengulang Kursus kali kedua (MK2).</p>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: OFFICIAL JADUAL WAKTU KULIAH (PRINT READY A4 FORMAT) -->
+    <section id="view-jadual" class="hidden">
+      
+      <!-- Toolbar for screen view -->
+      <div class="no-print mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 bg-blue-50 border border-blue-200 p-3 rounded-xl">
+        <div class="text-xs text-blue-900">
+          <span class="font-bold">Pratonton Jadual Kuliah:</span> Format rasmi jadual kuliah Politeknik Kuching Sarawak.
+        </div>
+        <button onclick="triggerPrint('jadual')" class="w-full sm:w-auto px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="printer" class="w-4 h-4"></i> Cetak Jadual Kuliah (A4)
+        </button>
+      </div>
+      <!-- Mobile & Tablet Scaled Preview Wrapper -->
+      <div class="overflow-x-auto pb-4">
+        <div class="sheet-fit">
+        <!-- A4 Timetable Sheet -->
+        <div class="print-sheet bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 font-official text-black w-full min-w-[794px] max-w-[210mm] mx-auto text-xs leading-normal">
+          
+          <!-- Header with Logo -->
+          <div class="flex items-center gap-4 border-b border-black pb-3 mb-3">
+            <div id="jwLogoContainer" class="w-20 shrink-0 text-center">
+              <!-- Logo populated via renderLogos() -->
+            </div>
+            <div class="flex-1 text-center pr-12">
+              <h2 class="text-sm font-bold uppercase tracking-wider">Politeknik Kuching Sarawak</h2>
+              <h1 class="text-base font-black uppercase tracking-normal mt-0.5">Jadual Waktu Kuliah Pelajar</h1>
+              <p class="text-xs font-semibold">JABATAN KEJURUTERAAN MEKANIKAL • SESI II: 2026/2027</p>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-3 pb-2 border-b border-black">
+            <div><span class="font-bold">NAMA:</span> <span id="jwName" class="font-semibold uppercase">MUHAMMAD AIMAN</span></div>
+            <div><span class="font-bold">NO. MATRIK:</span> <span id="jwRegNum" class="font-bold font-mono">05DKM24F1028</span></div>
+            <div><span class="font-bold">PROGRAM:</span> <span id="jwProgram" class="font-semibold">DKM</span></div>
+            <div><span class="font-bold">PA:</span> <span id="jwPA" class="font-semibold uppercase">PUAN JANE DANIELA</span></div>
+          </div>
+
+          <!-- Official Matrix Table Grid (A4) -->
+          <table class="w-full text-xs border border-black border-collapse text-center">
+            <thead>
+              <tr class="bg-slate-100 font-bold">
+                <th class="border border-black p-1.5 w-16">HARI / MASA</th>
+                <th class="border border-black p-1 w-20">8.00 - 9.00</th>
+                <th class="border border-black p-1 w-20">9.00 - 10.00</th>
+                <th class="border border-black p-1 w-20">10.00 - 11.00</th>
+                <th class="border border-black p-1 w-20">11.00 - 12.00</th>
+                <th class="border border-black p-1 w-16 bg-slate-200">12.00 - 1.00</th>
+                <th class="border border-black p-1 w-20">1.00 - 2.00</th>
+                <th class="border border-black p-1 w-20">2.00 - 3.00</th>
+                <th class="border border-black p-1 w-20">3.00 - 4.00</th>
+                <th class="border border-black p-1 w-20">4.00 - 5.00</th>
+              </tr>
+            </thead>
+            <tbody id="jwOfficialGridBody">
+              <!-- Dynamically populated via populateJadualKuliah() -->
+            </tbody>
+          </table>
+
+          <!-- Course Summary List on Official Print Sheet -->
+          <div class="mt-4 border border-black p-2.5">
+            <div class="flex items-center justify-between border-b border-black pb-1 mb-2">
+              <span class="font-bold text-xs uppercase">Senarai Kursus Didaftarkan Pada Sesi Ini:</span>
+              <span id="jwPrintCreditTotal" class="font-black text-xs">Jumlah Kredit: 0 Jam</span>
+            </div>
+            <div id="jwSummaryList" class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-[10.5px]">
+              <!-- Populated via script -->
+            </div>
+          </div>
+
+          <!-- Signatures & Endorsement -->
+          <div class="mt-6 flex justify-between items-center text-xs pt-3 border-t border-black">
+            <div>Tarikh Akhir Serahan PK01: <b>04 Disember 2026</b></div>
+            <div>Tandatangan Pelajar: ________________________</div>
+            <div>Disahkan Oleh PA: ________________________</div>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile & Tablet Bottom Navigation Bar (Full-width on mobile, floating pill on tablet) -->
+  <nav id="bottomNav" class="no-print fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 lg:hidden shadow-[0_-4px_16px_rgba(0,0,0,0.06)] pb-[env(safe-area-inset-bottom)] md:bottom-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[440px] md:rounded-2xl md:border md:shadow-xl md:pb-0">
+    <div class="flex items-center justify-around px-2 py-1.5">
+      <!-- Mobile Tab 1: Perancang -->
+      <button id="mobTabBtnPlanner" onclick="switchTab('planner')" class="flex flex-col items-center justify-center flex-1 py-1 px-1 text-blue-600 transition">
+        <div class="p-1 rounded-full bg-blue-50 text-blue-600 mb-0.5">
+          <i data-lucide="sliders" class="w-5 h-5"></i>
+        </div>
+        <span class="text-[10px] font-bold tracking-tight text-blue-600">Perancang</span>
+      </button>
+
+      <!-- Mobile Tab 2: Borang PK01 -->
+      <button id="mobTabBtnPK01" onclick="switchTab('pk01')" class="flex flex-col items-center justify-center flex-1 py-1 px-1 text-slate-400 hover:text-slate-600 transition">
+        <div class="p-1 rounded-full mb-0.5">
+          <i data-lucide="file-check-2" class="w-5 h-5"></i>
+        </div>
+        <span class="text-[10px] font-medium tracking-tight">Borang PK01</span>
+      </button>
+
+      <!-- Mobile Tab 3: Jadual Kuliah -->
+      <button id="mobTabBtnJadual" onclick="switchTab('jadual')" class="flex flex-col items-center justify-center flex-1 py-1 px-1 text-slate-400 hover:text-slate-600 transition">
+        <div class="p-1 rounded-full mb-0.5">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+        </div>
+        <span class="text-[10px] font-medium tracking-tight">Jadual Kuliah</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Non-blocking Floating Toast Container (Safe for Google Sites iframes) -->
+  <div id="toastContainer" class="fixed bottom-24 lg:bottom-5 right-3 lg:right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <script>
+    // -------------------------------------------------------------
+    // PANGKALAN DATA JADUAL INDUK JKM (SESI I: 2026/2027)
+    // -------------------------------------------------------------
+    const MASTER_TIMETABLE_PKS = [
+      // DKM1-S1
+      { Cohort: "DKM1-S1", Course_Code: "DJJ10243", Course_Name: "Workshop Technology", Credit: 3, Day: "Isnin", Start_Time: "08:00", End_Time: "11:00", Venue: "BENGKEL", Lecturer: "JANN", Status: "D" },
+      { Cohort: "DKM1-S1", Course_Code: "DBM10163", Course_Name: "Engineering Mathematics 1", Credit: 3, Day: "Rabu", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 21", Lecturer: "BHAK", Status: "D" },
+      { Cohort: "DKM1-S1", Course_Code: "DBS10042", Course_Name: "Engineering Science", Credit: 2, Day: "Khamis", Start_Time: "10:00", End_Time: "12:00", Venue: "BK 30", Lecturer: "BATT", Status: "D" },
+
+      // DKM2-S1 (Pilihan Tumpang Kursus Sem 2)
+      { Cohort: "DKM2-S1", Course_Code: "DJJ20263", Course_Name: "Thermodynamics", Credit: 3, Day: "Isnin", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 21", Lecturer: "JAAR", Status: "D" },
+      { Cohort: "DKM2-S1", Course_Code: "DJJ20273", Course_Name: "Fluid Mechanics", Credit: 3, Day: "Selasa", Start_Time: "10:00", End_Time: "12:00", Venue: "BK 30", Lecturer: "AAMED", Status: "D" },
+      { Cohort: "DKM2-S1", Course_Code: "DBM20173", Course_Name: "Engineering Mathematics 2", Credit: 3, Day: "Rabu", Start_Time: "10:00", End_Time: "12:00", Venue: "BK 40", Lecturer: "BLTH", Status: "D" },
+
+      // DKM2-S2 (Seksyen Alternatif Tumpang Kursus Sem 2)
+      { Cohort: "DKM2-S2", Course_Code: "DJJ20273", Course_Name: "Fluid Mechanics", Credit: 3, Day: "Khamis", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 31", Lecturer: "JASN", Status: "D" },
+      { Cohort: "DKM2-S2", Course_Code: "DJJ20263", Course_Name: "Thermodynamics", Credit: 3, Day: "Rabu", Start_Time: "14:00", End_Time: "16:00", Venue: "BK 40", Lecturer: "JOIN", Status: "D" },
+      { Cohort: "DKM2-S2", Course_Code: "DBM20173", Course_Name: "Engineering Mathematics 2", Credit: 3, Day: "Selasa", Start_Time: "14:00", End_Time: "16:00", Venue: "BK 21", Lecturer: "BLTH", Status: "D" },
+
+      // DKM3-S1 (Kelas Asal Demo)
+      { Cohort: "DKM3-S1", Course_Code: "DJJ30323", Course_Name: "Strength of Materials", Credit: 3, Day: "Isnin", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 21", Lecturer: "JNZL", Status: "D" },
+      { Cohort: "DKM3-S1", Course_Code: "DJJ30332", Course_Name: "Computer Aided Design 1", Credit: 2, Day: "Selasa", Start_Time: "10:00", End_Time: "12:00", Venue: "M13CAD", Lecturer: "JPOZ/JMBI", Status: "D" },
+      { Cohort: "DKM3-S1", Course_Code: "DJJ30293", Course_Name: "Pneumatics & Hydraulics", Credit: 3, Day: "Rabu", Start_Time: "14:00", End_Time: "16:00", Venue: "MAKMAL PNEUMATIK", Lecturer: "JWJH", Status: "D" },
+      { Cohort: "DKM3-S1", Course_Code: "DBM30183", Course_Name: "Engineering Mathematics 3", Credit: 3, Day: "Khamis", Start_Time: "10:00", End_Time: "12:00", Venue: "BK 40", Lecturer: "BNSA", Status: "D" },
+      { Cohort: "DKM3-S1", Course_Code: "DJJ30313", Course_Name: "Mechanics of Machines", Credit: 3, Day: "Khamis", Start_Time: "14:00", End_Time: "16:00", Venue: "BK 30", Lecturer: "JCWK", Status: "D" },
+      { Cohort: "DKM3-S1", Course_Code: "DUE30072", Course_Name: "Communicative English 2", Credit: 2, Day: "Jumaat", Start_Time: "10:00", End_Time: "12:00", Venue: "BK 21", Lecturer: "ANUR", Status: "D" },
+
+      // DKM3-S2
+      { Cohort: "DKM3-S2", Course_Code: "DJJ30323", Course_Name: "Strength of Materials", Credit: 3, Day: "Selasa", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 30", Lecturer: "JAHH", Status: "D" },
+      { Cohort: "DKM3-S2", Course_Code: "DJJ30332", Course_Name: "Computer Aided Design 1", Credit: 2, Day: "Khamis", Start_Time: "14:00", End_Time: "16:00", Venue: "M13CAD", Lecturer: "JPBI", Status: "D" },
+
+      // DAD2-S1 & DAD3-S1
+      { Cohort: "DAD2-S1", Course_Code: "DJJ20273", Course_Name: "Fluid Mechanics", Credit: 3, Day: "Rabu", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 31", Lecturer: "JASN", Status: "D" },
+      { Cohort: "DAD3-S1", Course_Code: "DJA30123", Course_Name: "Automotive Transmission", Credit: 3, Day: "Isnin", Start_Time: "14:00", End_Time: "17:00", Venue: "M14AT", Lecturer: "JMSO", Status: "D" },
+
+      // DPU2-S1 & DTP1-S1
+      { Cohort: "DPU2-S1", Course_Code: "DJJ20263", Course_Name: "Thermodynamics", Credit: 3, Day: "Isnin", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 30", Lecturer: "LA", Status: "D" },
+      { Cohort: "DTP1-S1", Course_Code: "DBM10252", Course_Name: "Engineering Mathematics", Credit: 2, Day: "Isnin", Start_Time: "08:00", End_Time: "10:00", Venue: "BK 34", Lecturer: "JCYS", Status: "D" }
+    ];
+
+    const WEEK_DAYS = ["Isnin", "Selasa", "Rabu", "Khamis", "Jumaat"];
+    const TIME_SLOTS = [
+      { start: "08:00", end: "09:00", label: "8.00 - 9.00" },
+      { start: "09:00", end: "10:00", label: "9.00 - 10.00" },
+      { start: "10:00", end: "11:00", label: "10.00 - 11.00" },
+      { start: "11:00", end: "12:00", label: "11.00 - 12.00" },
+      { start: "12:00", end: "13:00", label: "12.00 - 1.00", isBreak: true },
+      { start: "13:00", end: "14:00", label: "1.00 - 2.00" },
+      { start: "14:00", end: "15:00", label: "2.00 - 3.00" },
+      { start: "15:00", end: "16:00", label: "3.00 - 4.00" },
+      { start: "16:00", end: "17:00", label: "4.00 - 5.00" }
+    ];
+
+    // Helper: Parse HH:MM to total minutes
+    function parseTime(t) {
+      if (!t) return 0;
+      const parts = t.split(":");
+      return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+    }
+
+    // Helper: Check if two time intervals overlap
+    function isTimeClashing(startA, endA, startB, endB) {
+      if (!startA || !endA || !startB || !endB) return false;
+      return parseTime(startA) < parseTime(endB) && parseTime(endA) > parseTime(startB);
+    }
+
+    // State Variables - Default repeat course status updated to C1
+    let selectedRepeatCourses = [
+      { code: "DJJ20273", status: "C1", preferredCohort: null }
+    ];
+    let manualDroppedCourseCodes = [];
+    let currentAnalysis = null;
+    let previousCreditNotificationState = null;
+    let currentActiveTab = 'planner';
+
+    // -------------------------------------------------------------
+    // SMART ENGINE HELPER: GROUP MULTI-SLOT COURSES INTO PACKAGES
+    // -------------------------------------------------------------
+    function getAllCoursePackages() {
+      const map = new Map();
+      MASTER_TIMETABLE_PKS.forEach(row => {
+        const key = `${row.Cohort}__${row.Course_Code}`;
+        if (!map.has(key)) {
+          map.set(key, {
+            key,
+            Cohort: row.Cohort,
+            Program: (row.Cohort || "").substring(0, 3).toUpperCase(),
+            Course_Code: row.Course_Code,
+            Course_Name: row.Course_Name,
+            Credit: Number(row.Credit || 0),
+            slots: []
+          });
+        }
+        map.get(key).slots.push({
+          Day: row.Day,
+          Start_Time: row.Start_Time,
+          End_Time: row.End_Time,
+          Venue: row.Venue,
+          Lecturer: row.Lecturer,
+          Status: row.Status
+        });
+      });
+      return Array.from(map.values());
+    }
+
+    function packagesClash(pkgA, pkgB) {
+      if (!pkgA || !pkgB) return false;
+      for (const sA of pkgA.slots) {
+        for (const sB of pkgB.slots) {
+          if (
+            sA.Day.toLowerCase() === sB.Day.toLowerCase() &&
+            isTimeClashing(sA.Start_Time, sA.End_Time, sB.Start_Time, sB.End_Time)
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function formatPackageSchedule(pkg) {
+      if (!pkg || !pkg.slots || pkg.slots.length === 0) return "-";
+      return pkg.slots
+        .map(s => `${s.Day} ${s.Start_Time}-${s.End_Time} (${s.Venue})`)
+        .join(", ");
+    }
+
+    function getPackageLecturers(pkg) {
+      if (!pkg || !pkg.slots) return "-";
+      const unique = [...new Set(pkg.slots.map(s => s.Lecturer).filter(Boolean))];
+      return unique.join(" / ") || "-";
+    }
+
+    // -------------------------------------------------------------
+    // STUDENT INFO & LOGO SYNCHRONIZATION
+    // -------------------------------------------------------------
+    function syncStudentInfo() {
+      const nameVal = (document.getElementById("studentName")?.value || "").trim() || "-";
+      const regVal = (document.getElementById("studentRegNum")?.value || "").trim().toUpperCase() || "-";
+      const phoneVal = (document.getElementById("studentPhone")?.value || "").trim() || "-";
+      const paVal = (document.getElementById("studentPA")?.value || "").trim() || "-";
+      const cohortVal = document.getElementById("currentCohortSelect")?.value || "DKM3-S1";
+      const programCode = cohortVal.substring(0, 3).toUpperCase();
+
+      // Sync to Borang PK01
+      const pkName = document.getElementById("pkName");
+      const pkRegNum = document.getElementById("pkRegNum");
+      const pkPhone = document.getElementById("pkPhone");
+      const pkProgram = document.getElementById("pkProgram");
+      const pkSignStudentName = document.getElementById("pkSignStudentName");
+      const pkSignPAName = document.getElementById("pkSignPAName");
+
+      if (pkName) pkName.textContent = nameVal.toUpperCase();
+      if (pkRegNum) pkRegNum.textContent = regVal;
+      if (pkPhone) pkPhone.textContent = phoneVal;
+      if (pkProgram) pkProgram.textContent = programCode;
+      if (pkSignStudentName) pkSignStudentName.textContent = nameVal.toUpperCase();
+      if (pkSignPAName) pkSignPAName.textContent = paVal.toUpperCase();
+
+      // Sync to Jadual Waktu Kuliah
+      const jwName = document.getElementById("jwName");
+      const jwRegNum = document.getElementById("jwRegNum");
+      const jwProgram = document.getElementById("jwProgram");
+      const jwPA = document.getElementById("jwPA");
+
+      if (jwName) jwName.textContent = nameVal.toUpperCase();
+      if (jwRegNum) jwRegNum.textContent = regVal;
+      if (jwProgram) jwProgram.textContent = programCode;
+      if (jwPA) jwPA.textContent = paVal.toUpperCase();
+    }
+
+    // Alias for backward compatibility
+    const syncStudentData = syncStudentInfo;
+
+    function renderLogos() {
+      const driveFileId = "1FoNwSZQwqu0XYdznM8T0YRFqW9VghMsS";
+      const directLogoUrl = `https://lh3.googleusercontent.com/d/${driveFileId}`;
+
+      const fallbackSvg = `
+        <svg viewBox="0 0 100 100" class="w-14 h-14 mx-auto" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="88" height="88" rx="14" fill="#1e3a8a" stroke="#0f172a" stroke-width="3"/>
+          <polygon points="50,18 80,35 80,65 50,82 20,65 20,35" fill="none" stroke="#facc15" stroke-width="4"/>
+          <text x="50" y="54" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-weight="900" font-size="18">PKS</text>
+          <text x="50" y="69" text-anchor="middle" fill="#93c5fd" font-family="Arial, sans-serif" font-weight="700" font-size="8.5">JKM</text>
+        </svg>
+      `;
+
+      const logoHtml = `
+        <div class="w-16 h-16 mx-auto flex items-center justify-center">
+          <img
+            src="${directLogoUrl}"
+            alt="Logo Rasmi PKS JKM"
+            class="max-h-16 max-w-16 object-contain mx-auto"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          />
+          <div style="display:none;">${fallbackSvg}</div>
+        </div>
+      `;
+
+      const pkLogo = document.getElementById("pkLogoContainer");
+      const jwLogo = document.getElementById("jwLogoContainer");
+      if (pkLogo) pkLogo.innerHTML = logoHtml;
+      if (jwLogo) jwLogo.innerHTML = logoHtml;
+    }
+
+    // -------------------------------------------------------------
+    // REPEAT / TUMPANG COURSE MANAGEMENT & MANUAL DROP CONTROLS
+    // -------------------------------------------------------------
+    function renderRepeatChips() {
+      const container = document.getElementById("repeatCoursesChips");
+      const clearBtn = document.getElementById("btnClearAllRepeat");
+      if (!container) return;
+
+      if (selectedRepeatCourses.length === 0) {
+        container.innerHTML = `<span class="text-[11px] text-amber-800/70 italic">Tiada kursus tumpang dipilih. Pilih kursus di atas dan klik "+ Tambah".</span>`;
+        if (clearBtn) clearBtn.classList.add("hidden");
+        return;
+      }
+
+      if (clearBtn) clearBtn.classList.remove("hidden");
+
+      container.innerHTML = selectedRepeatCourses.map(item => {
+        const sample = MASTER_TIMETABLE_PKS.find(r => r.Course_Code === item.code);
+        const courseTitle = sample ? sample.Course_Name : item.code;
+        return `
+          <span class="inline-flex items-center gap-1.5 bg-white border border-amber-300 text-amber-950 px-2.5 py-1 rounded-xl text-[11px] font-semibold shadow-xs">
+            <span class="font-bold text-amber-800">${item.code}</span>
+            <span class="text-slate-600 truncate max-w-[130px] hidden sm:inline">- ${courseTitle}</span>
+            <span class="bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.2 rounded text-[10px] font-mono font-bold">${item.status}</span>
+            <button type="button" onclick="removeRepeatCourseByCode('${item.code}')" title="Buang ${item.code}" class="ml-0.5 px-1.5 py-0.5 rounded-md bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 text-[10px] font-bold transition flex items-center gap-0.5">
+              <span>Buang</span> ✕
+            </button>
+          </span>
+        `;
+      }).join("");
+    }
+
+    function addRepeatCourse() {
+      const select = document.getElementById("repeatCourseSelect");
+      const statusSelect = document.getElementById("repeatCourseStatus");
+      if (!select || !statusSelect) return;
+
+      const code = select.value;
+      const status = statusSelect.value; // "C1", "C2", or "D"
+
+      if (selectedRepeatCourses.some(c => c.code === code)) {
+        showToastNotification("Kursus Sudah Dipilih", `${code} sudah berada dalam senarai kursus tumpang anda.`, "info");
+        return;
+      }
+
+      selectedRepeatCourses.push({ code, status, preferredCohort: null });
+      renderRepeatChips();
+      runAnalysis();
+    }
+
+    function changeRepeatPreferredCohort(courseCode, newCohort) {
+      const target = selectedRepeatCourses.find(c => c.code === courseCode);
+      if (target) {
+        target.preferredCohort = newCohort || null;
+        runAnalysis();
+      }
+    }
+
+    function removeRepeatCourseByCode(code) {
+      selectedRepeatCourses = selectedRepeatCourses.filter(c => c.code !== code);
+      renderRepeatChips();
+      runAnalysis();
+    }
+
+    function clearAllRepeatCourses() {
+      selectedRepeatCourses = [];
+      renderRepeatChips();
+      runAnalysis();
+      showToastNotification("Senarai Dikosongkan", "Semua kursus tumpang di Bahagian B telah dibuang.", "info");
+    }
+
+    function toggleManualDrop(courseCode) {
+      if (manualDroppedCourseCodes.includes(courseCode)) {
+        manualDroppedCourseCodes = manualDroppedCourseCodes.filter(c => c !== courseCode);
+      } else {
+        manualDroppedCourseCodes.push(courseCode);
+      }
+      runAnalysis();
+    }
+
+    function handleCohortChange() {
+      manualDroppedCourseCodes = [];
+      previousCreditNotificationState = null;
+      runAnalysis();
+    }
+
+    // -------------------------------------------------------------
+    // PENYELESAI OPTIMUM (BRANCH & BOUND)
+    // Objektif: minimumkan kredit kursus semasa yang digugurkan,
+    // kemudian beban kredit di luar 12-18, bilangan tumpang ganti,
+    // dan seksyen luar program. Kursus MK/BD sentiasa didaftarkan.
+    // -------------------------------------------------------------
+    const SOLVER_WEIGHTS = {
+      dropPerCredit: 1000,          // setiap kredit kursus semasa digugurkan
+      repeatClash: 100000,          // MK/BD berklash sesama sendiri (tidak dapat dielak)
+      creditWindowPerCredit: 50,    // setiap kredit di luar had 12-18
+      swapSection: 10,              // kursus semasa dipindah ke seksyen lain
+      otherProgram: 1               // seksyen dari program lain
+    };
+
+    function getRepeatCandidates(code, currentCohort, allPackages) {
+      let cands = allPackages.filter(p => p.Course_Code === code && p.Cohort !== currentCohort);
+      if (cands.length === 0) cands = allPackages.filter(p => p.Course_Code === code);
+      return cands;
+    }
+
+    function solveOptimal({ currentCohort, studentProgram, allPackages, repeatList, activeBase, forced }) {
+      const W = SOLVER_WEIGHTS;
+      const progRank = p => (p.Program === studentProgram ? 0 : 1);
+      const byPreference = (a, b) => progRank(a) - progRank(b) || a.Cohort.localeCompare(b.Cohort);
+      const repeatCodes = new Set(repeatList.map(r => r.code));
+
+      // Pembolehubah MK/BD: mesti dipilih satu seksyen (tiada pilihan gugur)
+      const repeatVars = [];
+      repeatList.forEach(r => {
+        let cands = getRepeatCandidates(r.code, currentCohort, allPackages);
+        const pref = (forced && forced[r.code]) || r.preferredCohort;
+        if (pref) {
+          const match = cands.filter(c => c.Cohort === pref);
+          if (match.length) cands = match;
+        }
+        if (cands.length === 0) return;
+        cands = cands.slice().sort(byPreference);
+        repeatVars.push({ isRepeat: true, code: r.code, status: r.status, credit: cands[0].Credit, options: cands });
+      });
+
+      // Pembolehubah kursus semasa: seksyen asal, seksyen ganti, atau gugur (null).
+      // Kursus yang sudah dipilih sebagai MK/BD/Tumpang dikeluarkan daripada senarai ini
+      // supaya tidak berganda.
+      const baseVars = activeBase
+        .filter(b => !repeatCodes.has(b.Course_Code))
+        .map(b => {
+          const alts = allPackages
+            .filter(p => p.Course_Code === b.Course_Code && p.Cohort !== currentCohort)
+            .sort(byPreference);
+          return { isRepeat: false, code: b.Course_Code, credit: b.Credit, original: b, options: [b, ...alts, null] };
+        })
+        .sort((a, b) => b.credit - a.credit || a.code.localeCompare(b.code));
+
+      const vars = [...repeatVars, ...baseVars];
+      const chosen = [];
+      let best = null;
+      let bestCost = Infinity;
+      let nodes = 0;
+
+      function dfs(i, cost) {
+        if (++nodes > 300000) return; // pengadang keselamatan
+        if (i === vars.length) {
+          let total = 0;
+          chosen.forEach(c => { if (c.pkg) total += c.pkg.Credit; });
+          const outside = total < 12 ? 12 - total : (total > 18 ? total - 18 : 0);
+          const finalCost = cost + outside * W.creditWindowPerCredit;
+          if (finalCost < bestCost) {
+            bestCost = finalCost;
+            best = chosen.map(c => ({ v: c.v, pkg: c.pkg }));
+          }
+          return;
+        }
+        const v = vars[i];
+        for (const opt of v.options) {
+          let add = 0;
+          if (opt === null) {
+            add = W.dropPerCredit * v.credit;
+          } else {
+            const clashing = chosen.filter(c => c.pkg && packagesClash(c.pkg, opt));
+            if (clashing.length) {
+              if (!v.isRepeat) continue;                 // kursus semasa tidak boleh berklash
+              add += W.repeatClash * clashing.length;    // MK/BD berklash: dibenarkan tetapi dihukum berat
+            }
+            if (!v.isRepeat && opt.Cohort !== currentCohort) add += W.swapSection;
+            if (opt.Program !== studentProgram) add += W.otherProgram;
+          }
+          if (cost + add >= bestCost) continue;          // pemangkasan (kos separa ialah had bawah)
+          chosen.push({ v, pkg: opt });
+          dfs(i + 1, cost + add);
+          chosen.pop();
+        }
+      }
+
+      dfs(0, 0);
+      return best ? { assignment: best, cost: bestCost } : null;
+    }
+
+    // -------------------------------------------------------------
+    // CORE SMART ANALYSIS ENGINE (BRANCH & BOUND OPTIMAL SOLVER)
+    // -------------------------------------------------------------
+    function runAnalysis() {
+      const cohortSelect = document.getElementById("currentCohortSelect");
+      const currentCohort = cohortSelect ? cohortSelect.value : "DKM3-S1";
+      const studentProgram = currentCohort.substring(0, 3).toUpperCase();
+
+      const allPackages = getAllCoursePackages();
+      const basePackages = allPackages.filter(p => p.Cohort === currentCohort);
+
+      const manualDroppedPackages = basePackages.filter(p => manualDroppedCourseCodes.includes(p.Course_Code));
+      const activeBasePackages = basePackages.filter(p => !manualDroppedCourseCodes.includes(p.Course_Code));
+
+      // 1. Cari penyelesaian optimum (branch & bound): minimum kredit kursus semasa digugurkan
+      const solverCtx = {
+        currentCohort,
+        studentProgram,
+        allPackages,
+        repeatList: selectedRepeatCourses,
+        activeBase: activeBasePackages
+      };
+      const solution = solveOptimal(solverCtx);
+      const assignment = solution ? solution.assignment : [];
+      const chosenPkgs = assignment.filter(a => a.pkg).map(a => a.pkg);
+
+      // 2. Bina Bahagian B (MK / BD / Tumpang) berserta kos setiap seksyen calon
+      const allocatedRepeatPackages = [];
+      assignment.filter(a => a.v.isRepeat).forEach(a => {
+        const pkg = a.pkg;
+
+        const scoredCandidates = getRepeatCandidates(a.v.code, currentCohort, allPackages).map(cand => {
+          const sol = solveOptimal({ ...solverCtx, forced: { [a.v.code]: cand.Cohort } });
+          const asg = sol ? sol.assignment : [];
+          const clashedBase = asg.filter(x => !x.v.isRepeat && x.pkg !== x.v.original).map(x => x.v.original);
+          const droppedCredits = asg.filter(x => !x.v.isRepeat && !x.pkg).reduce((s, x) => s + x.v.credit, 0);
+          const clashesWithOtherRepeat = asg.some(
+            x => x.v.isRepeat && x.v.code !== a.v.code && x.pkg && packagesClash(x.pkg, cand)
+          );
+          return {
+            pkg: cand,
+            clashedBase,
+            droppedCredits,
+            clashesWithOtherRepeat,
+            sameProgram: cand.Program === studentProgram,
+            penalty: sol ? sol.cost : Infinity
+          };
+        }).sort((x, y) => x.penalty - y.penalty);
+
+        allocatedRepeatPackages.push({
+          ...pkg,
+          repeatStatus: a.v.status,
+          scoredCandidates,
+          clashedBasePackages: activeBasePackages.filter(bp => packagesClash(pkg, bp)),
+          clashesWithOtherRepeat: assignment.some(
+            x => x.v.isRepeat && x.v.code !== a.v.code && x.pkg && packagesClash(x.pkg, pkg)
+          )
+        });
+      });
+
+      // 3. Kursus semasa: kekal, dipindah ke seksyen lain (auto-tumpang), atau digugurkan
+      const rescuedBaseCourses = [];
+      const autoDroppedCourses = [];
+      const keptCodes = new Set();
+
+      assignment.filter(a => !a.v.isRepeat).forEach(a => {
+        const orig = a.v.original;
+        if (a.pkg === orig) {
+          keptCodes.add(orig.Course_Code);
+          return;
+        }
+        const clashedWithCodes = [...new Set(
+          chosenPkgs
+            .filter(p => p !== a.pkg && p.Course_Code !== orig.Course_Code && packagesClash(p, orig))
+            .map(p => p.Course_Code)
+        )];
+        if (a.pkg) {
+          rescuedBaseCourses.push({ originalPkg: orig, rescuePkg: a.pkg, status: "D", clashedWithCodes });
+        } else {
+          autoDroppedCourses.push({ pkg: orig, clashedWithCodes });
+        }
+      });
+
+      // 4. Finalize Active Course Lists & Credits
+      const keptBasePackages = activeBasePackages.filter(bp => keptCodes.has(bp.Course_Code));
+
+      const sectionBPackages = [
+        ...allocatedRepeatPackages.map(rp => ({
+          ...rp,
+          displayStatus: rp.repeatStatus,
+          isRescued: false
+        })),
+        ...rescuedBaseCourses.map(rc => ({
+          ...rc.rescuePkg,
+          displayStatus: "D",
+          isRescued: true,
+          originalCohort: rc.originalPkg.Cohort
+        }))
+      ];
+
+      const creditsA = keptBasePackages.reduce((sum, p) => sum + p.Credit, 0);
+      const creditsB = sectionBPackages.reduce((sum, p) => sum + p.Credit, 0);
+      const totalCredits = creditsA + creditsB;
+
+      currentAnalysis = {
+        currentCohort,
+        basePackages,
+        keptBasePackages,
+        sectionBPackages,
+        rescuedBaseCourses,
+        autoDroppedCourses,
+        manualDroppedPackages,
+        creditsA,
+        creditsB,
+        totalCredits
+      };
+
+      // Update Credit Badges & 12-18 Credit Rule Indicator
+      updateCreditSummaryUI(creditsA, creditsB, totalCredits);
+
+      // Sync All UI & Printable Views
+      syncStudentInfo();
+      renderBaseClassCoursesList(basePackages, rescuedBaseCourses, autoDroppedCourses);
+      renderRecommendationBanner(allocatedRepeatPackages, rescuedBaseCourses, autoDroppedCourses, manualDroppedPackages);
+      renderMobileTimetableCards(keptBasePackages, sectionBPackages, autoDroppedCourses, manualDroppedPackages);
+      renderInteractiveTimetable(keptBasePackages, sectionBPackages, autoDroppedCourses, manualDroppedPackages);
+      populateBorangPK01(currentCohort, keptBasePackages, sectionBPackages, creditsA, creditsB, totalCredits);
+      populateJadualKuliah(keptBasePackages, sectionBPackages, totalCredits);
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    function updateCreditSummaryUI(creditsA, creditsB, totalCredits) {
+      const badgeA = document.getElementById("currentCreditsBadge");
+      const badgeB = document.getElementById("repeatCreditsBadge");
+      const badgeTotal = document.getElementById("totalCreditsBadge");
+      const indicator = document.getElementById("creditRuleIndicator");
+
+      if (badgeA) badgeA.textContent = `${creditsA} Jam`;
+      if (badgeB) badgeB.textContent = `+${creditsB} Jam`;
+      if (badgeTotal) badgeTotal.textContent = `${totalCredits} Jam`;
+
+      let currentState = "normal";
+      if (totalCredits < 12) {
+        currentState = "under";
+        if (indicator) {
+          indicator.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-rose-50 text-rose-800 border-rose-300 flex items-center gap-1.5";
+          indicator.innerHTML = `<i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-600 shrink-0"></i> Kurang Had (&lt; 12 Kredit) • Perlu Kebenaran KJ`;
+        }
+      } else if (totalCredits > 18) {
+        currentState = "over";
+        if (indicator) {
+          indicator.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-amber-50 text-amber-900 border-amber-300 flex items-center gap-1.5";
+          indicator.innerHTML = `<i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i> Melebihi Had (&gt; 18 Kredit) • Perlu Kebenaran KJ`;
+        }
+      } else {
+        currentState = "normal";
+        if (indicator) {
+          indicator.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-300 flex items-center gap-1.5";
+          indicator.innerHTML = `<i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i> Beban Kredit Sah (12 – 18 Jam Kredit)`;
+        }
+      }
+
+      // Fire non-blocking toast only when crossing into under/over threshold
+      if (currentState !== previousCreditNotificationState) {
+        if (currentState === "under" || currentState === "over") {
+          showCreditToast(totalCredits, currentState);
+        }
+        previousCreditNotificationState = currentState;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // RENDER BASE CLASS COURSE LIST (MANUAL DROP / RETAIN)
+    // -------------------------------------------------------------
+    function renderBaseClassCoursesList(basePackages, rescuedBaseCourses, autoDroppedCourses) {
+      const container = document.getElementById("baseClassCoursesList");
+      if (!container) return;
+
+      if (basePackages.length === 0) {
+        container.innerHTML = `<div class="text-[11px] text-slate-400 italic py-2">Tiada data kursus untuk seksyen ini.</div>`;
+        return;
+      }
+
+      container.innerHTML = basePackages.map(pkg => {
+        const isManualDropped = manualDroppedCourseCodes.includes(pkg.Course_Code);
+        const movedToSectionB = selectedRepeatCourses.find(r => r.code === pkg.Course_Code);
+        const rescueInfo = rescuedBaseCourses.find(r => r.originalPkg.Course_Code === pkg.Course_Code);
+        const autoDropInfo = autoDroppedCourses.find(a => a.pkg.Course_Code === pkg.Course_Code);
+
+        let statusBadge = "";
+        let rowStyle = "bg-white border-slate-200";
+
+        if (isManualDropped) {
+          rowStyle = "bg-rose-50/70 border-rose-200 opacity-85";
+          statusBadge = `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">Digugurkan Manual</span>`;
+        } else if (movedToSectionB) {
+          rowStyle = "bg-emerald-50/70 border-emerald-200";
+          statusBadge = `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">Dipindah ke Bahagian B (${movedToSectionB.status})</span>`;
+        } else if (rescueInfo) {
+          rowStyle = "bg-emerald-50/70 border-emerald-200";
+          statusBadge = `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">Auto-Tumpang ${rescueInfo.rescuePkg.Cohort}</span>`;
+        } else if (autoDropInfo) {
+          rowStyle = "bg-amber-50/70 border-amber-300";
+          statusBadge = `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-900">Syor Gugur (Clash)</span>`;
+        } else {
+          statusBadge = `<span class="text-[9.5px] font-semibold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">${pkg.Credit} Kredit</span>`;
+        }
+
+        const btnHtml = movedToSectionB
+          ? `<span class="text-[9.5px] font-bold text-emerald-700 shrink-0 px-1.5">Seksyen B</span>`
+          : isManualDropped
+            ? `<button type="button" onclick="toggleManualDrop('${pkg.Course_Code}')" class="px-2 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] shrink-0 transition">Ambil Semula</button>`
+            : `<button type="button" onclick="toggleManualDrop('${pkg.Course_Code}')" class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-rose-600 text-slate-700 hover:text-white border border-slate-200 font-bold text-[10px] shrink-0 transition">Gugur</button>`;
+
+        return `
+          <div class="p-2 rounded-xl border ${rowStyle} flex items-center justify-between gap-2 text-xs transition">
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-bold text-slate-800 ${isManualDropped ? 'line-through text-slate-500' : ''}">${pkg.Course_Code}</span>
+                ${statusBadge}
+              </div>
+              <div class="text-[10.5px] text-slate-600 truncate ${isManualDropped ? 'line-through' : ''}">${pkg.Course_Name}</div>
+            </div>
+            ${btnHtml}
+          </div>
+        `;
+      }).join("");
+    }
+
+    // -------------------------------------------------------------
+    // RENDER SMART RECOMMENDATION & CLASH ADVISORY BANNER
+    // -------------------------------------------------------------
+    function renderRecommendationBanner(allocatedRepeatPackages, rescuedBaseCourses, autoDroppedCourses, manualDroppedPackages) {
+      const container = document.getElementById("recommendationBanner");
+      if (!container) return;
+
+      const hasClashWarning = autoDroppedCourses.length > 0 || allocatedRepeatPackages.some(p => p.clashesWithOtherRepeat);
+      const hasRescued = rescuedBaseCourses.length > 0;
+
+      let bannerTheme = "bg-emerald-50/80 border-emerald-300 text-emerald-950";
+      let iconName = "check-circle-2";
+      let iconColor = "text-emerald-600";
+      let headline = "Status Penyelarasan: Tiada Pertindihan Jadual (Sedia Dicetak)";
+      let subtext = "Semua kursus mengulang / tumpang berjaya ditempatkan pada slot masa kosong tanpa menggugurkan mana-mana kursus semasa.";
+
+      if (hasClashWarning) {
+        bannerTheme = "bg-amber-50/90 border-amber-300 text-amber-950";
+        iconName = "alert-triangle";
+        iconColor = "text-amber-600";
+        headline = "Perhatian: Terdapat Pertindihan Masa (Tindakan Borang PK01 Disyorkan)";
+        subtext = "Mengikut garis panduan akademik JKM, kursus mengulang/BD diberi keutamaan dan kursus semasa yang berlanggar tanpa seksyen ganti disyorkan digugurkan.";
+      } else if (hasRescued) {
+        bannerTheme = "bg-blue-50/90 border-blue-300 text-blue-950";
+        iconName = "sparkles";
+        iconColor = "text-blue-600";
+        headline = "Penyelarasan Pintar Berjaya: Kursus Semasa Diselamatkan Melalui Tumpang Seksyen!";
+        subtext = "Pertindihan jadual telah diselesaikan secara automatik dengan memindahkan kursus semasa yang berlanggar ke seksyen lain (Bahagian B - Status D).";
+      }
+
+      // Build Section B (Tambah / Tumpang) items
+      const tambahItemsHtml = [];
+
+      allocatedRepeatPackages.forEach(rp => {
+        const scheduleStr = formatPackageSchedule(rp);
+        const lectStr = getPackageLecturers(rp);
+
+        // Alternative section selector if >1 candidate exists
+        let altSelectorHtml = "";
+        if (rp.scoredCandidates && rp.scoredCandidates.length > 1) {
+          const optionsHtml = rp.scoredCandidates.map(sc => {
+            const clashTag = sc.clashedBase.length === 0 && !sc.clashesWithOtherRepeat
+              ? "0 Terjejas ✓"
+              : `Terjejas: ${sc.clashedBase.map(c => c.Course_Code).join(", ") || "MK berklash"}${sc.droppedCredits ? ` | gugur ${sc.droppedCredits} kr` : ""}`;
+            const selectedAttr = sc.pkg.Cohort === rp.Cohort ? "selected" : "";
+            return `<option value="${sc.pkg.Cohort}" ${selectedAttr}>Tumpang ${sc.pkg.Cohort} (${clashTag})</option>`;
+          }).join("");
+
+          altSelectorHtml = `
+            <div class="mt-1.5 flex items-center gap-1.5">
+              <span class="text-[10px] font-bold text-slate-600">Seksyen:</span>
+              <select onchange="changeRepeatPreferredCohort('${rp.Course_Code}', this.value)" class="px-2 py-0.5 bg-white border border-emerald-300 rounded-md text-[10.5px] font-semibold text-slate-800 outline-none">
+                ${optionsHtml}
+              </select>
+            </div>
+          `;
+        }
+
+        const repeatClashBadge = rp.clashesWithOtherRepeat
+          ? `<div class="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-rose-700 bg-rose-100 border border-rose-300 px-2 py-0.5 rounded-md">⚠️ Bertindih dengan kursus MK/BD lain — sila tukar seksyen jika ada</div>`
+          : "";
+
+        tambahItemsHtml.push(`
+          <div class="pb-2 mb-2 border-b border-emerald-200/70 last:border-b-0 last:pb-0 last:mb-0 flex items-start justify-between gap-2">
+            <div>
+              <div class="font-bold text-slate-900 text-xs">
+                ${rp.Course_Code} - ${rp.Course_Name} (${rp.Credit} Jam)
+                <span class="ml-1 px-1.5 py-0.5 rounded bg-emerald-200/80 text-emerald-950 font-mono text-[10px]">${rp.repeatStatus}</span>
+              </div>
+              <div class="text-[11px] text-emerald-800 font-medium mt-0.5">
+                Tumpang <b>${rp.Cohort}</b> [${scheduleStr}] • Pensyarah: ${lectStr}
+              </div>
+              ${repeatClashBadge}
+              ${altSelectorHtml}
+            </div>
+            <button type="button" onclick="removeRepeatCourseByCode('${rp.Course_Code}')" class="px-2 py-1 rounded-lg bg-white hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 text-[10px] font-bold shrink-0 transition flex items-center gap-1 shadow-2xs">
+              <i data-lucide="trash-2" class="w-3 h-3"></i> Buang
+            </button>
+          </div>
+        `);
+      });
+
+      rescuedBaseCourses.forEach(rc => {
+        const rp = rc.rescuePkg;
+        const scheduleStr = formatPackageSchedule(rp);
+        const lectStr = getPackageLecturers(rp);
+        tambahItemsHtml.push(`
+          <div class="pb-2 mb-2 border-b border-emerald-200/70 last:border-b-0 last:pb-0 last:mb-0">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="font-bold text-slate-900 text-xs">${rp.Course_Code} - ${rp.Course_Name} (${rp.Credit} Jam)</span>
+              <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-900 font-bold text-[9.5px]">Auto-Tumpang Semasa (Status D)</span>
+            </div>
+            <div class="text-[11px] text-emerald-800 font-medium mt-0.5">
+              Dipindah dari ${rc.originalPkg.Cohort} ke <b>${rp.Cohort}</b> [${scheduleStr}] • Pensyarah: ${lectStr}
+            </div>
+          </div>
+        `);
+      });
+
+      // Build Section Gugur items
+      const gugurItemsHtml = [];
+
+      autoDroppedCourses.forEach(ad => {
+        gugurItemsHtml.push(`
+          <div class="pb-2 mb-2 border-b border-rose-200/70 last:border-b-0 last:pb-0 last:mb-0">
+            <div class="font-bold text-slate-900 text-xs">${ad.pkg.Course_Code} - ${ad.pkg.Course_Name} (${ad.pkg.Credit} Jam)</div>
+            <div class="text-[11px] text-rose-700 font-medium mt-0.5">
+              Berlanggar dengan: <b>${ad.clashedWithCodes.join(", ")}</b> (Tiada seksyen ganti kosong)
+            </div>
+          </div>
+        `);
+      });
+
+      manualDroppedPackages.forEach(mp => {
+        gugurItemsHtml.push(`
+          <div class="pb-2 mb-2 border-b border-rose-200/70 last:border-b-0 last:pb-0 last:mb-0 flex items-center justify-between gap-2">
+            <div>
+              <div class="font-bold text-slate-900 text-xs">${mp.Course_Code} - ${mp.Course_Name} (${mp.Credit} Jam)</div>
+              <div class="text-[11px] text-rose-700 font-medium mt-0.5">Digugurkan secara manual oleh pelajar (Prasyarat / Beban Kredit)</div>
+            </div>
+            <button type="button" onclick="toggleManualDrop('${mp.Course_Code}')" class="px-2 py-0.5 rounded bg-white border border-rose-300 text-rose-700 hover:bg-rose-600 hover:text-white text-[10px] font-bold shrink-0 transition">
+              Batal Gugur
+            </button>
+          </div>
+        `);
+      });
+
+      container.innerHTML = `
+        <div class="no-print border-2 ${bannerTheme} p-4 sm:p-5 rounded-2xl shadow-sm space-y-3">
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="${iconName}" class="w-5 h-5 ${iconColor} shrink-0 mt-0.5"></i>
+            <div>
+              <h4 class="font-black text-sm sm:text-base">${headline}</h4>
+              <p class="text-xs opacity-90 mt-0.5 leading-relaxed">${subtext}</p>
+            </div>
+          </div>
+
+          <div class="bg-white/90 border border-black/10 rounded-xl p-3 sm:p-4 space-y-3">
+            <div class="text-[11px] font-black uppercase tracking-wider text-slate-700">
+              Cadangan Tindakan Borang PK01 (Bahagian B &amp; Pelarasan):
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <!-- Box 1: TAMBAH (TUMPANG) -->
+              <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-3">
+                <div class="text-[11px] font-black text-emerald-800 uppercase mb-2">
+                  1. Tambah / Tumpang (Bahagian B PK01):
+                </div>
+                ${
+                  tambahItemsHtml.length > 0
+                    ? tambahItemsHtml.join("")
+                    : `<p class="text-xs text-slate-500 italic">Tiada kursus tumpang didaftarkan.</p>`
+                }
+              </div>
+
+              <!-- Box 2: SYOR GUGUR (KURSUS SEMASA) -->
+              <div class="bg-rose-50/80 border border-rose-200 rounded-xl p-3">
+                <div class="text-[11px] font-black text-rose-800 uppercase mb-2">
+                  2. Kursus Semasa Digugurkan:
+                </div>
+                ${
+                  gugurItemsHtml.length > 0
+                    ? gugurItemsHtml.join("")
+                    : `<p class="text-xs text-emerald-700 font-semibold">Tiada kursus semasa perlu digugurkan. Semua subjek kelas asal kekal!</p>`
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------
+    // RENDER MOBILE TIMETABLE (DAY AGENDA CARDS)
+    // -------------------------------------------------------------
+    function scrollToMobileDay(dayName) {
+      const target = document.getElementById(`mobile-day-card-${dayName}`);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    function renderMobileTimetableCards(keptBasePackages, sectionBPackages, autoDroppedCourses, manualDroppedPackages) {
+      const container = document.getElementById("mobileTimetableCardsContainer");
+      if (!container) return;
+
+      container.innerHTML = WEEK_DAYS.map(day => {
+        const dayEvents = [];
+
+        keptBasePackages.forEach(pkg => {
+          pkg.slots.filter(s => s.Day.toLowerCase() === day.toLowerCase()).forEach(s => {
+            dayEvents.push({
+              type: "kept",
+              code: pkg.Course_Code,
+              name: pkg.Course_Name,
+              credit: pkg.Credit,
+              cohort: pkg.Cohort,
+              start: s.Start_Time,
+              end: s.End_Time,
+              venue: s.Venue,
+              lecturer: s.Lecturer,
+              statusLabel: "KEKAL"
+            });
+          });
+        });
+
+        sectionBPackages.forEach(pkg => {
+          pkg.slots.filter(s => s.Day.toLowerCase() === day.toLowerCase()).forEach(s => {
+            dayEvents.push({
+              type: "tumpang",
+              code: pkg.Course_Code,
+              name: pkg.Course_Name,
+              credit: pkg.Credit,
+              cohort: pkg.Cohort,
+              start: s.Start_Time,
+              end: s.End_Time,
+              venue: s.Venue,
+              lecturer: s.Lecturer,
+              statusLabel: `TUMPANG [${pkg.Cohort} - ${pkg.displayStatus}]`
+            });
+          });
+        });
+
+        autoDroppedCourses.forEach(ad => {
+          ad.pkg.slots.filter(s => s.Day.toLowerCase() === day.toLowerCase()).forEach(s => {
+            dayEvents.push({
+              type: "dropped",
+              code: ad.pkg.Course_Code,
+              name: ad.pkg.Course_Name,
+              credit: ad.pkg.Credit,
+              cohort: ad.pkg.Cohort,
+              start: s.Start_Time,
+              end: s.End_Time,
+              venue: s.Venue,
+              lecturer: s.Lecturer,
+              statusLabel: "DIGUGURKAN (CLASH)"
+            });
+          });
+        });
+
+        manualDroppedPackages.forEach(mp => {
+          mp.slots.filter(s => s.Day.toLowerCase() === day.toLowerCase()).forEach(s => {
+            dayEvents.push({
+              type: "dropped",
+              code: mp.Course_Code,
+              name: mp.Course_Name,
+              credit: mp.Credit,
+              cohort: mp.Cohort,
+              start: s.Start_Time,
+              end: s.End_Time,
+              venue: s.Venue,
+              lecturer: s.Lecturer,
+              statusLabel: "DIGUGURKAN (MANUAL)"
+            });
+          });
+        });
+
+        dayEvents.sort((a, b) => parseTime(a.start) - parseTime(b.start));
+
+        // Detect overlapping active events on the same day (e.g., unavoidable MK vs MK clash)
+        dayEvents.forEach((ev, idx) => {
+          if (ev.type === "dropped") return;
+          ev.hasInternalClash = dayEvents.some(
+            (other, oIdx) =>
+              idx !== oIdx &&
+              other.type !== "dropped" &&
+              isTimeClashing(ev.start, ev.end, other.start, other.end)
+          );
+        });
+
+        const eventsHtml = dayEvents.length === 0
+          ? `<div class="text-xs text-slate-400 italic py-2 px-3 bg-slate-50 rounded-xl border border-dashed border-slate-200">Tiada kuliah dijadualkan pada hari ${day}.</div>`
+          : dayEvents.map(ev => {
+              let cardClass = "bg-blue-50/70 border-blue-200";
+              let badgeClass = "bg-blue-600 text-white";
+              let titleClass = "text-slate-900";
+
+              if (ev.hasInternalClash) {
+                cardClass = "bg-amber-50 border-rose-400 ring-1 ring-rose-300";
+                badgeClass = "bg-rose-600 text-white";
+              } else if (ev.type === "tumpang") {
+                cardClass = "bg-emerald-50/80 border-emerald-300";
+                badgeClass = "bg-emerald-600 text-white";
+              } else if (ev.type === "dropped") {
+                cardClass = "bg-rose-50/70 border-rose-200 opacity-75";
+                badgeClass = "bg-rose-600 text-white";
+                titleClass = "line-through text-slate-500";
+              }
+
+              const displayBadge = ev.hasInternalClash
+                ? `⚠️ BERTINDIH • ${ev.statusLabel}`
+                : ev.statusLabel;
+
+              return `
+                <div class="p-3 rounded-xl border ${cardClass} space-y-1">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-[11px] font-black font-mono text-slate-700 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                      ${ev.start} - ${ev.end}
+                    </span>
+                    <span class="text-[9.5px] font-bold px-2 py-0.5 rounded-full ${badgeClass}">
+                      ${displayBadge}
+                    </span>
+                  </div>
+                  <div class="font-bold text-xs ${titleClass} pt-0.5">
+                    ${ev.code} - ${ev.name}
+                  </div>
+                  <div class="flex items-center justify-between text-[10.5px] text-slate-600 pt-0.5">
+                    <span>📍 ${ev.venue}</span>
+                    <span>👨‍🏫 ${ev.lecturer} (${ev.credit} Kr)</span>
+                  </div>
+                </div>
+              `;
+            }).join("");
+
+        return `
+          <div id="mobile-day-card-${day}" class="border border-slate-200 rounded-2xl p-3 bg-white shadow-2xs space-y-2">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-1.5">
+              <span class="font-black text-xs uppercase tracking-wider text-slate-800">${day}</span>
+              <span class="text-[10px] font-semibold text-slate-500">${dayEvents.filter(e => e.type !== "dropped").length} Sesi Aktif</span>
+            </div>
+            <div class="space-y-2">
+              ${eventsHtml}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // -------------------------------------------------------------
+    // RENDER DESKTOP INTERACTIVE TIMETABLE GRID (8.00 AM - 5.00 PM)
+    // -------------------------------------------------------------
+    function renderInteractiveTimetable(keptBasePackages, sectionBPackages, autoDroppedCourses, manualDroppedPackages) {
+      const tbody = document.getElementById("interactiveTimetableBody");
+      if (!tbody) return;
+
+      // Combine all active events (kept + tumpang) for main grid placement
+      const activeEvents = [];
+      keptBasePackages.forEach(pkg => {
+        pkg.slots.forEach(s => {
+          activeEvents.push({
+            type: "kept",
+            code: pkg.Course_Code,
+            name: pkg.Course_Name,
+            cohort: pkg.Cohort,
+            day: s.Day,
+            start: s.Start_Time,
+            end: s.End_Time,
+            venue: s.Venue,
+            lecturer: s.Lecturer
+          });
+        });
+      });
+
+      sectionBPackages.forEach(pkg => {
+        pkg.slots.forEach(s => {
+          activeEvents.push({
+            type: "tumpang",
+            code: pkg.Course_Code,
+            name: pkg.Course_Name,
+            cohort: pkg.Cohort,
+            displayStatus: pkg.displayStatus,
+            day: s.Day,
+            start: s.Start_Time,
+            end: s.End_Time,
+            venue: s.Venue,
+            lecturer: s.Lecturer
+          });
+        });
+      });
+
+      tbody.innerHTML = WEEK_DAYS.map(day => {
+        const dayEvents = activeEvents.filter(e => e.day.toLowerCase() === day.toLowerCase());
+        let cellsHtml = `<td class="p-2.5 border-r border-slate-200 font-bold text-slate-800 bg-slate-50 text-center">${day}</td>`;
+
+        let slotIdx = 0;
+        while (slotIdx < TIME_SLOTS.length) {
+          const slot = TIME_SLOTS[slotIdx];
+          const slotStartMin = parseTime(slot.start);
+
+          // Find all active events covering this slot (supports stacked rendering if 2 MK courses clash)
+          const matchedEvents = dayEvents.filter(ev => {
+            const evStart = parseTime(ev.start);
+            const evEnd = parseTime(ev.end);
+            return evStart <= slotStartMin && evEnd > slotStartMin;
+          });
+
+          if (matchedEvents.length > 0) {
+            const maxEndMin = Math.max(...matchedEvents.map(ev => parseTime(ev.end)));
+            let span = 1;
+            while (
+              slotIdx + span < TIME_SLOTS.length &&
+              parseTime(TIME_SLOTS[slotIdx + span].start) < maxEndMin
+            ) {
+              span++;
+            }
+
+            if (matchedEvents.length === 1) {
+              const matchedEvent = matchedEvents[0];
+              const isTumpang = matchedEvent.type === "tumpang";
+              const cellBg = isTumpang
+                ? "bg-emerald-50 border-emerald-300 text-emerald-950"
+                : "bg-blue-50 border-blue-200 text-blue-950";
+              const badgeHtml = isTumpang
+                ? `<span class="inline-block bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.2 rounded mb-0.5">TUMPANG ${matchedEvent.cohort} (${matchedEvent.displayStatus})</span>`
+                : `<span class="inline-block bg-blue-600 text-white text-[9px] font-bold px-1.5 py-0.2 rounded mb-0.5">${matchedEvent.cohort}</span>`;
+
+              cellsHtml += `
+                <td colspan="${span}" class="p-2 border-r border-slate-200 align-top ${cellBg}">
+                  ${badgeHtml}
+                  <div class="font-bold text-[11px] leading-tight">${matchedEvent.code}</div>
+                  <div class="text-[10px] leading-tight opacity-90 line-clamp-1">${matchedEvent.name}</div>
+                  <div class="text-[9.5px] font-semibold mt-1 opacity-75">${matchedEvent.venue} • ${matchedEvent.lecturer}</div>
+                </td>
+              `;
+            } else {
+              // Render stacked warning cell when two MK/BD courses unavoidably overlap
+              const stackedHtml = matchedEvents.map(ev => `
+                <div class="p-1.5 rounded-lg bg-white/90 border border-rose-300 mb-1 last:mb-0">
+                  <span class="inline-block bg-rose-600 text-white text-[8.5px] font-bold px-1.5 py-0.2 rounded mb-0.5">⚠️ BERTINDIH • ${ev.cohort} (${ev.displayStatus || "D"})</span>
+                  <div class="font-bold text-[10.5px] leading-tight text-rose-950">${ev.code} (${ev.start}-${ev.end})</div>
+                  <div class="text-[9px] text-slate-700">${ev.venue} • ${ev.lecturer}</div>
+                </div>
+              `).join("");
+
+              cellsHtml += `
+                <td colspan="${span}" class="p-1.5 border-r border-slate-200 align-top bg-rose-50/90">
+                  ${stackedHtml}
+                </td>
+              `;
+            }
+            slotIdx += span;
+          } else {
+            if (slot.isBreak) {
+              cellsHtml += `<td class="p-2 border-r border-slate-200 bg-amber-50/50 text-center text-[10px] font-semibold text-amber-800/70">REHAT</td>`;
+            } else {
+              cellsHtml += `<td class="p-2 border-r border-slate-200 text-center text-slate-300 text-[10px]">-</td>`;
+            }
+            slotIdx++;
+          }
+        }
+
+        return `<tr>${cellsHtml}</tr>`;
+      }).join("");
+    }
+
+    // -------------------------------------------------------------
+    // POPULATE OFFICIAL BORANG PK01 (A4 PRINT SHEET)
+    // -------------------------------------------------------------
+    function populateBorangPK01(currentCohort, keptBasePackages, sectionBPackages, creditsA, creditsB, totalCredits) {
+      const classLabel = document.getElementById("pkCurrentClassLabel");
+      if (classLabel) classLabel.textContent = currentCohort;
+
+      // Warning box if < 12 or > 18 credits
+      const warningNotice = document.getElementById("pkCreditWarningNotice");
+      const kjBox = document.getElementById("kjSpecialCreditBox");
+
+      if (warningNotice) {
+        if (totalCredits < 12 || totalCredits > 18) {
+          const reasonText = totalCredits < 12
+            ? `Jumlah jam kredit semasa ialah <b>${totalCredits} jam kredit</b> (kurang daripada had minimum 12 jam kredit).`
+            : `Jumlah jam kredit semasa ialah <b>${totalCredits} jam kredit</b> (melebihi had maksimum 18 jam kredit).`;
+          warningNotice.className = "mb-3 p-2 border border-black bg-amber-50 text-[10.5px]";
+          warningNotice.innerHTML = `<b>PERHATIAN BEBAN KREDIT KHAS:</b> ${reasonText} Sila dapatkan kelulusan khas Ketua Jabatan (KJ) di ruang tandatangan di bawah.`;
+        } else {
+          warningNotice.className = "hidden";
+          warningNotice.innerHTML = "";
+        }
+      }
+
+      if (kjBox) {
+        if (totalCredits < 12 || totalCredits > 18) {
+          kjBox.innerHTML = `<b class="underline">Kebenaran Beban Kredit Khas (${totalCredits} Kr):</b><br>[ &nbsp; ] Diluluskan &nbsp; [ &nbsp; ] Tidak Diluluskan`;
+        } else {
+          kjBox.innerHTML = `Kebenaran Beban Kredit Khas: [ &nbsp; ] Ya &nbsp; [ &nbsp; ] Tidak`;
+        }
+      }
+
+      // Populate Section A Table
+      const tbodyA = document.getElementById("pkSectionATableBody");
+      if (tbodyA) {
+        if (keptBasePackages.length === 0) {
+          tbodyA.innerHTML = `<tr><td colspan="6" class="border border-black p-2 text-center italic text-slate-600">Tiada kursus didaftarkan di Seksyen Semasa.</td></tr>`;
+        } else {
+          tbodyA.innerHTML = keptBasePackages.map((pkg, idx) => `
+            <tr>
+              <td class="border border-black p-1 text-center">${idx + 1}</td>
+              <td class="border border-black p-1 text-center font-bold">${pkg.Course_Code}</td>
+              <td class="border border-black p-1 px-2 uppercase">${pkg.Course_Name}</td>
+              <td class="border border-black p-1 text-center">${pkg.Cohort}</td>
+              <td class="border border-black p-1 text-center font-bold">D</td>
+              <td class="border border-black p-1 text-center font-bold">${pkg.Credit}</td>
+            </tr>
+          `).join("");
+        }
+      }
+
+      const totalAEl = document.getElementById("pkTotalCreditsA");
+      if (totalAEl) totalAEl.textContent = creditsA;
+
+      // Populate Section B Table
+      const tbodyB = document.getElementById("pkSectionBTableBody");
+      if (tbodyB) {
+        if (sectionBPackages.length === 0) {
+          tbodyB.innerHTML = `<tr><td colspan="7" class="border border-black p-2 text-center italic text-slate-600">Tiada kursus tumpang / mengulang didaftarkan.</td></tr>`;
+        } else {
+          tbodyB.innerHTML = sectionBPackages.map((pkg, idx) => {
+            const lect = getPackageLecturers(pkg);
+            return `
+              <tr>
+                <td class="border border-black p-1 text-center">${idx + 1}</td>
+                <td class="border border-black p-1 text-center font-bold">${pkg.Course_Code}</td>
+                <td class="border border-black p-1 px-2 uppercase">${pkg.Course_Name}</td>
+                <td class="border border-black p-1 text-center font-semibold">${pkg.Cohort}</td>
+                <td class="border border-black p-1 px-1.5 text-[10px]">
+                  <div class="font-bold">${lect}</div>
+                  <div class="text-[9px] text-slate-600 mt-1">T/T: _______________</div>
+                </td>
+                <td class="border border-black p-1 text-center font-bold">${pkg.displayStatus}</td>
+                <td class="border border-black p-1 text-center font-bold">${pkg.Credit}</td>
+              </tr>
+            `;
+          }).join("");
+        }
+      }
+
+      const totalBEl = document.getElementById("pkTotalCreditsB");
+      const grandTotalEl = document.getElementById("pkGrandTotalCredits");
+      if (totalBEl) totalBEl.textContent = creditsB;
+      if (grandTotalEl) grandTotalEl.textContent = totalCredits;
+    }
+
+    // -------------------------------------------------------------
+    // POPULATE OFFICIAL JADUAL WAKTU KULIAH (A4 PRINT SHEET)
+    // -------------------------------------------------------------
+    function populateJadualKuliah(keptBasePackages, sectionBPackages, totalCredits) {
+      const tbody = document.getElementById("jwOfficialGridBody");
+      if (!tbody) return;
+
+      const allActive = [
+        ...keptBasePackages.map(p => ({ ...p, isTumpang: false })),
+        ...sectionBPackages.map(p => ({ ...p, isTumpang: true }))
+      ];
+
+      const flatEvents = [];
+      allActive.forEach(pkg => {
+        pkg.slots.forEach(s => {
+          flatEvents.push({
+            code: pkg.Course_Code,
+            name: pkg.Course_Name,
+            cohort: pkg.Cohort,
+            isTumpang: pkg.isTumpang,
+            displayStatus: pkg.displayStatus || "D",
+            day: s.Day,
+            start: s.Start_Time,
+            end: s.End_Time,
+            venue: s.Venue,
+            lecturer: s.Lecturer
+          });
+        });
+      });
+
+      tbody.innerHTML = WEEK_DAYS.map(day => {
+        const dayEvents = flatEvents.filter(e => e.day.toLowerCase() === day.toLowerCase());
+        let rowHtml = `<td class="border border-black p-1.5 font-bold bg-slate-50 uppercase">${day}</td>`;
+
+        let slotIdx = 0;
+        while (slotIdx < TIME_SLOTS.length) {
+          const slot = TIME_SLOTS[slotIdx];
+          const slotStartMin = parseTime(slot.start);
+
+          const matchedEvent = dayEvents.find(ev => {
+            const evStart = parseTime(ev.start);
+            const evEnd = parseTime(ev.end);
+            return evStart <= slotStartMin && evEnd > slotStartMin;
+          });
+
+          if (matchedEvent) {
+            const evEndMin = parseTime(matchedEvent.end);
+            let span = 1;
+            while (
+              slotIdx + span < TIME_SLOTS.length &&
+              parseTime(TIME_SLOTS[slotIdx + span].start) < evEndMin
+            ) {
+              span++;
+            }
+
+            const tag = matchedEvent.isTumpang
+              ? `[${matchedEvent.cohort} - ${matchedEvent.displayStatus}]`
+              : `[${matchedEvent.cohort}]`;
+
+            rowHtml += `
+              <td colspan="${span}" class="border border-black p-1 text-center leading-tight ${matchedEvent.isTumpang ? 'bg-slate-100 font-semibold' : ''}">
+                <div class="font-bold text-[10px]">${matchedEvent.code}</div>
+                <div class="text-[8.5px] font-bold">${tag}</div>
+                <div class="text-[8.5px]">${matchedEvent.venue} (${matchedEvent.lecturer})</div>
+              </td>
+            `;
+            slotIdx += span;
+          } else {
+            if (slot.isBreak) {
+              rowHtml += `<td class="border border-black p-1 bg-slate-200 text-[9px] font-bold">REHAT</td>`;
+            } else {
+              rowHtml += `<td class="border border-black p-1">&nbsp;</td>`;
+            }
+            slotIdx++;
+          }
+        }
+
+        return `<tr>${rowHtml}</tr>`;
+      }).join("");
+
+      const printTotalEl = document.getElementById("jwPrintCreditTotal");
+      if (printTotalEl) printTotalEl.textContent = `Jumlah Kredit: ${totalCredits} Jam`;
+
+      const summaryListEl = document.getElementById("jwSummaryList");
+      if (summaryListEl) {
+        if (allActive.length === 0) {
+          summaryListEl.innerHTML = `<div class="italic text-slate-600">Tiada kursus didaftarkan.</div>`;
+        } else {
+          summaryListEl.innerHTML = allActive.map((pkg, idx) => {
+            const tag = pkg.isTumpang ? `Tumpang ${pkg.Cohort} (${pkg.displayStatus})` : `Seksyen Asal ${pkg.Cohort} (D)`;
+            return `
+              <div class="flex justify-between border-b border-dotted border-slate-300 pb-0.5">
+                <span><b>${idx + 1}. ${pkg.Course_Code}</b> - ${pkg.Course_Name}</span>
+                <span class="font-semibold ml-2 shrink-0">${tag} • ${pkg.Credit} Kr</span>
+              </div>
+            `;
+          }).join("");
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // NAVIGATION TABS & PRINT ENGINE (SANDBOX-SAFE)
+    // -------------------------------------------------------------
+    function switchTab(tabName) {
+      currentActiveTab = tabName;
+
+      const views = {
+        planner: document.getElementById("view-planner"),
+        pk01: document.getElementById("view-pk01"),
+        jadual: document.getElementById("view-jadual")
+      };
+
+      Object.keys(views).forEach(key => {
+        if (views[key]) {
+          if (key === tabName) {
+            views[key].classList.remove("hidden");
+            views[key].classList.add("block");
+          } else {
+            views[key].classList.add("hidden");
+            views[key].classList.remove("block");
+          }
+        }
+      });
+
+      // Update Desktop Tab Styles
+      const desktopBtns = {
+        planner: document.getElementById("tabBtnPlanner"),
+        pk01: document.getElementById("tabBtnPK01"),
+        jadual: document.getElementById("tabBtnJadual")
+      };
+
+      Object.keys(desktopBtns).forEach(key => {
+        const btn = desktopBtns[key];
+        if (!btn) return;
+        if (key === tabName) {
+          btn.className = "px-3 py-1.5 rounded-lg text-white bg-blue-600 flex items-center gap-1.5 transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-lg text-slate-300 hover:text-white flex items-center gap-1.5 transition";
+        }
+      });
+
+      // Update Mobile Bottom Nav Styles
+      const mobBtns = {
+        planner: document.getElementById("mobTabBtnPlanner"),
+        pk01: document.getElementById("mobTabBtnPK01"),
+        jadual: document.getElementById("mobTabBtnJadual")
+      };
+
+      Object.keys(mobBtns).forEach(key => {
+        const btn = mobBtns[key];
+        if (!btn) return;
+        const iconWrap = btn.querySelector("div");
+        const label = btn.querySelector("span");
+        if (key === tabName) {
+          btn.className = "flex flex-col items-center justify-center flex-1 py-1 px-1 text-blue-600 transition";
+          if (iconWrap) iconWrap.className = "p-1 rounded-full bg-blue-50 text-blue-600 mb-0.5";
+          if (label) label.className = "text-[10px] font-bold tracking-tight text-blue-600";
+        } else {
+          btn.className = "flex flex-col items-center justify-center flex-1 py-1 px-1 text-slate-400 hover:text-slate-600 transition";
+          if (iconWrap) iconWrap.className = "p-1 rounded-full mb-0.5";
+          if (label) label.className = "text-[10px] font-medium tracking-tight";
+        }
+      });
+
+      fitSheets();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function fitSheets() {
+      if (!(window.CSS && CSS.supports && CSS.supports("zoom", "0.5"))) return;
+      const main = document.querySelector("main");
+      if (!main) return;
+      const cs = getComputedStyle(main);
+      const avail = main.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const scale = Math.max(0.5, Math.min(1, avail / 794));
+      document.querySelectorAll(".sheet-fit").forEach(w => { w.style.zoom = scale; });
+    }
+
+    function triggerPrintCurrentActive() {
+      if (currentActiveTab === "jadual") {
+        triggerPrint("jadual");
+      } else {
+        triggerPrint("pk01");
+      }
+    }
+
+    function triggerPrint(target) {
+      // Ensure latest data is populated before printing
+      runAnalysis();
+
+      // Jika dibuka terus di luar iframe (cth: Cloudflare Pages / pautan terus), guna cetakan natif pelayar
+      const isTopLevelWindow = (() => {
+        try {
+          return window.self === window.top;
+        } catch (e) {
+          return false;
+        }
+      })();
+
+      if (isTopLevelWindow) {
+        document.body.classList.remove("print-target-pk01", "print-target-jadual", "print-target-all");
+        document.body.classList.add(`print-target-${target}`);
+        window.print();
+        return;
+      }
+
+      const pkSheet = document.querySelector("#view-pk01 .print-sheet");
+      const jwSheet = document.querySelector("#view-jadual .print-sheet");
+
+      let contentHtml = "";
+      let docTitle = "Dokumen Rasmi JKM - PKS";
+
+      if (target === "pk01" && pkSheet) {
+        contentHtml = pkSheet.outerHTML;
+        docTitle = "Borang PK01 - JKM Politeknik Kuching Sarawak";
+      } else if (target === "jadual" && jwSheet) {
+        contentHtml = jwSheet.outerHTML;
+        docTitle = "Jadual Waktu Kuliah - JKM Politeknik Kuching Sarawak";
+      } else if (target === "all" && pkSheet && jwSheet) {
+        contentHtml = pkSheet.outerHTML + '<div class="page-break"></div>' + jwSheet.outerHTML;
+        docTitle = "Borang PK01 & Jadual Kuliah - JKM PKS";
+      }
+
+      // Open clean unsandboxed print tab to bypass Google Sites iframe sandbox restrictions
+      const printWin = window.open("", "_blank");
+      if (printWin) {
+        printWin.document.open();
+        printWin.document.write(`
+          <!DOCTYPE html>
+          <html lang="ms">
+          <head>
+            <meta charset="UTF-8">
+            <title>${docTitle}</title>
+            <script src="https://cdn.tailwindcss.com"><\/script>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+            <style>
+              body { font-family: 'Inter', sans-serif; background: #f1f5f9; margin: 0; padding: 16px; }
+              .font-official { font-family: 'Tinos', 'Times New Roman', serif; }
+              .print-sheet { background: #ffffff; max-width: 210mm; margin: 0 auto 20px auto; padding: 10mm 12mm; border: 1px solid #000; }
+              .diagonal-stamp {
+                position: absolute; top: 18px; right: 20px; transform: rotate(15deg);
+                border: 2px dashed #dc2626; color: #dc2626; padding: 5px 12px;
+                font-weight: 800; text-align: center; text-transform: uppercase;
+                font-size: 9.5px; line-height: 1.2; background: rgba(254, 242, 242, 0.95); z-index: 10;
+              }
+              table { border-collapse: collapse !important; width: 100% !important; }
+              th, td { border-color: #000000 !important; }
+              .page-break { page-break-after: always; break-after: page; }
+              @media print {
+                body { background: #ffffff !important; padding: 0 !important; }
+                .no-print-bar { display: none !important; }
+                .print-sheet { box-shadow: none !important; border: 1px solid #000 !important; margin: 0 auto !important; width: 100% !important; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="no-print-bar max-w-[210mm] mx-auto mb-4 bg-slate-900 text-white p-3 rounded-xl flex items-center justify-between gap-2 shadow">
+              <span class="text-xs font-semibold">Pratonton Cetakan Rasmi A4 (JKM PKS)</span>
+              <div class="flex items-center gap-2">
+                <button onclick="window.print()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg cursor-pointer">🖨️ Cetak / Simpan PDF</button>
+                <button onclick="window.close()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs rounded-lg cursor-pointer">Tutup</button>
+              </div>
+            </div>
+            ${contentHtml}
+            <script>
+              window.onload = function() {
+                setTimeout(function() { window.print(); }, 600);
+              };
+            <\/script>
+          </body>
+          </html>
+        `);
+        printWin.document.close();
+      } else {
+        // Fallback if browser blocks popups: use direct native print routing
+        document.body.classList.remove("print-target-pk01", "print-target-jadual", "print-target-all");
+        document.body.classList.add(`print-target-${target}`);
+        try {
+          window.print();
+        } catch (err) {
+          showToastNotification(
+            "Sekatan Pop-up Pelayar",
+            "Sila benarkan pop-up pada pelayar anda untuk membuka paparan cetakan A4.",
+            "warning"
+          );
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // NON-BLOCKING FLOATING TOAST NOTIFICATIONS
+    // -------------------------------------------------------------
+    function dismissToast(toastId) {
+      const el = document.getElementById(toastId);
+      if (el) {
+        el.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => el.remove(), 250);
+      }
+    }
+
+    function showToastNotification(title, message, type = "warning", actionBtnHtml = "") {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toastId = "toast-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
+
+      const styleMap = {
+        warning: {
+          wrap: "bg-amber-50 border-amber-400 text-amber-950",
+          badge: "bg-amber-200 text-amber-900",
+          badgeText: "Boleh Teruskan",
+          iconColor: "text-amber-600"
+        },
+        danger: {
+          wrap: "bg-rose-50 border-rose-400 text-rose-950",
+          badge: "bg-rose-200 text-rose-900",
+          badgeText: "Boleh Teruskan",
+          iconColor: "text-rose-600"
+        },
+        info: {
+          wrap: "bg-blue-50 border-blue-400 text-blue-950",
+          badge: "bg-blue-200 text-blue-900",
+          badgeText: "Makluman",
+          iconColor: "text-blue-600"
+        }
+      };
+
+      const theme = styleMap[type] || styleMap.warning;
+
+      const toastEl = document.createElement("div");
+      toastEl.id = toastId;
+      toastEl.className = `pointer-events-auto border-2 ${theme.wrap} p-3.5 rounded-2xl shadow-xl transition-all duration-300 text-xs space-y-2`;
+      toastEl.innerHTML = `
+        <div class="flex items-start justify-between gap-2">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="font-black text-xs ${theme.iconColor}">⚠️ ${title}</span>
+            <span class="text-[9.5px] font-bold px-2 py-0.5 rounded-full ${theme.badge}">${theme.badgeText}</span>
+          </div>
+          <button type="button" onclick="dismissToast('${toastId}')" class="text-slate-500 hover:text-slate-800 font-bold text-xs px-1">✕</button>
+        </div>
+        <p class="text-[11px] leading-relaxed opacity-90">${message}</p>
+        <div class="flex items-center justify-end gap-2 pt-1">
+          ${actionBtnHtml}
+          <button type="button" onclick="dismissToast('${toastId}')" class="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[10.5px] hover:bg-slate-800 transition">
+            Faham &amp; Teruskan
+          </button>
+        </div>
+      `;
+
+      container.appendChild(toastEl);
+
+      // Auto dismiss after 9 seconds
+      setTimeout(() => dismissToast(toastId), 9000);
+    }
+
+    function showCreditToast(totalCredits, mode) {
+      const pkBtn = `<button type="button" onclick="switchTab('pk01')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-slate-800 font-bold text-[10.5px] hover:bg-slate-100 transition">Semak PK01</button>`;
+      if (mode === "under") {
+        showToastNotification(
+          `Jumlah Kredit Kurang (${totalCredits} Jam < 12 Jam)`,
+          "Jumlah jam kredit anda kurang daripada 12 kredit. Anda masih boleh meneruskan perancangan jadual, namun kebenaran bertulis Ketua Jabatan (KJ) diperlukan semasa serahan Borang PK01.",
+          "danger",
+          pkBtn
+        );
+      } else if (mode === "over") {
+        showToastNotification(
+          `Jumlah Kredit Melebihi Had (${totalCredits} Jam > 18 Jam)`,
+          "Jumlah jam kredit anda melebihi 18 kredit. Anda masih boleh meneruskan perancangan jadual, namun kebenaran bertulis Ketua Jabatan (KJ) diperlukan semasa serahan Borang PK01.",
+          "warning",
+          pkBtn
+        );
+      }
+    }
+
+    // -------------------------------------------------------------
+    // INITIALIZE APPLICATION ON PAGE LOAD
+    // -------------------------------------------------------------
+    window.addEventListener("DOMContentLoaded", function () {
+      renderLogos();
+      renderRepeatChips();
+      runAnalysis();
+      fitSheets();
+      window.addEventListener("resize", fitSheets);
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

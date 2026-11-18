@@ -1,0 +1,6 @@
+{
+  "googleSheetsCsvUrl": "",
+  "jsonFallbackUrl": "/data/jadual.json",
+  "cloudflareKvEndpoint": "/api/jadual",
+  "notes": "Untuk kemas kini masa nyata melalui Google Sheets tanpa deploy semula, terbitkan helaian sebagai CSV (File > Share > Publish to web > CSV) dan tampalkan pautan penuh ke medan googleSheetsCsvUrl."
+}

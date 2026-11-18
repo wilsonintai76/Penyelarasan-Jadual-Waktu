@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+.font-official {
+  font-family: 'Tinos', 'Times New Roman', Times, serif;
+}
+
+.font-mono-tabular {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Print Specific Formatting for Standard A4 Paper */
+@page {
+  size: A4 portrait;
+  margin: 7mm 8mm;
+}
+
+@media print {
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 11px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .no-print, header, nav, #bottomNav, .toast-container, .modal-backdrop {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .page-break {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .print-sheet {
+    box-shadow: none !important;
+    border: 1px solid #000000 !important;
+    width: 100% !important;
+    max-width: 210mm !important;
+    padding: 8mm 10mm !important;
+    margin: 0 auto !important;
+    background: #ffffff !important;
+  }
+
+  table {
+    page-break-inside: avoid;
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th, td {
+    border-color: #000000 !important;
+  }
+
+  /* Target Routing for specific print requests */
+  body.print-target-pk01 .view-screen-planner,
+  body.print-target-pk01 .view-screen-jadual {
+    display: none !important;
+  }
+  body.print-target-pk01 .view-screen-pk01 {
+    display: block !important;
+  }
+
+  body.print-target-jadual .view-screen-planner,
+  body.print-target-jadual .view-screen-pk01 {
+    display: none !important;
+  }
+  body.print-target-jadual .view-screen-jadual {
+    display: block !important;
+  }
+
+  body.print-target-all .view-screen-planner {
+    display: none !important;
+  }
+  body.print-target-all .view-screen-pk01,
+  body.print-target-all .view-screen-jadual {
+    display: block !important;
+  }
+}
+
+/* Diagonal Red Official Stamp */
+.diagonal-stamp {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  transform: rotate(14deg);
+  border: 2px dashed #dc2626;
+  color: #dc2626;
+  padding: 4px 10px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  line-height: 1.25;
+  background: rgba(254, 242, 242, 0.96);
+  z-index: 10;
+}
+
+@media print {
+  .diagonal-stamp {
+    border: 2px dashed #000000 !important;
+    color: #000000 !important;
+    background: transparent !important;
+  }
+
+  .print-preview-stage {
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+
+  .print-preview-scaler {
+    transform: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+/* On-Screen Print Preview Mode (Matches @media print 1:1) */
+.print-preview-sheet {
+  border-radius: 0 !important;
+  border: 1px solid #000000 !important;
+  width: 210mm !important;
+  min-width: 210mm !important;
+  max-width: 210mm !important;
+  min-height: 297mm !important;
+  padding: 8mm 10mm !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.print-preview-sheet .diagonal-stamp {
+  border: 2px dashed #000000 !important;
+  color: #000000 !important;
+  background: transparent !important;
+}
+
+.print-preview-sheet th,
+.print-preview-sheet td {
+  border-color: #000000 !important;
+}
+

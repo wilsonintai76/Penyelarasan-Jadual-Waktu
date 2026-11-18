@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Background Shield Outer Border -->
+  <path d="M 100 8 C 158 8, 188 28, 188 78 C 188 138, 148 178, 100 196 C 52 178, 12 138, 12 78 C 12 28, 42 8, 100 8 Z" fill="#002b66" stroke="#d97706" stroke-width="4"/>
+  
+  <!-- Inner Shield Trim -->
+  <path d="M 100 16 C 152 16, 178 34, 178 78 C 178 130, 142 168, 100 184 C 58 168, 22 130, 22 78 C 22 34, 48 16, 100 16 Z" fill="#0b3875" stroke="#facc15" stroke-width="2.5"/>
+  
+  <!-- Gear Motif at Top -->
+  <g fill="#f59e0b" transform="translate(100, 52) scale(0.68)">
+    <circle cx="0" cy="0" r="26" fill="#f59e0b"/>
+    <circle cx="0" cy="0" r="14" fill="#0b3875"/>
+    <path d="M -5 -32 H 5 V -24 H -5 Z M -5 24 H 5 V 32 H -5 Z M -32 -5 V 5 H -24 V -5 Z M 24 -5 V 5 H 32 V -5 Z" fill="#f59e0b"/>
+    <path d="M -24 -24 L -18 -18 L -13 -23 L -19 -29 Z M 18 18 L 24 24 L 29 19 L 23 13 Z" fill="#f59e0b"/>
+    <path d="M 24 -24 L 18 -18 L 23 -13 L 29 -19 Z M -18 18 L -24 24 L -19 29 L -13 23 Z" fill="#f59e0b"/>
+  </g>
+
+  <!-- Open Book & Chevron Motif -->
+  <path d="M 100 90 L 148 106 L 140 126 L 100 110 L 60 126 L 52 106 Z" fill="#ffffff" stroke="#002b66" stroke-width="1.5"/>
+  <path d="M 100 90 L 100 144" stroke="#002b66" stroke-width="2.5"/>
+  <path d="M 100 110 L 140 126 L 100 144 L 60 126 Z" fill="#facc15" opacity="0.95"/>
+
+  <!-- Red Accent Crest Ribbon -->
+  <path d="M 40 148 Q 100 162 160 148 L 154 162 Q 100 178 46 162 Z" fill="#dc2626" stroke="#facc15" stroke-width="1.5"/>
+  
+  <!-- Text Label -->
+  <text x="100" y="159" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="8.5" letter-spacing="0.5">POLITEKNIK KUCHING</text>
+  <text x="100" y="172" text-anchor="middle" fill="#facc15" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="800" font-size="8" letter-spacing="1">SARAWAK</text>
+  
+  <!-- JKM Acronym Banner -->
+  <rect x="74" y="68" width="52" height="18" rx="4" fill="#0f172a" stroke="#facc15" stroke-width="1.5"/>
+  <text x="100" y="81.5" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="11" letter-spacing="1">PKS · JKM</text>
+</svg>
