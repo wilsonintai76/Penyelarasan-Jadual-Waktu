@@ -67,6 +67,12 @@ The publish response reports `namesCorrected` / `unknownCourseCodes`, and the up
 publish with structural errors (missing cohort/course, invalid day or time, duplicate or overlapping slots)
 while warning about implausible loads and names that disagree with the curriculum.
 
+Courses of one section that occupy the exact same slot are **alternatives** (the `MPU24XX1`
+co-curriculum block: Sukan 2 / Kelab-Persatuan 2 / Unit Beruniform 2). The planner groups them as
+"Pilih satu", keeps only the chosen option in Bahagian A, and the choice drives credits, the timetable grid
+and Borang PK01; the other options stay visible as "Pilihan Lain (Tidak Diambil)". The same-slot detection
+is code-agnostic, so a future elective block needs no change.
+
 ## Curriculum prerequisites (per programme)
 
 Prerequisites are curriculum rules, not schedule data, so each programme has its own document and they

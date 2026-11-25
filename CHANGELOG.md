@@ -4,6 +4,43 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.6] - 2026-11-25
+
+### Fixed
+
+- The cache signature for the master timetable now includes `Course_Name` and `Credit`, so a
+  name-only correction (like the `MPU24xxx` co-curriculum rename) reaches browsers that still hold
+  the previous master in `localStorage`. Previously only slot fields were compared, so the old names
+  stayed on screen until the cache was cleared.
+- The "Pilih satu" choice is now written by both auto-save effects (the periodic 15-second timer also
+  carries `electiveSelections` in its dependencies), so a chosen co-curriculum option survives a reload
+  instead of being overwritten by a stale closure.
+
+## [1.3.5] - 2026-11-25
+
+### Fixed
+
+- Co-curriculum codes now resolve to their official names, so the "Pilih satu" chooser and Borang PK01 show
+  real course names instead of raw codes. [course_catalog.json](public/assets/course_catalog.json) gained the
+  28 `MPU24xxx` entries for both cohorts: **Sesi II 2026/2027** (`MPU24071` Sukan 1, `MPU24091` Sukan 2,
+  `MPU24081` Kelab/Persatuan 1, `MPU24101` Kelab/Persatuan 2, `MPU24331/24441` Askar Wataniah 1/2,
+  `MPU24341/24451` PLAS TLDM 1/2, `MPU24351/24461` PLAS TUDM 1/2, `MPU24371/24481` PISPA 1/2,
+  `MPU24411/24521` Relasis 1/2) and **Sesi I 2026/2027** (`MPU24031/24051` Sukan 1/2,
+  `MPU24041/24061` Kelab/Persatuan 1/2, `MPU24111/24221` Askar Wataniah 1/2, `MPU24121/24231` PLAS TLDM 1/2,
+  `MPU24351/24461` PLAS TUDM 1/2, `MPU24151/24261` PISPA 1/2, `MPU24191/24301` Relasis 1/2).
+- The live master keeps the same 508 slots; 28 rows were renamed from the raw code to the official name.
+
+## [1.3.4] - 2026-11-25
+
+### Added
+
+- "Pilih satu" groups in the planner: courses of one section that share the exact same slot are treated as
+  alternatives (Sukan 2 / Kelab-Persatuan 2 / Unit Beruniform 2 - `MPU24XX1`). The planner shows a chooser
+  for each group, keeps only the selected option in Bahagian A, and that single choice drives the credit
+  total, the timetable grid and Borang PK01. The unselected alternatives are listed as
+  "Pilihan Lain (Tidak Diambil)" instead of being counted or reported as a clash.
+- The choice is remembered per section and slot in `localStorage` (`pks_elective_choices`).
+
 ## [1.3.3] - 2026-11-25
 
 ### Changed

@@ -54,6 +54,7 @@ interface PlannerViewProps {
   onChangeRepeatPreferredCohort: (code: string, cohort: string) => void;
   manualDroppedCourseCodes: string[];
   onToggleManualDrop: (code: string) => void;
+  onSelectElectiveCourse: (groupKey: string, courseCode: string) => void;
   undoHistoryCount?: number;
   onUndoRepeatCourse?: () => void;
   lastAutoSavedTime?: string;
@@ -75,6 +76,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   onChangeRepeatPreferredCohort,
   manualDroppedCourseCodes,
   onToggleManualDrop,
+  onSelectElectiveCourse,
   undoHistoryCount = 0,
   onUndoRepeatCourse,
   lastAutoSavedTime,
@@ -130,6 +132,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     prereqDroppedCourses,
     repeatPrereqViolations,
     manualDroppedPackages,
+    electiveGroups,
+    unselectedElectivePackages,
     creditsA,
     creditsB,
     totalCredits
@@ -485,6 +489,58 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               Jadual waktu penuh kelas ini dimuatkan sebagai asas.
             </span>
 
+            {/* Kursus Pilihan (Ambil Satu) */}
+            {electiveGroups.length > 0 && (
+              <div className="mt-3.5 pt-3 border-t border-slate-200">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase">
+                    Kursus Pilihan (Ambil Satu)
+                  </label>
+                  <span className="text-[9.5px] text-slate-500 font-medium">
+                    {electiveGroups.length} slot pilihan
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {electiveGroups.map(group => (
+                    <div key={group.key} className="p-2 rounded-xl border border-violet-200 bg-violet-50/60">
+                      <div className="flex items-center justify-between mb-1.5 gap-2">
+                        <span className="text-[10px] font-bold text-violet-900 uppercase">
+                          {group.day} {group.startTime}-{group.endTime}
+                        </span>
+                        <span className="text-[9.5px] text-violet-700 font-semibold">Pilih satu sahaja</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {group.options.map(option => {
+                          const isActive = option.courseCode === group.selectedCourseCode;
+                          return (
+                            <button
+                              key={option.courseCode}
+                              type="button"
+                              aria-pressed={isActive}
+                              onClick={() => onSelectElectiveCourse(group.key, option.courseCode)}
+                              className={`px-2 py-1 rounded-lg text-[10.5px] font-semibold border transition cursor-pointer ${
+                                isActive
+                                  ? 'bg-violet-700 text-white border-violet-700 shadow-xs'
+                                  : 'bg-white text-violet-800 border-violet-300 hover:bg-violet-100'
+                              }`}
+                            >
+                              {option.courseName}
+                              <span className={`ml-1 ${isActive ? 'text-violet-200' : 'text-violet-500'}`}>
+                                ({option.courseCode} ? {option.credit} kr)
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-1.5 text-[9.5px] text-slate-500">
+                  Hanya pilihan yang ditanda dimasukkan ke Bahagian A, jumlah kredit, jadual kuliah dan Borang PK01.
+                </p>
+              </div>
+            )}
+
             {/* Kursus Kelas Asal (Gugur / Kekal) */}
             <div className="mt-3.5 pt-3 border-t border-slate-200">
               <div className="flex items-center justify-between mb-2">
@@ -500,6 +556,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   basePackages.map(pkg => {
                     const isManualDropped = manualDroppedCourseCodes.includes(pkg.Course_Code);
                     const movedToSectionB = selectedRepeatCourses.find(r => r.code === pkg.Course_Code);
+                    const unselectedElective = unselectedElectivePackages.find(p => p.Course_Code === pkg.Course_Code);
                     const rescueInfo = rescuedBaseCourses.find(r => r.originalPkg.Course_Code === pkg.Course_Code);
                     const prereqDropInfo = prereqDroppedCourses.find(p => p.pkg.Course_Code === pkg.Course_Code);
                     const autoDropInfo = autoDroppedCourses.find(a => a.pkg.Course_Code === pkg.Course_Code);
@@ -523,6 +580,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       statusBadge = (
                         <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
                           Dipindah ke Bahagian B ({movedToSectionB.status})
+                        </span>
+                      );
+                    } else if (unselectedElective) {
+                      rowStyle = 'bg-violet-50/70 border-violet-200 opacity-85';
+                      statusBadge = (
+                        <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-violet-100 text-violet-800">
+                          Pilihan Lain (Tidak Diambil)
                         </span>
                       );
                     } else if (rescueInfo) {

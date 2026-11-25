@@ -74,6 +74,16 @@ export default function App() {
     }
   });
 
+  // "Pilih satu" choices for slot-based alternatives (Sukan 2 / Kelab 2 / Unit Beruniform 2).
+  const [electiveSelections, setElectiveSelections] = useState<Record<string, string>>(() => {
+    try {
+      const saved = localStorage.getItem('pks_elective_choices');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
   // Curriculum prerequisites for every programme, merged by course code at runtime.
   const [curricula, setCurricula] = useState<CurriculumLibrary | null>(null);
   const [curriculumRefreshKey, setCurriculumRefreshKey] = useState(0);
@@ -150,13 +160,14 @@ export default function App() {
       localStorage.setItem('pks_student_info', JSON.stringify(student));
       localStorage.setItem('pks_repeat_courses', JSON.stringify(selectedRepeatCourses));
       localStorage.setItem('pks_manual_dropped_courses', JSON.stringify(manualDroppedCourseCodes));
+      localStorage.setItem('pks_elective_choices', JSON.stringify(electiveSelections));
       setLastAutoSavedTime(
         new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
       );
     } catch (e) {
       console.error('Ralat Auto-Save ke localStorage:', e);
     }
-  }, [student, selectedRepeatCourses, manualDroppedCourseCodes]);
+  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, electiveSelections]);
 
   // Periodic Auto-Save Timer (Periodic background check every 15 seconds)
   useEffect(() => {
@@ -165,6 +176,7 @@ export default function App() {
         localStorage.setItem('pks_student_info', JSON.stringify(student));
         localStorage.setItem('pks_repeat_courses', JSON.stringify(selectedRepeatCourses));
         localStorage.setItem('pks_manual_dropped_courses', JSON.stringify(manualDroppedCourseCodes));
+        localStorage.setItem('pks_elective_choices', JSON.stringify(electiveSelections));
         if (timetable && timetable.length > 0) {
           localStorage.setItem('pks_master_timetable', JSON.stringify(timetable));
         }
@@ -174,7 +186,7 @@ export default function App() {
     }, 15000);
 
     return () => clearInterval(timer);
-  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, timetable]);
+  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, electiveSelections, timetable]);
 
   // Persist only the latest KV change log entry
   useEffect(() => {
@@ -195,7 +207,9 @@ export default function App() {
   // Helper to compute deterministic signature for any timetable array
   const computeTimetableSignature = (entries: MasterTimetableEntry[]): string => {
     const raw = JSON.stringify(
-      entries.map(e => `${e.Cohort}|${e.Course_Code}|${e.Day}|${e.Start_Time}|${e.End_Time}|${e.Venue}|${e.Lecturer}`)
+      // Course_Name/Credit are part of the signature so a name-only correction also reaches browsers
+      // that still hold the previous master in localStorage.
+      entries.map(e => `${e.Cohort}|${e.Course_Code}|${e.Course_Name}|${e.Credit}|${e.Day}|${e.Start_Time}|${e.End_Time}|${e.Venue}|${e.Lecturer}`)
     );
     let hash = 2166136261;
     for (let i = 0; i < raw.length; i++) {
@@ -505,14 +519,16 @@ export default function App() {
       timetable,
       selectedRepeatCourses,
       manualDroppedCourseCodes,
-      curricula
+      curricula,
+      electiveSelections
     );
   }, [
     student.currentCohort,
     timetable,
     selectedRepeatCourses,
     manualDroppedCourseCodes,
-    curricula
+    curricula,
+    electiveSelections
   ]);
 
   // Credit rule toast alerts
@@ -649,6 +665,10 @@ export default function App() {
     );
   };
 
+  const handleSelectElectiveCourse = (groupKey: string, courseCode: string) => {
+    setElectiveSelections(prev => ({ ...prev, [groupKey]: courseCode }));
+  };
+
   const handleToggleManualDrop = (code: string) => {
     saveUndoSnapshot();
     setManualDroppedCourseCodes(prev =>
@@ -709,6 +729,7 @@ export default function App() {
             onChangeRepeatPreferredCohort={handleChangeRepeatPreferredCohort}
             manualDroppedCourseCodes={manualDroppedCourseCodes}
             onToggleManualDrop={handleToggleManualDrop}
+        onSelectElectiveCourse={handleSelectElectiveCourse}
             undoHistoryCount={undoHistory.length}
             onUndoRepeatCourse={handleUndoRepeat}
             lastAutoSavedTime={lastAutoSavedTime}

@@ -2,6 +2,7 @@ import {
   MasterTimetableEntry,
   CoursePackage,
   RepeatSelection,
+  ElectiveChoiceGroup,
   SolverAnalysis,
   AllocatedRepeatPackage,
   RescuedCourse,
@@ -189,12 +190,66 @@ export function solveOptimal(ctx: SolveContext): { assignment: AssignmentItem[];
   return best ? { assignment: best, cost: bestCost } : null;
 }
 
+
+/**
+ * Courses of one cohort that share the exact same slot are alternatives (Sukan 2 /
+ * Kelab-Persatuan 2 / Unit Beruniform 2). A student registers only one, so the
+ * unselected options are removed from the kept timetable and never counted twice.
+ */
+export function buildElectiveGroups(
+  packages: CoursePackage[],
+  selections: Record<string, string> = {}
+): ElectiveChoiceGroup[] {
+  const bySlot = new Map<string, CoursePackage[]>();
+
+  packages.forEach(pkg => {
+    if (!pkg.slots || pkg.slots.length === 0) return;
+    const signature = pkg.slots
+      .map(slot => `${slot.Day}|${slot.Start_Time}|${slot.End_Time}`)
+      .sort()
+      .join(';');
+    const key = `${pkg.Cohort}|${signature}`;
+    if (!bySlot.has(key)) bySlot.set(key, []);
+    const bucket = bySlot.get(key)!;
+    if (!bucket.some(existing => existing.Course_Code === pkg.Course_Code)) bucket.push(pkg);
+  });
+
+  const groups: ElectiveChoiceGroup[] = [];
+  bySlot.forEach((bucket, key) => {
+    if (bucket.length < 2) return;
+    const options = bucket
+      .map(pkg => ({
+        courseCode: pkg.Course_Code,
+        courseName: pkg.Course_Name,
+        credit: pkg.Credit
+      }))
+      .sort((a, b) => a.courseCode.localeCompare(b.courseCode));
+    const selected = selections[key];
+    const selectedCourseCode =
+      selected && options.some(option => option.courseCode === selected)
+        ? selected
+        : options[0].courseCode;
+    const slot = bucket[0].slots[0];
+    groups.push({
+      key,
+      day: slot.Day,
+      startTime: slot.Start_Time,
+      endTime: slot.End_Time,
+      options,
+      selectedCourseCode
+    });
+  });
+
+  return groups.sort((a, b) => a.day.localeCompare(b.day) || a.startTime.localeCompare(b.startTime));
+}
+
 export function runFullAnalysis(
   currentCohort: string,
   timetable: MasterTimetableEntry[],
   selectedRepeatCourses: RepeatSelection[],
   manualDroppedCourseCodes: string[],
-  curriculum?: CurriculumData | CurriculumLibrary | null
+  curriculum?: CurriculumData | CurriculumLibrary | null,
+  electiveSelections: Record<string, string> = {}
 ): SolverAnalysis {
   const studentProgram = currentCohort.substring(0, 3).toUpperCase();
   const allPackages = getAllCoursePackages(timetable);
@@ -219,12 +274,27 @@ export function runFullAnalysis(
     p => !manualDroppedCourseCodes.includes(p.Course_Code) && !prereqDroppedCodes.has(p.Course_Code)
   );
 
+  // "Pilih satu" courses: only the selected option of each slot-based group stays.
+  const electiveGroups = buildElectiveGroups(activeBasePackages, electiveSelections);
+  const unselectedElectiveCodes = new Set<string>();
+  electiveGroups.forEach(group => {
+    group.options.forEach(option => {
+      if (option.courseCode !== group.selectedCourseCode) unselectedElectiveCodes.add(option.courseCode);
+    });
+  });
+  const unselectedElectivePackages = activeBasePackages.filter(pkg =>
+    unselectedElectiveCodes.has(pkg.Course_Code)
+  );
+  const effectiveBasePackages = activeBasePackages.filter(
+    pkg => !unselectedElectiveCodes.has(pkg.Course_Code)
+  );
+
   const solverCtx: SolveContext = {
     currentCohort,
     studentProgram,
     allPackages,
     repeatList: selectedRepeatCourses,
-    activeBase: activeBasePackages
+    activeBase: effectiveBasePackages
   };
 
   const solution = solveOptimal(solverCtx);
@@ -261,7 +331,7 @@ export function runFullAnalysis(
       repeatStatus: a.v.status || "C1",
       displayStatus: a.v.status || "C1",
       scoredCandidates,
-      clashedBasePackages: activeBasePackages.filter(bp => packagesClash(pkg, bp)),
+      clashedBasePackages: effectiveBasePackages.filter(bp => packagesClash(pkg, bp)),
       clashesWithOtherRepeat: assignment.some(
         x => x.v.isRepeat && x.v.code !== a.v.code && x.pkg && packagesClash(x.pkg, pkg)
       ),
@@ -291,7 +361,7 @@ export function runFullAnalysis(
     }
   });
 
-  const keptBasePackages = activeBasePackages.filter(bp => keptCodes.has(bp.Course_Code));
+  const keptBasePackages = effectiveBasePackages.filter(bp => keptCodes.has(bp.Course_Code));
 
   const sectionBPackages = [
     ...allocatedRepeatPackages.map(rp => ({
@@ -321,6 +391,8 @@ export function runFullAnalysis(
     prereqDroppedCourses,
     repeatPrereqViolations,
     manualDroppedPackages,
+    electiveGroups,
+    unselectedElectivePackages,
     creditsA,
     creditsB,
     totalCredits

@@ -136,6 +136,26 @@ export interface RepeatPrereqViolation {
   chain: string[];
 }
 
+export interface ElectiveChoiceOption {
+  courseCode: string;
+  courseName: string;
+  credit: number;
+}
+
+/**
+ * Courses that occupy exactly the same slot for one cohort and are alternatives of
+ * each other, e.g. Sukan 2 / Kelab-Persatuan 2 / Unit Beruniform 2: a student takes
+ * only one of them.
+ */
+export interface ElectiveChoiceGroup {
+  key: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+  options: ElectiveChoiceOption[];
+  selectedCourseCode: string;
+}
+
 export interface SolverAnalysis {
   currentCohort: string;
   basePackages: CoursePackage[];
@@ -146,6 +166,8 @@ export interface SolverAnalysis {
   prereqDroppedCourses: PrereqDroppedCourse[];
   repeatPrereqViolations: RepeatPrereqViolation[];
   manualDroppedPackages: CoursePackage[];
+  electiveGroups: ElectiveChoiceGroup[];
+  unselectedElectivePackages: CoursePackage[];
   creditsA: number;
   creditsB: number;
   totalCredits: number;

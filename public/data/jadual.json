@@ -110,7 +110,7 @@
   {
     "Cohort": "DAD1-S1",
     "Course_Code": "MPU24071",
-    "Course_Name": "MPU24071",
+    "Course_Name": "Sukan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -122,7 +122,7 @@
   {
     "Cohort": "DAD1-S1",
     "Course_Code": "MPU24081",
-    "Course_Name": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -842,7 +842,7 @@
   {
     "Cohort": "DAD4-S1",
     "Course_Code": "DJA40192",
-    "Course_Name": "Automotive Electronics",
+    "Course_Name": "Course DJA40192",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "10:00",
@@ -1010,7 +1010,7 @@
   {
     "Cohort": "DAD4-S2",
     "Course_Code": "DJA40192",
-    "Course_Name": "Automotive Electronics",
+    "Course_Name": "Course DJA40192",
     "Credit": 2,
     "Day": "Selasa",
     "Start_Time": "15:00",
@@ -1166,7 +1166,7 @@
   {
     "Cohort": "DAD4-S3",
     "Course_Code": "DJA40192",
-    "Course_Name": "Automotive Electronics",
+    "Course_Name": "Course DJA40192",
     "Credit": 2,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -1226,7 +1226,7 @@
   {
     "Cohort": "DAD5-S1",
     "Course_Code": "DJA50162",
-    "Course_Name": "Automotive Project Management",
+    "Course_Name": "Course DJA50162",
     "Credit": 2,
     "Day": "Isnin",
     "Start_Time": "13:00",
@@ -1322,7 +1322,7 @@
   {
     "Cohort": "DAD5-S1",
     "Course_Code": "DJA50162",
-    "Course_Name": "Automotive Project Management",
+    "Course_Name": "Course DJA50162",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "13:00",
@@ -1454,7 +1454,7 @@
   {
     "Cohort": "DKM1-S1",
     "Course_Code": "MPU24071",
-    "Course_Name": "MPU24071",
+    "Course_Name": "Sukan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -1466,7 +1466,7 @@
   {
     "Cohort": "DKM1-S1",
     "Course_Code": "MPU24081",
-    "Course_Name": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -1658,7 +1658,7 @@
   {
     "Cohort": "DKM1-S2",
     "Course_Code": "MPU24071",
-    "Course_Name": "MPU24071",
+    "Course_Name": "Sukan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -1670,7 +1670,7 @@
   {
     "Cohort": "DKM1-S2",
     "Course_Code": "MPU24081",
-    "Course_Name": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -3794,7 +3794,7 @@
   {
     "Cohort": "DPU1-S1",
     "Course_Code": "MPU24071",
-    "Course_Name": "MPU24071",
+    "Course_Name": "Sukan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -3806,7 +3806,7 @@
   {
     "Cohort": "DPU1-S1",
     "Course_Code": "MPU24081",
-    "Course_Name": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -3950,7 +3950,7 @@
   {
     "Cohort": "DPU2-S1",
     "Course_Code": "DJU20102",
-    "Course_Name": "Manufacturing Workshop",
+    "Course_Name": "Course DJU20102",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "12:00",
@@ -4070,7 +4070,7 @@
   {
     "Cohort": "DPU2-S2",
     "Course_Code": "DJU20102",
-    "Course_Name": "Manufacturing Workshop",
+    "Course_Name": "Course DJU20102",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "12:00",
@@ -4202,7 +4202,7 @@
   {
     "Cohort": "DPU3-S1",
     "Course_Code": "DJU30122",
-    "Course_Name": "Manufacturing Systems",
+    "Course_Name": "Course DJU30122",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "08:00",
@@ -4310,7 +4310,7 @@
   {
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40142",
-    "Course_Name": "Tool and Die Design",
+    "Course_Name": "Course DJU40142",
     "Credit": 2,
     "Day": "Selasa",
     "Start_Time": "12:00",
@@ -4346,7 +4346,7 @@
   {
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40153",
-    "Course_Name": "CAD/CAM",
+    "Course_Name": "Course DJU40153",
     "Credit": 3,
     "Day": "Rabu",
     "Start_Time": "09:00",
@@ -4370,7 +4370,7 @@
   {
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40153",
-    "Course_Name": "CAD/CAM",
+    "Course_Name": "Course DJU40153",
     "Credit": 3,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -4454,7 +4454,7 @@
   {
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40142",
-    "Course_Name": "Tool and Die Design",
+    "Course_Name": "Course DJU40142",
     "Credit": 2,
     "Day": "Selasa",
     "Start_Time": "12:00",
@@ -4490,7 +4490,7 @@
   {
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40153",
-    "Course_Name": "CAD/CAM",
+    "Course_Name": "Course DJU40153",
     "Credit": 3,
     "Day": "Rabu",
     "Start_Time": "09:00",
@@ -4514,7 +4514,7 @@
   {
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40153",
-    "Course_Name": "CAD/CAM",
+    "Course_Name": "Course DJU40153",
     "Credit": 3,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -4550,7 +4550,7 @@
   {
     "Cohort": "DPU5-S1",
     "Course_Code": "DJU50183",
-    "Course_Name": "Manufacturing Project",
+    "Course_Name": "Course DJU50183",
     "Credit": 3,
     "Day": "Isnin",
     "Start_Time": "08:00",
@@ -4634,7 +4634,7 @@
   {
     "Cohort": "DPU5-S1",
     "Course_Code": "DJU50172",
-    "Course_Name": "Quality Engineering",
+    "Course_Name": "Course DJU50172",
     "Credit": 2,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -4778,7 +4778,7 @@
   {
     "Cohort": "DTP1-S1",
     "Course_Code": "MPU24071",
-    "Course_Name": "MPU24071",
+    "Course_Name": "Sukan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -4790,7 +4790,7 @@
   {
     "Cohort": "DTP1-S1",
     "Course_Code": "MPU24081",
-    "Course_Name": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -4958,7 +4958,7 @@
   {
     "Cohort": "DTP1-S2",
     "Course_Code": "MPU24071",
-    "Course_Name": "MPU24071",
+    "Course_Name": "Sukan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
@@ -4970,7 +4970,7 @@
   {
     "Cohort": "DTP1-S2",
     "Course_Code": "MPU24081",
-    "Course_Name": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
     "Credit": 1,
     "Day": "Rabu",
     "Start_Time": "15:00",
