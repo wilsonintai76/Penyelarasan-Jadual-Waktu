@@ -4,6 +4,23 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.8] - 2026-11-25
+
+### Changed
+
+- Master timetable republished from the NiceGUI extraction (`desktop/jadual_waktu_program_jkm.json`,
+  439 rows) plus the 18 co-curriculum rows the extractor had collapsed, so the planner keeps its
+  "Pilih satu" choice: **457 rows**, 38 sections, 73 course codes. The extractor merges parallel workshop
+  rows (`M4W, M2M, M1F`) and consecutive blocks of the same course into one session, removing the 40
+  redundant rows the previous master carried. The 508-row master is kept in R2
+  (`backups/jadual_induk_jkm-2026-11-25T04-25-00-000Z.json`).
+
+### Fixed
+
+- Course names now fall back to [course_catalog.json](public/assets/course_catalog.json) when a code is not
+  covered by any programme curriculum (co-curriculum `MPU24xxx`, programme-specific electives), so an upload
+  can no longer publish a placeholder such as `MPU24071` as the course name.
+
 ## [1.3.7] - 2026-11-25
 
 ### Changed

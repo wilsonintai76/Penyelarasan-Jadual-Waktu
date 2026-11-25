@@ -328,6 +328,14 @@ function loadCanonicalCourses(): Record<string, { name: string; credit: number |
     });
   });
 
+  // Codes outside every curriculum still have an official name in the shared catalogue.
+  const catalog = readJsonFile<Record<string, string>>(path.resolve(process.cwd(), 'public/assets/course_catalog.json'), {});
+  Object.entries(catalog || {}).forEach(([code, name]) => {
+    const key = String(code).toUpperCase().replace(/\s+/g, '');
+    const value = String(name || '').trim();
+    if (key && value && !map[key]) map[key] = { name: value, credit: null };
+  });
+
   return map;
 }
 

@@ -87,12 +87,31 @@ export async function loadCanonicalCourses(env, request) {
     });
   }
 
+  // Codes outside every curriculum (co-curriculum MPU24xxx, programme-specific electives)
+  // still have an official name in the shared catalogue asset.
+  if (env && env.ASSETS && request) {
+    try {
+      const assetUrl = new URL('/assets/course_catalog.json', request.url);
+      const res = await env.ASSETS.fetch(new Request(assetUrl.toString()));
+      if (res.ok) {
+        const catalog = await res.json();
+        Object.entries(catalog || {}).forEach(([code, name]) => {
+          const key = normalizeCourseCode(code);
+          const value = String(name || '').trim();
+          if (key && value && !map[key]) map[key] = { name: value, credit: null };
+        });
+      }
+    } catch {
+      // catalogue is optional
+    }
+  }
+
   return map;
 }
 
 /**
- * Rewrites `Course_Name` (and a missing/invalid `Credit`) from the curriculum.
- * Slots whose code is not in any curriculum keep the uploaded values.
+ * Rewrites `Course_Name` (and a missing/invalid `Credit`) from the curriculum and the
+ * catalogue. Slots whose code is unknown keep the uploaded values.
  */
 export function applyCanonicalCourseNames(entries, canonical) {
   let namesCorrected = 0;
