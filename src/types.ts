@@ -97,7 +97,13 @@ export interface CurriculumData {
   };
   courses: Record<string, CurriculumCourse>;
   unresolvedPrerequisites?: { courseCode: string; courseName?: string; prerequisiteName?: string; note: string }[];
-  conditionalRequiredCourses?: { courseCode: string; courseName: string; condition: string }[];
+  conditionalRequiredCourses?: {
+    courseCode: string;
+    courseName: string;
+    condition: string;
+    semesters?: number[];
+    credit?: number;
+  }[];
 }
 
 /** Curriculum documents keyed by programme code (DKM, DAD, DPU, DTP…). */
@@ -170,6 +176,8 @@ export interface SolverAnalysis {
   unselectedElectivePackages: CoursePackage[];
   /** Bahasa Kebangsaan A courses left out because the student passed Bahasa Melayu. */
   bahasaKebangsaanExemptPackages: CoursePackage[];
+  /** Bahasa Kebangsaan A codes scheduled for this cohort (empty when none). */
+  bahasaKebangsaanCourseCodes: string[];
   creditsA: number;
   creditsB: number;
   totalCredits: number;

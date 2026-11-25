@@ -4,6 +4,20 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.13] - 2026-11-25
+
+### Added
+
+- The Bahasa Kebangsaan A code now follows the same session rule as the rest of the MPU set:
+  **MPU22422 = Semester 1** (kohort baharu Sesi II 2026/2027) and **MPU22042 = Semester 2 ke atas**
+  (kohort lama Sesi I 2026/2027). Both are declared in `conditionalRequiredCourses` of
+  [dkm.json](public/assets/curriculum/dkm.json) with their semesters, and the planner reads the list from
+  there instead of hard-coding it.
+- A Semester 2+ student can no longer register MPU22422 as a repeat/overlap course: the code is hidden from
+  the Bahagian B dropdown and, if forced, rejected with *"MPU22422 hanya untuk Semester 1 — pelajar Semester 2
+  mesti mendaftar MPU22042"*. The same rule reports a **SEMESTER_CODE_MISMATCH** warning during upload review
+  when a master row puts the wrong code in a cohort.
+
 ## [1.3.12] - 2026-11-25
 
 ### Added

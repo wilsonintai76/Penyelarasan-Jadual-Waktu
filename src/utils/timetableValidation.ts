@@ -6,6 +6,7 @@ import {
   choicePairKey,
   findChoiceGroups
 } from './choiceSchedule';
+import { bahasaKebangsaanSemesterIssue } from './bahasaKebangsaan';
 
 export interface TimetableIssue {
   code: string;
@@ -127,6 +128,16 @@ export function validateTimetableSlots(
       } else {
         parallelGroupSlots.add(key);
       }
+    }
+
+    const semesterIssue = bahasaKebangsaanSemesterIssue(code, cohort);
+    if (semesterIssue) {
+      addIssue(
+        warnings,
+        'SEMESTER_CODE_MISMATCH',
+        'Kod Bahasa Kebangsaan A tidak sepadan dengan semester kohort',
+        label
+      );
     }
 
     if (cohort) {

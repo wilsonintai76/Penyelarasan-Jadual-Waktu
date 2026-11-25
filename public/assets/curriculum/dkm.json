@@ -645,9 +645,39 @@
       "condition": "Compulsory for students who did not attain credit in Mathematics at SPM level"
     },
     {
+      "courseCode": "MPU22422",
+      "courseName": "Bahasa Kebangsaan A",
+      "semesters": [
+        1
+      ],
+      "credit": 2,
+      "condition": "Compulsory for students who did not attain credit in Bahasa Melayu at SPM level (Semester 1, kohort baharu Sesi II 2026/2027)"
+    },
+    {
+      "courseCode": "MPU22042",
+      "courseName": "Bahasa Kebangsaan A",
+      "semesters": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "credit": 2,
+      "condition": "Compulsory for students who did not attain credit in Bahasa Melayu at SPM level (Semester 2 ke atas, kohort lama Sesi I 2026/2027)"
+    },
+    {
       "courseCode": "MPU22212",
       "courseName": "Bahasa Kebangsaan A",
-      "condition": "Compulsory for students who did not attain credit in Bahasa Melayu at SPM level"
+      "semesters": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "credit": 2,
+      "condition": "Kod lama Bahasa Kebangsaan A (rujukan historikal); tiada dalam jadual induk semasa"
     }
   ]
 }

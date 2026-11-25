@@ -40,7 +40,7 @@ import {
   isTimeClashing
 } from '../utils/timetableSolver';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
-import { isBahasaKebangsaanA } from '../utils/bahasaKebangsaan';
+import { bahasaKebangsaanSemesterIssue } from '../utils/bahasaKebangsaan';
 
 interface PlannerViewProps {
   analysis: SolverAnalysis;
@@ -114,8 +114,10 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         });
       }
     });
-    return Array.from(map.values()).sort((a, b) => a.code.localeCompare(b.code));
-  }, [timetable]);
+    return Array.from(map.values())
+      .filter(option => !bahasaKebangsaanSemesterIssue(option.code, student.currentCohort))
+      .sort((a, b) => a.code.localeCompare(b.code));
+  }, [timetable, student.currentCohort]);
 
   useEffect(() => {
     if (dynamicCourseOptions.length === 0) {
@@ -140,6 +142,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     electiveGroups,
     unselectedElectivePackages,
     bahasaKebangsaanExemptPackages,
+    bahasaKebangsaanCourseCodes,
     creditsA,
     creditsB,
     totalCredits
@@ -555,7 +558,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 </label>
                 <span className="text-[9.5px] text-slate-500 font-medium">Gugur prasyarat / had beban</span>
               </div>
-              {basePackages.some(pkg => isBahasaKebangsaanA(pkg.Course_Code, pkg.Course_Name)) && (
+              {bahasaKebangsaanCourseCodes.length > 0 && (
                 <label className="mb-2 flex items-start gap-2 p-2 rounded-xl border border-sky-200 bg-sky-50/70 cursor-pointer">
                   <input
                     type="checkbox"

@@ -7,6 +7,7 @@ import { BottomNav } from './components/BottomNav';
 import { DataManagementModal, ModalSubTab, BindingsStatus } from './components/DataManagementModal';
 import { ToastContainer, ToastItem } from './components/ToastContainer';
 import { runFullAnalysis } from './utils/timetableSolver';
+import { bahasaKebangsaanSemesterIssue } from './utils/bahasaKebangsaan';
 import { APP_VERSION_LABEL, formatBuildStamp } from './version';
 import {
   fetchLatestExternalTimetable,
@@ -651,6 +652,18 @@ export default function App() {
       });
       return;
     }
+
+    const semesterIssue = bahasaKebangsaanSemesterIssue(code, student.currentCohort);
+    if (semesterIssue) {
+      addToast({
+        id: `repeat-semester-${Date.now()}`,
+        title: 'Kod Kursus Tidak Sepadan Semester',
+        message: semesterIssue,
+        type: 'danger'
+      });
+      return;
+    }
+
     saveUndoSnapshot();
     setSelectedRepeatCourses(prev => [...prev, { code, status, preferredCohort: null }]);
   };

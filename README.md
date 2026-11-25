@@ -100,6 +100,34 @@ automatically dropped from the default (Bahagian A) timetable and reported to th
 repeating `DBM10163` drops `DBM20173` (and `DBM30183` when it is in the cohort's timetable). Dropped codes
 are derived on every run, never persisted, so removing the repeat restores the course.
 
+## Conditional and "choose one" courses
+
+Two kinds of course are **not** automatically part of every student's registration. Both are handled by the
+planner and reported in the printouts, never by editing the master timetable:
+
+- **Choose one (kursus pilihan).** Courses of one cohort that occupy the same class slot are alternatives and
+  only the selected one stays in Bahagian A: the co-curriculum pair (`MPU24071` Sukan 1 / `MPU24081`
+  Kelab-Persatuan 1, `MPU24051` Sukan 2 / `MPU24061` Kelab-Persatuan 2, and the uniformed-body codes) and the
+  Semester-5 pair `MPU23182` Sains Teknologi Islam / `MPU23172` Nilai Masyarakat. Two courses count as
+  alternatives when they sit in the same slots, or share a slot long enough to cover the course's weekly hours
+  with the same credit — the rule lives in [choiceSchedule.ts](src/utils/choiceSchedule.ts) and is shared with
+  the upload review, so a genuine clash is still reported.
+- **Conditional (kursus bersyarat).** `conditionalRequiredCourses` in the curriculum lists courses a student
+  registers only when a condition applies. **Bahasa Kebangsaan A** is one: it is only required when the student
+  did not obtain an SPM credit in Bahasa Melayu, so Bahagian A shows a *"Lulus Bahasa Melayu (SPM)"* tick box
+  (ticked by default) that keeps it out of the credits, the grid and Borang PK01. The official code follows the
+  session rule of the MPU set:
+
+  | Code | Cohort | Semester |
+  | --- | --- | --- |
+  | `MPU22422` | New cohort (Sesi II 2026/2027) | **Semester 1 only** |
+  | `MPU22042` | Older cohort (Sesi I 2026/2027) | **Semester 2 and above** |
+
+  A Semester 2+ student cannot register `MPU22422` (it is hidden from the Bahagian B dropdown and rejected with
+  an explanation), and an upload that puts the wrong code in a cohort raises a `SEMESTER_CODE_MISMATCH` warning.
+  The same session rule applies to the co-curriculum codes: Semester 1 uses the new codes, Semester 2+ the old
+  ones. See [bahasaKebangsaan.ts](src/utils/bahasaKebangsaan.ts).
+
 ## Printable documents (Borang PK01 & Jadual Waktu Kuliah)
 
 Both printouts reproduce the official JKM templates supplied in `sample/` (`01_BORANG PK01 Sesi II

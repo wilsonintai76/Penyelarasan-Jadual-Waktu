@@ -13,7 +13,7 @@ import {
 } from '../types';
 import { buildPrerequisiteGraph, findPrerequisiteDrops, findRepeatPrerequisiteViolations } from './prerequisiteEngine';
 import { findChoiceGroups, sharedChoiceSlot } from './choiceSchedule';
-import { isBahasaKebangsaanA } from './bahasaKebangsaan';
+import { collectBahasaKebangsaanCodes, isBahasaKebangsaanA } from './bahasaKebangsaan';
 
 export function parseTime(t: string): number {
   if (!t) return 0;
@@ -252,9 +252,12 @@ export function runFullAnalysis(
   const basePackages = allPackages.filter(p => p.Cohort === currentCohort);
 
   // Bahasa Kebangsaan A is only for students without an SPM credit in Bahasa Melayu.
-  const bahasaKebangsaanExemptPackages = bahasaKebangsaanPassed
-    ? basePackages.filter(pkg => isBahasaKebangsaanA(pkg.Course_Code, pkg.Course_Name))
-    : [];
+  // The codes come from the curriculum (`conditionalRequiredCourses`).
+  const bahasaKebangsaanCodes = collectBahasaKebangsaanCodes(curriculum);
+  const bahasaKebangsaanPackages = basePackages.filter(pkg =>
+    isBahasaKebangsaanA(pkg.Course_Code, pkg.Course_Name, bahasaKebangsaanCodes)
+  );
+  const bahasaKebangsaanExemptPackages = bahasaKebangsaanPassed ? bahasaKebangsaanPackages : [];
   const excludedCodes = new Set([
     ...manualDroppedCourseCodes,
     ...bahasaKebangsaanExemptPackages.map(pkg => pkg.Course_Code)
@@ -399,6 +402,7 @@ export function runFullAnalysis(
     electiveGroups,
     unselectedElectivePackages,
     bahasaKebangsaanExemptPackages,
+    bahasaKebangsaanCourseCodes: bahasaKebangsaanPackages.map(pkg => pkg.Course_Code),
     creditsA,
     creditsB,
     totalCredits
