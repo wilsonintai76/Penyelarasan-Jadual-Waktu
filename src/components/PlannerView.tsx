@@ -40,6 +40,7 @@ import {
   isTimeClashing
 } from '../utils/timetableSolver';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
+import { isBahasaKebangsaanA } from '../utils/bahasaKebangsaan';
 
 interface PlannerViewProps {
   analysis: SolverAnalysis;
@@ -55,6 +56,8 @@ interface PlannerViewProps {
   manualDroppedCourseCodes: string[];
   onToggleManualDrop: (code: string) => void;
   onSelectElectiveCourse: (groupKey: string, courseCode: string) => void;
+  bahasaKebangsaanPassed: boolean;
+  onToggleBahasaKebangsaan: (passed: boolean) => void;
   undoHistoryCount?: number;
   onUndoRepeatCourse?: () => void;
   lastAutoSavedTime?: string;
@@ -77,6 +80,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
   manualDroppedCourseCodes,
   onToggleManualDrop,
   onSelectElectiveCourse,
+  bahasaKebangsaanPassed,
+  onToggleBahasaKebangsaan,
   undoHistoryCount = 0,
   onUndoRepeatCourse,
   lastAutoSavedTime,
@@ -134,6 +139,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     manualDroppedPackages,
     electiveGroups,
     unselectedElectivePackages,
+    bahasaKebangsaanExemptPackages,
     creditsA,
     creditsB,
     totalCredits
@@ -549,12 +555,32 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 </label>
                 <span className="text-[9.5px] text-slate-500 font-medium">Gugur prasyarat / had beban</span>
               </div>
+              {basePackages.some(pkg => isBahasaKebangsaanA(pkg.Course_Code, pkg.Course_Name)) && (
+                <label className="mb-2 flex items-start gap-2 p-2 rounded-xl border border-sky-200 bg-sky-50/70 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={bahasaKebangsaanPassed}
+                    onChange={e => onToggleBahasaKebangsaan(e.target.checked)}
+                    className="mt-0.5 h-3.5 w-3.5 accent-sky-700 cursor-pointer"
+                  />
+                  <span className="text-[10.5px] text-slate-700 leading-snug">
+                    <span className="font-bold text-sky-900">Lulus Bahasa Melayu (SPM)</span>
+                    <span className="block text-slate-600">
+                      Bahasa Kebangsaan A dikecualikan. Nyahcentang jika anda tidak lulus Bahasa Melayu dan wajib
+                      mendaftar kursus ini.
+                    </span>
+                  </span>
+                </label>
+              )}
               <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
                 {basePackages.length === 0 ? (
                   <div className="text-[11px] text-slate-400 italic py-2">Tiada data kursus untuk seksyen ini.</div>
                 ) : (
                   basePackages.map(pkg => {
                     const isManualDropped = manualDroppedCourseCodes.includes(pkg.Course_Code);
+                    const bahasaKebangsaanExempt = bahasaKebangsaanExemptPackages.some(
+                      p => p.Course_Code === pkg.Course_Code
+                    );
                     const movedToSectionB = selectedRepeatCourses.find(r => r.code === pkg.Course_Code);
                     const unselectedElective = unselectedElectivePackages.find(p => p.Course_Code === pkg.Course_Code);
                     const rescueInfo = rescuedBaseCourses.find(r => r.originalPkg.Course_Code === pkg.Course_Code);
@@ -568,7 +594,14 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       </span>
                     );
 
-                    if (isManualDropped) {
+                    if (bahasaKebangsaanExempt) {
+                      rowStyle = 'bg-sky-50/70 border-sky-200 opacity-85';
+                      statusBadge = (
+                        <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-sky-100 text-sky-800">
+                          Dikecualikan (Lulus BM)
+                        </span>
+                      );
+                    } else if (isManualDropped) {
                       rowStyle = 'bg-rose-50/70 border-rose-200 opacity-85';
                       statusBadge = (
                         <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">
@@ -636,6 +669,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           <span className="text-[9.5px] font-bold text-emerald-700 shrink-0 px-1.5">
                             Seksyen B
                           </span>
+                        ) : bahasaKebangsaanExempt ? (
+                          <span className="text-[9.5px] font-bold text-sky-700 shrink-0 px-1.5">Tidak diambil</span>
                         ) : prereqDropInfo ? (
                           <span
                             className="text-[9.5px] font-bold text-rose-700 shrink-0 px-1.5 cursor-help"

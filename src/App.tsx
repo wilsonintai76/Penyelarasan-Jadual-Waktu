@@ -84,6 +84,16 @@ export default function App() {
     }
   });
 
+  // Bahasa Kebangsaan A is only for students without an SPM credit in Bahasa Melayu.
+  const [bahasaKebangsaanPassed, setBahasaKebangsaanPassed] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('pks_bahasa_melayu_lulus');
+      return saved === null ? true : saved === 'true';
+    } catch {
+      return true;
+    }
+  });
+
   // Curriculum prerequisites for every programme, merged by course code at runtime.
   const [curricula, setCurricula] = useState<CurriculumLibrary | null>(null);
   const [curriculumRefreshKey, setCurriculumRefreshKey] = useState(0);
@@ -161,13 +171,14 @@ export default function App() {
       localStorage.setItem('pks_repeat_courses', JSON.stringify(selectedRepeatCourses));
       localStorage.setItem('pks_manual_dropped_courses', JSON.stringify(manualDroppedCourseCodes));
       localStorage.setItem('pks_elective_choices', JSON.stringify(electiveSelections));
+      localStorage.setItem('pks_bahasa_melayu_lulus', String(bahasaKebangsaanPassed));
       setLastAutoSavedTime(
         new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
       );
     } catch (e) {
       console.error('Ralat Auto-Save ke localStorage:', e);
     }
-  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, electiveSelections]);
+  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, electiveSelections, bahasaKebangsaanPassed]);
 
   // Periodic Auto-Save Timer (Periodic background check every 15 seconds)
   useEffect(() => {
@@ -177,6 +188,7 @@ export default function App() {
         localStorage.setItem('pks_repeat_courses', JSON.stringify(selectedRepeatCourses));
         localStorage.setItem('pks_manual_dropped_courses', JSON.stringify(manualDroppedCourseCodes));
         localStorage.setItem('pks_elective_choices', JSON.stringify(electiveSelections));
+        localStorage.setItem('pks_bahasa_melayu_lulus', String(bahasaKebangsaanPassed));
         if (timetable && timetable.length > 0) {
           localStorage.setItem('pks_master_timetable', JSON.stringify(timetable));
         }
@@ -186,7 +198,7 @@ export default function App() {
     }, 15000);
 
     return () => clearInterval(timer);
-  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, electiveSelections, timetable]);
+  }, [student, selectedRepeatCourses, manualDroppedCourseCodes, electiveSelections, bahasaKebangsaanPassed, timetable]);
 
   // Persist only the latest KV change log entry
   useEffect(() => {
@@ -520,7 +532,8 @@ export default function App() {
       selectedRepeatCourses,
       manualDroppedCourseCodes,
       curricula,
-      electiveSelections
+      electiveSelections,
+      bahasaKebangsaanPassed
     );
   }, [
     student.currentCohort,
@@ -528,7 +541,8 @@ export default function App() {
     selectedRepeatCourses,
     manualDroppedCourseCodes,
     curricula,
-    electiveSelections
+    electiveSelections,
+    bahasaKebangsaanPassed
   ]);
 
   // Credit rule toast alerts
@@ -730,6 +744,8 @@ export default function App() {
             manualDroppedCourseCodes={manualDroppedCourseCodes}
             onToggleManualDrop={handleToggleManualDrop}
         onSelectElectiveCourse={handleSelectElectiveCourse}
+            bahasaKebangsaanPassed={bahasaKebangsaanPassed}
+            onToggleBahasaKebangsaan={setBahasaKebangsaanPassed}
             undoHistoryCount={undoHistory.length}
             onUndoRepeatCourse={handleUndoRepeat}
             lastAutoSavedTime={lastAutoSavedTime}

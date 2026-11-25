@@ -168,6 +168,8 @@ export interface SolverAnalysis {
   manualDroppedPackages: CoursePackage[];
   electiveGroups: ElectiveChoiceGroup[];
   unselectedElectivePackages: CoursePackage[];
+  /** Bahasa Kebangsaan A courses left out because the student passed Bahasa Melayu. */
+  bahasaKebangsaanExemptPackages: CoursePackage[];
   creditsA: number;
   creditsB: number;
   totalCredits: number;

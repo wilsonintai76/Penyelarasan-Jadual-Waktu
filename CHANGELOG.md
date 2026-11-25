@@ -4,6 +4,24 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.12] - 2026-11-25
+
+### Added
+
+- **Bahasa Kebangsaan A** is now handled as a conditional course. It is only for students who did not obtain an
+  SPM credit in Bahasa Melayu, so Bahagian A shows a **"Lulus Bahasa Melayu (SPM)"** tick box (ticked by
+  default). While it is ticked the course is marked *Dikecualikan (Lulus BM)*, left out of Bahagian A, the credit
+  total, the timetable grid and Borang PK01; unticking it registers the course normally. The choice is saved per
+  student (`pks_bahasa_melayu_lulus`).
+- [bahasaKebangsaan.ts](src/utils/bahasaKebangsaan.ts) holds the rule: course codes `MPU22042`, `MPU22422`,
+  `MPU22212`, or any course named "Bahasa Kebangsaan A".
+
+### Fixed
+
+- `MPU22042` and `MPU22422` were published as **"Kokurikulum"**; they are **"Bahasa Kebangsaan A"**. Renamed in
+  the master timetable (14 rows), [course_catalog.json](public/assets/course_catalog.json) and the NiceGUI
+  extractor, then republished to Cloudflare (462 rows, backup in R2).
+
 ## [1.3.11] - 2026-11-25
 
 ### Changed

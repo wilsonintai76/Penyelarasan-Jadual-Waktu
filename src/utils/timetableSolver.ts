@@ -13,6 +13,7 @@ import {
 } from '../types';
 import { buildPrerequisiteGraph, findPrerequisiteDrops, findRepeatPrerequisiteViolations } from './prerequisiteEngine';
 import { findChoiceGroups, sharedChoiceSlot } from './choiceSchedule';
+import { isBahasaKebangsaanA } from './bahasaKebangsaan';
 
 export function parseTime(t: string): number {
   if (!t) return 0;
@@ -243,17 +244,27 @@ export function runFullAnalysis(
   selectedRepeatCourses: RepeatSelection[],
   manualDroppedCourseCodes: string[],
   curriculum?: CurriculumData | CurriculumLibrary | null,
-  electiveSelections: Record<string, string> = {}
+  electiveSelections: Record<string, string> = {},
+  bahasaKebangsaanPassed: boolean = true
 ): SolverAnalysis {
   const studentProgram = currentCohort.substring(0, 3).toUpperCase();
   const allPackages = getAllCoursePackages(timetable);
   const basePackages = allPackages.filter(p => p.Cohort === currentCohort);
 
+  // Bahasa Kebangsaan A is only for students without an SPM credit in Bahasa Melayu.
+  const bahasaKebangsaanExemptPackages = bahasaKebangsaanPassed
+    ? basePackages.filter(pkg => isBahasaKebangsaanA(pkg.Course_Code, pkg.Course_Name))
+    : [];
+  const excludedCodes = new Set([
+    ...manualDroppedCourseCodes,
+    ...bahasaKebangsaanExemptPackages.map(pkg => pkg.Course_Code)
+  ]);
+
   // Prerequisite pass: a base course is dropped when a prerequisite of it is being
   // repeated (not passed yet), cascading to every descendant course.
   const prerequisiteGraph = buildPrerequisiteGraph(curriculum);
   const prereqDroppedCourses = findPrerequisiteDrops(
-    basePackages.filter(p => !manualDroppedCourseCodes.includes(p.Course_Code)),
+    basePackages.filter(p => !excludedCodes.has(p.Course_Code)),
     selectedRepeatCourses,
     prerequisiteGraph
   );
@@ -265,7 +276,7 @@ export function runFullAnalysis(
 
   const manualDroppedPackages = basePackages.filter(p => manualDroppedCourseCodes.includes(p.Course_Code));
   const activeBasePackages = basePackages.filter(
-    p => !manualDroppedCourseCodes.includes(p.Course_Code) && !prereqDroppedCodes.has(p.Course_Code)
+    p => !excludedCodes.has(p.Course_Code) && !prereqDroppedCodes.has(p.Course_Code)
   );
 
   // "Pilih satu" courses: only the selected option of each slot-based group stays.
@@ -387,6 +398,7 @@ export function runFullAnalysis(
     manualDroppedPackages,
     electiveGroups,
     unselectedElectivePackages,
+    bahasaKebangsaanExemptPackages,
     creditsA,
     creditsB,
     totalCredits
