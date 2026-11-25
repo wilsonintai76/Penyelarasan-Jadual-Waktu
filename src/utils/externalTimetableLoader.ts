@@ -208,6 +208,8 @@ const HEADER_ALIASES: Record<string, keyof MasterTimetableEntry> = {
   section: 'Cohort',
   kelas: 'Cohort',
   class: 'Cohort',
+  sectiontype: 'Section_Type',
+  jenisseksyen: 'Section_Type',
   coursecode: 'Course_Code',
   kod: 'Course_Code',
   kodkursus: 'Course_Code',
@@ -284,6 +286,9 @@ export function normalizeExternalEntries(raw: unknown): MasterTimetableEntry[] {
     const lecturer =
       String(rec.Lecturer ?? rec.lecturer ?? rec.Pensyarah ?? '-').trim() || '-';
     const status = String(rec.Status ?? rec.status ?? 'D').trim() || 'D';
+    // Repeat-class sections from another department (JMSK/JTMK "MK") must survive
+    // normalisation so the planner can keep them out of the home-class list.
+    const sectionType = String(rec.Section_Type ?? rec.section_type ?? '').trim().toUpperCase();
 
     if (!cohort || !courseCode || !day || !startTime || !endTime) {
       continue;
@@ -299,7 +304,8 @@ export function normalizeExternalEntries(raw: unknown): MasterTimetableEntry[] {
       End_Time: endTime,
       Venue: venue,
       Lecturer: lecturer,
-      Status: status
+      Status: status,
+      ...(sectionType ? { Section_Type: sectionType } : {})
     });
   }
 

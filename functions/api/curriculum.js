@@ -130,6 +130,27 @@ async function readAssetCurriculum(env, request, programme) {
   }
 }
 
+/**
+ * Copies `meta.codeAliases` from the bundled asset onto a curriculum document that
+ * does not declare its own, so a KV override cannot silently lose the mapping.
+ */
+function inheritCodeAliases(curriculum, asset) {
+  const sourceMeta = (asset && asset.meta) || {};
+  const aliases = sourceMeta.codeAliases || {};
+  if (!curriculum || !curriculum.meta || Object.keys(aliases).length === 0) return curriculum;
+  if (curriculum.meta.codeAliases && Object.keys(curriculum.meta.codeAliases).length > 0) {
+    return curriculum;
+  }
+  return {
+    ...curriculum,
+    meta: {
+      ...curriculum.meta,
+      codeAliases: { ...aliases },
+      ...(sourceMeta.codeAliasNotes ? { codeAliasNotes: { ...sourceMeta.codeAliasNotes } } : {})
+    }
+  };
+}
+
 function summarize(programme, source, curriculum, extra = {}) {
   const courses = (curriculum && curriculum.courses) || {};
   const prerequisitesCount = Object.values(courses).reduce(
@@ -156,12 +177,16 @@ export async function onRequestGet(context) {
   if (requested) {
     const kv = await readKvCurriculum(env, requested);
     if (kv) {
+      // Aliases are curated in the bundled asset; keep them even when an older KV
+      // override was published before the mapping existed.
+      const asset = await readAssetCurriculum(env, request, requested);
+      const curriculum = inheritCodeAliases(kv.curriculum, asset);
       return jsonResponse({
         programme: requested,
         source: 'kv',
         updatedAt: kv.updatedAt,
         filename: kv.filename,
-        curriculum: kv.curriculum
+        curriculum
       });
     }
 
@@ -258,8 +283,14 @@ export async function onRequestPost(context) {
       );
     }
 
+    // Code aliases (timetable code -> official curriculum code) are curated in the
+    // bundled asset. A new upload usually knows nothing about them, so inherit them
+    // instead of silently dropping the mapping.
+    const bundledAsset = await readAssetCurriculum(env, request, programme);
+    const storedCurriculum = inheritCodeAliases(curriculum, bundledAsset);
+
     const record = {
-      curriculum,
+      curriculum: storedCurriculum,
       filename: String((body && body.filename) || ''),
       updatedAt: new Date().toISOString()
     };

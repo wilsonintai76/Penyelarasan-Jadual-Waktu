@@ -8,11 +8,13 @@ import { DataManagementModal, ModalSubTab, BindingsStatus } from './components/D
 import { ToastContainer, ToastItem } from './components/ToastContainer';
 import { runFullAnalysis } from './utils/timetableSolver';
 import { bahasaKebangsaanSemesterIssue } from './utils/bahasaKebangsaan';
+import { courseSemesterIssue } from './utils/courseSemesterRules';
 import { MAX_CREDITS, MIN_CREDITS, isAboveCreditLoad, isBelowCreditLoad } from './utils/creditRules';
 import { APP_VERSION_LABEL, formatBuildStamp } from './version';
 import {
   fetchLatestExternalTimetable,
   fetchSystemSettings,
+  normalizeExternalEntries,
   DEFAULT_SYSTEM_SETTINGS,
   ExternalSourceType
 } from './utils/externalTimetableLoader';
@@ -52,7 +54,9 @@ export default function App() {
   const [timetable, setTimetable] = useState<MasterTimetableEntry[]>(() => {
     try {
       const saved = localStorage.getItem('pks_master_timetable');
-      return saved ? JSON.parse(saved) : [];
+      // Re-normalise the cached copy so a field added later (e.g. Section_Type on the
+      // JMSK repeat sections) reaches the planner without waiting for a new publish.
+      return saved ? normalizeExternalEntries(JSON.parse(saved)) : [];
     } catch {
       return [];
     }
@@ -466,9 +470,18 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [undoHistory, selectedRepeatCourses, manualDroppedCourseCodes]);
 
-  // Compute available cohorts dynamically from Cloudflare KV timetable
+  // Compute available cohorts dynamically from Cloudflare KV timetable. Repeat-class
+  // sections from other departments (Section_Type "MK", e.g. JMSK) are offered as
+  // tumpang sections only, so they never appear as a student's home class.
   const availableCohorts = useMemo(() => {
-    return Array.from(new Set(timetable.map(t => t.Cohort))).sort();
+    const repeatSections = new Set(
+      timetable
+        .filter(t => String(t.Section_Type || '').toUpperCase() === 'MK')
+        .map(t => t.Cohort)
+    );
+    return Array.from(new Set(timetable.map(t => t.Cohort)))
+      .filter(cohort => !repeatSections.has(cohort))
+      .sort();
   }, [timetable]);
 
   // Load every available programme curriculum: prerequisite rules are course-level, and
@@ -652,7 +665,9 @@ export default function App() {
       return;
     }
 
-    const semesterIssue = bahasaKebangsaanSemesterIssue(code, student.currentCohort);
+    const semesterIssue =
+      bahasaKebangsaanSemesterIssue(code, student.currentCohort) ||
+      courseSemesterIssue(code, student.currentCohort);
     if (semesterIssue) {
       addToast({
         id: `repeat-semester-${Date.now()}`,

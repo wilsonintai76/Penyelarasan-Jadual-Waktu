@@ -22,6 +22,8 @@ export function normalizeCourseCode(code?: string | null): string {
 export interface PrerequisiteGraph {
   courses: Map<string, CurriculumCourse>;
   prerequisites: Map<string, string[]>;
+  /** Timetable code -> official curriculum code (e.g. DBS10082 -> DBS10042). */
+  aliases: Map<string, string>;
 }
 
 /**
@@ -44,8 +46,17 @@ export function toCurriculumDocuments(input: CurriculumInput): CurriculumData[] 
 export function buildPrerequisiteGraph(curriculum?: CurriculumInput): PrerequisiteGraph {
   const courses = new Map<string, CurriculumCourse>();
   const prerequisites = new Map<string, string[]>();
+  const aliases = new Map<string, string>();
 
   toCurriculumDocuments(curriculum).forEach(document => {
+    Object.entries(document.meta?.codeAliases || {}).forEach(([alias, official]) => {
+      const aliasCode = normalizeCourseCode(alias);
+      const officialCode = normalizeCourseCode(official);
+      if (aliasCode && officialCode && aliasCode !== officialCode && !aliases.has(aliasCode)) {
+        aliases.set(aliasCode, officialCode);
+      }
+    });
+
     Object.keys(document.courses).forEach(rawCode => {
       const code = normalizeCourseCode(rawCode);
       if (!code) return;
@@ -63,17 +74,31 @@ export function buildPrerequisiteGraph(curriculum?: CurriculumInput): Prerequisi
     });
   });
 
-  return { courses, prerequisites };
+  return { courses, prerequisites, aliases };
+}
+
+/**
+ * Maps a timetable code onto the curriculum code that carries its name and rules
+ * (`DBS10082` on the sheet is `DBS10042` in the Programme Information).
+ */
+export function resolveCourseCode(graph: PrerequisiteGraph, code?: string | null): string {
+  let current = normalizeCourseCode(code);
+  for (let hop = 0; hop < 4 && current && graph.aliases.has(current); hop += 1) {
+    const next = graph.aliases.get(current) as string;
+    if (next === current) break;
+    current = next;
+  }
+  return current;
 }
 
 export function getCourseName(graph: PrerequisiteGraph, code: string, fallback?: string): string {
-  return graph.courses.get(normalizeCourseCode(code))?.name || fallback || code;
+  return graph.courses.get(resolveCourseCode(graph, code))?.name || fallback || code;
 }
 
 /** All ancestor codes of `code` (transitive), cycle-safe. */
 export function getPrerequisiteClosure(code: string, graph: PrerequisiteGraph, limit = 32): string[] {
   const seen = new Set<string>();
-  const queue = [...(graph.prerequisites.get(normalizeCourseCode(code)) || [])];
+  const queue = [...(graph.prerequisites.get(resolveCourseCode(graph, code)) || [])];
 
   while (queue.length > 0 && seen.size < limit) {
     const next = queue.shift() as string;
@@ -96,7 +121,7 @@ function findUnsatisfiedAncestorPath(
   notPassed: Set<string>,
   graph: PrerequisiteGraph
 ): string[] | null {
-  const queue = (graph.prerequisites.get(code) || []).map(prereq => ({
+  const queue = (graph.prerequisites.get(resolveCourseCode(graph, code)) || []).map(prereq => ({
     code: prereq,
     path: [code, prereq]
   }));
@@ -133,14 +158,16 @@ export function findPrerequisiteBlocks(
 ): PrerequisiteBlock[] {
   if (graph.prerequisites.size === 0) return [];
 
-  const notPassed = new Set(Array.from(notPassedCodes, normalizeCourseCode).filter(Boolean));
+  const notPassed = new Set(
+    Array.from(notPassedCodes, code => resolveCourseCode(graph, code)).filter(Boolean)
+  );
   if (notPassed.size === 0) return [];
 
   const blocks: PrerequisiteBlock[] = [];
   const seen = new Set<string>();
 
   basePackages.forEach(pkg => {
-    const code = normalizeCourseCode(pkg.Course_Code);
+    const code = resolveCourseCode(graph, pkg.Course_Code);
     if (!code || seen.has(code) || notPassed.has(code)) return;
 
     const chain = findUnsatisfiedAncestorPath(code, notPassed, graph);
@@ -158,7 +185,9 @@ export function findRepeatPrerequisiteViolations(
   repeatCodes: Iterable<string>,
   graph: PrerequisiteGraph
 ): RepeatPrereqViolation[] {
-  const repeatSet = new Set(Array.from(repeatCodes, normalizeCourseCode).filter(Boolean));
+  const repeatSet = new Set(
+    Array.from(repeatCodes, code => resolveCourseCode(graph, code)).filter(Boolean)
+  );
   const violations: RepeatPrereqViolation[] = [];
 
   repeatSet.forEach(code => {
@@ -198,7 +227,9 @@ export function findRepeatPrerequisiteViolations(
   graph: PrerequisiteGraph
 ): PrereqDroppedCourse[] {
   const statusByCode = new Map<string, string>();
-  repeatSelections.forEach(sel => statusByCode.set(normalizeCourseCode(sel.code), sel.status));
+  repeatSelections.forEach(sel =>
+    statusByCode.set(resolveCourseCode(graph, sel.code), sel.status)
+  );
 
   const blocks = findPrerequisiteBlocks(
     basePackages,
@@ -207,7 +238,9 @@ export function findRepeatPrerequisiteViolations(
   );
 
   return blocks.map(block => {
-    const pkg = basePackages.find(p => normalizeCourseCode(p.Course_Code) === block.code) as CoursePackage;
+    const pkg = basePackages.find(
+      p => resolveCourseCode(graph, p.Course_Code) === block.code
+    ) as CoursePackage;
     const prereqStatus = statusByCode.get(block.blockedPrereq);
     const chainLabel = block.chain.join(' → ');
     const reason =

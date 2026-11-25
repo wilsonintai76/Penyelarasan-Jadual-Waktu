@@ -9,6 +9,9 @@ export interface MasterTimetableEntry {
   Venue: string;
   Lecturer: string;
   Status?: "D" | "C1" | "C2" | string;
+  /** `MK` marks a repeat-class section from another department (e.g. JMSK); it can be
+   *  picked as a tumpang section but is never a student's home class. */
+  Section_Type?: string;
 }
 
 export interface CourseSlot {
@@ -94,6 +97,12 @@ export interface CurriculumData {
     effective: string;
     source?: string;
     totalCredits?: number;
+    /**
+     * Codes printed on the timetable that belong to a curriculum course under a
+     * different code (alias -> official code), e.g. DBS10082 -> DBS10042.
+     */
+    codeAliases?: Record<string, string>;
+    codeAliasNotes?: Record<string, string>;
   };
   courses: Record<string, CurriculumCourse>;
   unresolvedPrerequisites?: { courseCode: string; courseName?: string; prerequisiteName?: string; note: string }[];

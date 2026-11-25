@@ -100,6 +100,47 @@ automatically dropped from the default (Bahagian A) timetable and reported to th
 repeating `DBM10163` drops `DBM20173` (and `DBM30183` when it is in the cohort's timetable). Dropped codes
 are derived on every run, never persisted, so removing the repeat restores the course.
 
+### Code aliases (jadual code ≠ Programme Information code)
+
+The timetable sheets sometimes print an older or alternate code for a course that the curriculum knows under
+a different one. `meta.codeAliases` in the curriculum document maps the printed code onto the official one:
+
+```json
+"codeAliases": { "DBS10082": "DBS10042" }
+```
+
+`DBS10082` is *Engineering Science* on the Semester 1 timetable sheets; the Programme Information lists it as
+`DBS10042` (Semester 1, 2 credits). With the alias declared, name/credit come from the curriculum, the code is
+no longer reported as `UNKNOWN_CODES` by the upload review, and prerequisite lookups resolve to the same course.
+The alias never adds a second course entry, so curriculum totals stay correct.
+
+## Repeat-class (MK) sections from other departments
+
+Service courses (Mathematics, Science) are taught by JMSK/JTMK, so their repeat classes are **not** part of a
+JKM programme timetable. They are added to the master as their own sections and marked so the planner offers
+them only as tumpang classes:
+
+```json
+{ "Program": "JMSK", "Cohort": "DBS10042-MKS1", "Section_Type": "MK", "Course_Code": "DBS10042", ... }
+```
+
+`Section_Type: "MK"` keeps the section out of the *Seksyen Semasa Pelajar* list (a student has no home class
+there) while the course still appears in Bahagian B, with each section selectable as the preferred class.
+Clashes with the student's own timetable are reported as usual. The current sections come from
+*Memo Kelas MK JMSK Sesi 2 2026/2027* (`sample/Memo Kelas MK JMSK Sesi2_2627.pdf`): `DBM30033-MK`,
+`DBS10042-MKS1`, `DBS10042-MKS2`, `DBM20173-MKS1`, `DBM20173-MKS2`, `DBM10143-MK`, `DBM30263-MK`.
+
+Two JKM courses print a different code per semester, and the rule is enforced when a repeat is added
+([courseSemesterRules.ts](src/utils/courseSemesterRules.ts)):
+
+| Course | Semester 1 | Semester 2 and above |
+| --- | --- | --- |
+| Engineering Science | `DBS10082` (JW Programme sheet) | `DBS10042` (Programme Information, JMSK MK sections) |
+
+A Semester-2 student therefore cannot add `DBS10082` in Bahagian B (it is hidden from the dropdown and
+rejected with an explanation that asks for `DBS10042`), and a Semester-1 student cannot add `DBS10042`.
+Sections without a semester in their name (`DBS10042-MKS1`) are not restricted.
+
 ## Conditional and "choose one" courses
 
 Two kinds of course are **not** automatically part of every student's registration. Both are handled by the

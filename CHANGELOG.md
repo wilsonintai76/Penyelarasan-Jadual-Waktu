@@ -4,6 +4,42 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.20] - 2026-11-25
+
+### Added
+
+- **JMSK/JTMK repeat-class (MK) sections are now available as tumpang classes.** *Memo Kelas MK JMSK Sesi 2
+  2026/2027* lists seven sections for service courses that JKM students repeat: `DBM30033-MK`,
+  `DBS10042-MKS1`, `DBS10042-MKS2`, `DBM20173-MKS1`, `DBM20173-MKS2`, `DBM10143-MK` and `DBM30263-MK`
+  (14 slots, master 491 ??? 505 rows). They are stored with `Program: "JMSK"` and `Section_Type: "MK"`, so they
+  appear in the Bahagian B (tumpang) dropdown with each section selectable, but never in the
+  *Seksyen Semasa Pelajar* list.
+- **Semester rule for Engineering Science codes.** `DBS10082` (printed on the Semester 1 JW Programme sheet)
+  is Semester 1 only; `DBS10042` (Programme Information, and the JMSK MK sections) is for Semester 2 and above.
+  [courseSemesterRules.ts](src/utils/courseSemesterRules.ts) hides the wrong code from the Bahagian B dropdown,
+  rejects it with an explanation naming the correct code, and the upload review warns with
+  `COURSE_SEMESTER_MISMATCH`. Sections without a semester in their name (`DBS10042-MKS1`) are not restricted.
+
+## [1.3.19] - 2026-11-25
+
+### Added
+
+- **Curriculum code aliases (`meta.codeAliases`).** The timetable sheets print `DBS10082` for *Engineering
+  Science* in every Semester 1 cohort, while the Programme Information lists the course as `DBS10042`
+  (Semester 1, 2 credits). [dkm.json](public/assets/curriculum/dkm.json) now declares
+  `"codeAliases": { "DBS10082": "DBS10042" }`, so:
+  - the name and credit of `DBS10082` come from the curriculum instead of the uploaded file,
+  - the upload review no longer reports `DBS10082` under `UNKNOWN_CODES`,
+  - prerequisite lookups (`resolveCourseCode`) map the printed code onto the official course, so a repeat of
+    either code blocks the same dependants,
+  - the alias never creates a second course entry, so curriculum totals and the PK01 credit sum are unchanged.
+
+  It is wired in [prerequisiteEngine.ts](src/utils/prerequisiteEngine.ts) (graph + name resolution),
+  [timetableValidation.ts](src/utils/timetableValidation.ts) (canonical name map) and
+  [_courseNames.js](functions/api/_courseNames.js) (publish-time canonicalisation). Verified with a Node
+  harness: `DBS10082` resolves to *Engineering Science* / 2 credits and a misspelt uploaded name is corrected,
+  while a genuinely unknown code is still flagged.
+
 ## [1.3.18] - 2026-11-25
 
 ### Fixed

@@ -7,6 +7,7 @@ import {
   findChoiceGroups
 } from './choiceSchedule';
 import { bahasaKebangsaanSemesterIssue } from './bahasaKebangsaan';
+import { courseSemesterIssue } from './courseSemesterRules';
 
 export interface TimetableIssue {
   code: string;
@@ -68,6 +69,7 @@ export function buildCanonicalNameMap(
   curricula: CurriculumData | CurriculumLibrary | null | undefined
 ): Record<string, string> {
   const map: Record<string, string> = {};
+  const aliases: Record<string, string> = {};
   toCurriculumDocuments(curricula).forEach(document => {
     const courses = (document && document.courses) || {};
     Object.entries(courses).forEach(([code, course]) => {
@@ -75,6 +77,21 @@ export function buildCanonicalNameMap(
       const name = String((course && course.name) || '').trim();
       if (key && name && !map[key]) map[key] = name;
     });
+    Object.entries((document && document.meta && document.meta.codeAliases) || {}).forEach(
+      ([alias, official]) => {
+        const aliasKey = normalizeCourseCode(alias);
+        const officialKey = normalizeCourseCode(official);
+        if (aliasKey && officialKey && aliasKey !== officialKey && !aliases[aliasKey]) {
+          aliases[aliasKey] = officialKey;
+        }
+      }
+    );
+  });
+
+  // A timetable may print an older/alternate code for the same course
+  // (DBS10082 on the sheet, DBS10042 in the Programme Information).
+  Object.entries(aliases).forEach(([aliasKey, officialKey]) => {
+    if (!map[aliasKey] && map[officialKey]) map[aliasKey] = map[officialKey];
   });
 
   return map;
@@ -137,6 +154,16 @@ export function validateTimetableSlots(
         'SEMESTER_CODE_MISMATCH',
         'Kod Bahasa Kebangsaan A tidak sepadan dengan semester kohort',
         label
+      );
+    }
+
+    const courseSemester = courseSemesterIssue(code, cohort);
+    if (courseSemester) {
+      addIssue(
+        warnings,
+        'COURSE_SEMESTER_MISMATCH',
+        'Kod kursus tidak sepadan dengan semester kohort (kod lama/baharu)',
+        `${label} — ${code}`
       );
     }
 

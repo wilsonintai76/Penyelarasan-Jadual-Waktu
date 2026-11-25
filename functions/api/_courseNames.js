@@ -40,31 +40,43 @@ async function listKvProgrammes(env) {
 }
 
 async function readCurriculum(env, request, programme) {
+  let document = null;
   if (env && env.JADUAL_KV) {
     try {
       const raw = await env.JADUAL_KV.get(`${CURRICULUM_PREFIX}${programme}`, { type: 'text' });
       if (raw) {
         const parsed = JSON.parse(raw);
         const curriculum = parsed && parsed.curriculum ? parsed.curriculum : parsed;
-        if (isValidCurriculum(curriculum)) return curriculum;
+        if (isValidCurriculum(curriculum)) document = curriculum;
       }
     } catch {
       // fall through to the bundled asset
     }
   }
+  let asset = null;
   if (env && env.ASSETS && request) {
     try {
       const assetUrl = new URL(`/assets/curriculum/${programme.toLowerCase()}.json`, request.url);
       const res = await env.ASSETS.fetch(new Request(assetUrl.toString()));
       if (res.ok) {
         const parsed = await res.json();
-        if (isValidCurriculum(parsed)) return parsed;
+        if (isValidCurriculum(parsed)) asset = parsed;
       }
     } catch {
       // no bundled document for this programme
     }
   }
-  return null;
+  const source = document || asset;
+  if (!source) return null;
+
+  // Code aliases are curated in the bundled asset, so a KV override published before
+  // the mapping existed must not lose it.
+  const assetAliases = (asset && asset.meta && asset.meta.codeAliases) || {};
+  const ownAliases = (source.meta && source.meta.codeAliases) || {};
+  if (Object.keys(ownAliases).length === 0 && Object.keys(assetAliases).length > 0) {
+    return { ...source, meta: { ...source.meta, codeAliases: { ...assetAliases } } };
+  }
+  return source;
 }
 
 /**
@@ -85,6 +97,18 @@ export async function loadCanonicalCourses(env, request) {
       const credit = Number(course && course.credit);
       map[key] = { name, credit: Number.isFinite(credit) && credit > 0 ? credit : null };
     });
+
+    // Codes printed on a timetable that belong to a curriculum course under another
+    // code (e.g. DBS10082 on the sheet vs DBS10042 in the Programme Information).
+    Object.entries((curriculum && curriculum.meta && curriculum.meta.codeAliases) || {}).forEach(
+      ([alias, official]) => {
+        const aliasKey = normalizeCourseCode(alias);
+        const officialKey = normalizeCourseCode(official);
+        if (!aliasKey || !officialKey || aliasKey === officialKey || map[aliasKey]) return;
+        const target = map[officialKey];
+        if (target) map[aliasKey] = { ...target };
+      }
+    );
   }
 
   // Codes outside every curriculum (co-curriculum MPU24xxx, programme-specific electives)

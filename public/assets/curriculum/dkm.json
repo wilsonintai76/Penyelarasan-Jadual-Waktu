@@ -5,7 +5,13 @@
     "version": "06062024_3",
     "effective": "Session I 2026/2027",
     "source": "PROGRAMME INFORMATION DKM v3, Section 11 (pages 7-9)",
-    "totalCredits": 93
+    "totalCredits": 93,
+    "codeAliases": {
+      "DBS10082": "DBS10042"
+    },
+    "codeAliasNotes": {
+      "DBS10082": "Engineering Science - kod yang dicetak pada jadual waktu (Semester 1); kod rasmi kurikulum ialah DBS10042"
+    }
   },
   "courses": {
     "DUE10062": {

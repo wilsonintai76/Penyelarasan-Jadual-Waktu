@@ -41,6 +41,7 @@ import {
 } from '../utils/timetableSolver';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
 import { bahasaKebangsaanSemesterIssue } from '../utils/bahasaKebangsaan';
+import { courseSemesterIssue } from '../utils/courseSemesterRules';
 import { MAX_CREDITS, MIN_CREDITS } from '../utils/creditRules';
 
 interface PlannerViewProps {
@@ -117,6 +118,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     });
     return Array.from(map.values())
       .filter(option => !bahasaKebangsaanSemesterIssue(option.code, student.currentCohort))
+      .filter(option => !courseSemesterIssue(option.code, student.currentCohort))
       .sort((a, b) => a.code.localeCompare(b.code));
   }, [timetable, student.currentCohort]);
 
