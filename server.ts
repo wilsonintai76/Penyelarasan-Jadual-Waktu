@@ -137,13 +137,16 @@ async function startServer() {
       return;
     }
 
+    const named = applyCanonicalCourseNames(rawEntries as Array<Record<string, any>>);
+    const entries = named.entries as typeof rawEntries;
+
     const existing = readJsonFile<unknown[]>(KV_JADUAL_FILE, []);
     const previousSlots = Array.isArray(existing) ? existing.length : 0;
 
-    writeJsonFile(KV_JADUAL_FILE, rawEntries);
+    writeJsonFile(KV_JADUAL_FILE, entries);
 
     const cohortsCount = new Set(
-      rawEntries.map((r: any) => String(r?.Cohort || '').trim()).filter(Boolean)
+      entries.map((r: any) => String(r?.Cohort || '').trim()).filter(Boolean)
     ).size;
 
     const latestEntry = {
@@ -152,9 +155,11 @@ async function startServer() {
       source: body?.source || 'web_pdf_upload',
       filename: body?.filename || 'jadual_induk_jkm.pdf',
       previousSlots,
-      newSlots: rawEntries.length,
-      deltaSlots: rawEntries.length - previousSlots,
+      newSlots: entries.length,
+      deltaSlots: entries.length - previousSlots,
       cohortsCount,
+      namesCorrected: named.namesCorrected,
+      unknownCourseCodes: named.unknownCourseCodes.slice(0, 20),
       engineLabel: body?.engineLabel || 'Cloudflare Web Upload'
     };
 
@@ -163,8 +168,10 @@ async function startServer() {
     res.status(200).json({
       ok: true,
       kvKey: 'jadual_induk_jkm',
-      slotsCount: rawEntries.length,
+      slotsCount: entries.length,
       cohortsCount,
+      namesCorrected: named.namesCorrected,
+      unknownCourseCodes: named.unknownCourseCodes.slice(0, 20),
       latestLog: latestEntry
     });
   });
@@ -291,6 +298,66 @@ async function startServer() {
     writeJsonFile(KV_SETTINGS_FILE, updated);
     res.status(200).json({ ok: true, settings: updated });
   });
+
+
+// Canonical course names merged from every programme curriculum (KV override first,
+// bundled asset second) so a stale catalogue or a shifted OCR column cannot publish
+// the wrong course name into the master timetable.
+function loadCanonicalCourses(): Record<string, { name: string; credit: number | null }> {
+  const map: Record<string, { name: string; credit: number | null }> = {};
+  const store = readJsonFile<Record<string, any>>(KV_CURRICULUM_FILE, {});
+  const programmes = Array.from(
+    new Set(['DKM', 'DAD', 'DPU', 'DTP', ...Object.keys(store).map(k => String(k).toUpperCase())])
+  );
+
+  programmes.forEach(programme => {
+    let curriculum = store[programme]?.curriculum || null;
+    if (!curriculum) {
+      const asset = readJsonFile<any>(
+        path.join(CURRICULUM_ASSET_DIR, `${programme.toLowerCase()}.json`),
+        null
+      );
+      curriculum = asset && asset.courses ? asset : null;
+    }
+    const courses = (curriculum && curriculum.courses) || {};
+    Object.entries<any>(courses).forEach(([code, course]) => {
+      const key = String(code).toUpperCase().replace(/\s+/g, '');
+      if (!key || map[key] || !course || !course.name) return;
+      const credit = Number(course.credit);
+      map[key] = { name: String(course.name).trim(), credit: Number.isFinite(credit) && credit > 0 ? credit : null };
+    });
+  });
+
+  return map;
+}
+
+function applyCanonicalCourseNames<T extends Record<string, any>>(entries: T[]) {
+  const canonical = loadCanonicalCourses();
+  let namesCorrected = 0;
+  const unknownCourseCodes = new Set<string>();
+
+  const normalized = entries.map(entry => {
+    const code = String((entry && entry.Course_Code) || '').toUpperCase().replace(/\s+/g, '');
+    if (!code) return entry;
+    const match = canonical[code];
+    const next: Record<string, any> = { ...entry, Course_Code: code };
+    if (!match) {
+      unknownCourseCodes.add(code);
+      return next;
+    }
+    if (match.name && String(entry.Course_Name || '').trim() !== match.name) {
+      next.Course_Name = match.name;
+      namesCorrected += 1;
+    }
+    const credit = Number(entry.Credit);
+    if (match.credit && (!Number.isFinite(credit) || credit < 1 || credit > 8)) {
+      next.Credit = match.credit;
+    }
+    return next as T;
+  });
+
+  return { entries: normalized, namesCorrected, unknownCourseCodes: Array.from(unknownCourseCodes).sort() };
+}
 
   // GET /api/curriculum (KV override, falls back to the bundled asset)
   app.get('/api/curriculum', (req, res) => {

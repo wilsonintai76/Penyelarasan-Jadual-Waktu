@@ -776,6 +776,7 @@ export default function App() {
         }}
         onCurriculumPublished={() => setCurriculumRefreshKey(key => key + 1)}
         availableProgrammes={timetableProgrammes.split(',').filter(Boolean)}
+        curricula={curricula}
         initialSubTab={modalInitialTab}
       />
 

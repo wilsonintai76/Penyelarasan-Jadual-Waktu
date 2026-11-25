@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import {
   CurriculumData,
+  CurriculumLibrary,
   CurriculumSummary,
   CurriculumValidation,
   MasterTimetableEntry,
@@ -36,6 +37,7 @@ import {
   TimetableChangeLogEntry
 } from '../types';
 import { validateCurriculum } from '../utils/prerequisiteEngine';
+import { buildCanonicalNameMap, validateTimetableSlots } from '../utils/timetableValidation';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
 import { APP_VERSION_LABEL } from '../version';
 import {
@@ -76,6 +78,7 @@ interface DataManagementModalProps {
   onTimetablePublished: () => Promise<void>;
   onCurriculumPublished?: () => void;
   availableProgrammes?: string[];
+  curricula?: CurriculumLibrary | null;
   initialSubTab?: ModalSubTab;
 }
 
@@ -102,6 +105,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
   onTimetablePublished,
   onCurriculumPublished,
   availableProgrammes = [],
+  curricula = null,
   initialSubTab = 'upload_timetable'
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<ModalSubTab>(initialSubTab);
@@ -228,6 +232,13 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
     });
     return Array.from(counts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
   }, [stagedEntries]);
+
+  const canonicalCourseNames = useMemo(() => buildCanonicalNameMap(curricula), [curricula]);
+
+  const stagedValidation = useMemo(
+    () => validateTimetableSlots(stagedEntries, { knownCourseNames: canonicalCourseNames }),
+    [stagedEntries, canonicalCourseNames]
+  );
 
   const filteredStagedEntries = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -498,8 +509,9 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
       }
 
       await onTimetablePublished();
+      const corrected = Number(data?.namesCorrected) || 0;
       setNotice({
-        text: `Berjaya diterbitkan ke Cloudflare KV! ${data.slotsCount} slot kuliah (${data.cohortsCount} seksyen) kini aktif untuk semua pelajar.`,
+        text: `Berjaya diterbitkan ke Cloudflare KV! ${data.slotsCount} slot kuliah (${data.cohortsCount} seksyen) kini aktif untuk semua pelajar.${corrected > 0 ? ` ${corrected} nama kursus diselaraskan dengan kurikulum.` : ''}`,
         type: 'success'
       });
     } catch (err: any) {
@@ -1403,7 +1415,7 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                       <button
                         type="button"
                         onClick={handlePublishToKV}
-                        disabled={isPublishingKv}
+                        disabled={isPublishingKv || stagedValidation.errors.length > 0}
                         className="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:opacity-60 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition cursor-pointer"
                       >
                         {isPublishingKv ? (
@@ -1419,6 +1431,55 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                         )}
                       </button>
                     </div>
+                  </div>
+
+                  {/* Data quality report: errors block publishing, warnings ask for a review */}
+                  {(stagedValidation.errors.length > 0 || stagedValidation.warnings.length > 0) && (
+                    <div className="space-y-2">
+                      {stagedValidation.errors.length > 0 && (
+                        <div className="rounded-xl border border-rose-300 bg-rose-50 p-3">
+                          <p className="text-[11px] font-black uppercase tracking-wide text-rose-800">
+                            Pengesahan gagal ? {stagedValidation.errors.reduce((total, issue) => total + issue.count, 0)} baris bermasalah, pembetulan diperlukan sebelum terbit
+                          </p>
+                          <ul className="mt-1.5 space-y-1 text-[11px] text-rose-900">
+                            {stagedValidation.errors.slice(0, 4).map(issue => (
+                              <li key={issue.code}>
+                                <b>{issue.message}</b> ({issue.count}x)
+                                {issue.samples.length > 0 ? ` ? cth. ${issue.samples.join(', ')}` : ''}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {stagedValidation.warnings.length > 0 && (
+                        <div className="rounded-xl border border-amber-300 bg-amber-50 p-3">
+                          <p className="text-[11px] font-black uppercase tracking-wide text-amber-800">
+                            Amaran kualiti data ? semak sebelum menerbitkan
+                          </p>
+                          <ul className="mt-1.5 space-y-1 text-[11px] text-amber-900">
+                            {stagedValidation.warnings.slice(0, 5).map(issue => (
+                              <li key={issue.code}>
+                                <b>{issue.message}</b>
+                                {issue.samples.length > 0 ? ` ? cth. ${issue.samples.join(', ')}` : ''}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
+                    <span className="px-2 py-0.5 rounded-md bg-slate-100 font-bold text-slate-700">
+                      {stagedValidation.stats.cohorts} seksyen
+                    </span>
+                    <span className="px-2 py-0.5 rounded-md bg-slate-100 font-bold text-slate-700">
+                      {stagedValidation.stats.courses} kod kursus
+                    </span>
+                    <span className="px-2 py-0.5 rounded-md bg-slate-100 font-bold text-slate-700">
+                      min {stagedValidation.stats.minWeeklyHours.toFixed(1)} jam ? median {stagedValidation.stats.medianWeeklyHours.toFixed(1)} jam
+                    </span>
+                    <span className="text-slate-400">Nama kursus diselaraskan dengan kurikulum program semasa terbit.</span>
                   </div>
 
                   {/* Cohort Pills & Search */}

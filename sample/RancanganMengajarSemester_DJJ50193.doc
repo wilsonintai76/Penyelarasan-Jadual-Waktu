@@ -1,0 +1,2041 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Semester Lesson Plan / Rancangan Mengajar Semester</title>
+
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+
+<style>
+/*@page
+{
+    mso-page-orientation: landscape;
+    size:29.7cm 21cm;    
+	margin:0.5cm 0.4cm 1.3cm 0.4cm;
+}*/
+
+@page
+{
+    mso-page-orientation: landscape;
+    size:29.7cm 21cm;    
+	margin:1cm 1cm 1.3cm 1cm;
+}
+
+@page Section1 {
+    mso-header-margin:.5in;
+    mso-footer-margin:.5in;
+    mso-header: h1;
+    mso-footer: f1;
+    }
+div.Section1 { page:Section1; }
+table#hrdftrtbl
+{
+    margin:0in 0in 0in 900in;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+{
+    margin:0in;
+    margin-bottom:.0001pt;
+    mso-pagination:widow-orphan;
+    tab-stops:center 3.0in right 6.0in;
+    font-size:10.0pt;
+}
+</style>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+<body style="margin: 0px; page-break-inside: avoid; font-family:Arial, Helvetica, sans-serif; font:Arial, Helvetica, sans-serif; font-size:8pt;">
+<div class="Section1">
+
+
+
+
+
+
+<style type="text/css">
+<!--
+.stylegarisbawah {
+	border-width:0px ;
+	border-color:#000; 
+    border-style:solid;
+	padding:0px;
+	border-bottom-width:1px;
+}
+.stylegarisbawahkanan {
+	border-width:0px ;
+	border-color:#000; 
+    border-style:solid;
+	padding:0px;
+	border-bottom-width:1px;
+	border-right-width:1px;
+}
+.stylegarisataskirikanan {
+	border-width:0px ;
+	border-color:#000; 
+    border-style:solid;
+	padding:0px;
+	border-top-width:1px;
+	border-right-width:1px;
+	border-left-width:1px;
+}
+
+.stylegarisemua{
+	border-width:0px ;
+	border-color:#000; 
+    border-style:solid;
+	padding:0px;
+	border-top-width:thin;
+	border-right-width:thin;
+	border-left-width:thin;
+	border-bottom-width:thin;
+}
+
+.break { page-break-after: always; width:210px  }
+</style>
+
+
+
+    <center>
+    <table width="90%" style="border-collapse:collapse; border-spacing:0; font-family:Arial, Helvetica, sans-serif; font:Arial, Helvetica, sans-serif; font-size:10pt">
+	<tr><td align="center"><font style="font-size:11pt"><strong>RANCANGAN MENGAJAR<br/></strong></font></td></tr>
+    
+    
+    
+    
+    <tr><td align="center">
+    <table width="100%" style="border-collapse:collapse;  font-family:Arial, Helvetica, sans-serif; font:Arial, Helvetica, sans-serif; font-size:10pt">
+    
+    <tr>
+    	<td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="5">
+    	NAMA PENSYARAH KURSUS &nbsp;&nbsp; : WILSON ANAK INTAI</td>
+        <td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="3">
+        SESI &nbsp;&nbsp;&nbsp; : I : 2025/2026</td>
+    </tr>
+    <tr>
+    	<td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="5">
+    	JABATAN &nbsp;&nbsp; : 
+        
+        
+        
+        
+        	
+        		JABATAN KEJURUTERAAN MEKANIKAL
+        	
+        
+        </td>
+        <td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="3">
+        SEKSYEN : S1</td>
+    </tr>
+    <tr>
+    	<td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="5">
+    	KOD &amp; NAMA KURSUS &nbsp;&nbsp; : DJJ50193 - PROJECT 2</td>
+        <td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="3">
+        KELAS &nbsp;&nbsp;&nbsp; : DKM5B,
+        </td>
+    </tr>
+    <tr>
+    	<td align="left" style="font-weight:bold; padding-top:3; padding-bottom:3" colspan="5">&nbsp;</td></tr>
+        
+    
+    
+    
+    
+    
+    
+    <tr bgcolor="#CCCCCC">
+    	<td align="center" class="stylegarisemua" width="15%"><strong>WEEK/<br>DATE</strong></td>
+    	<td align="center" class="stylegarisemua" width="25%"><strong>TOPIC AND SUB TOPIC</strong></td>
+        <td align="center" class="stylegarisemua" width="5%"><strong>CLO</strong></td>
+        <td align="center" class="stylegarisemua" width="5%"><strong>PLO</strong></td>
+        <td align="center" class="stylegarisemua" width="7%"><strong>TEACHING &amp; LEARNING ACTIVITIES</strong></td>
+        <td align="center" class="stylegarisemua" width="8%"><strong>ASSESSMENT</strong></td>
+        <td align="center" class="stylegarisemua" width="10%"><strong>DATE OF IMPLEMENTATION</strong></td>
+        <td align="center" class="stylegarisemua" width="25%"><strong>NOTES/REFLECTION/ANALYSIS & CQI</strong></td>
+    </tr>
+    
+    
+    
+    
+    
+    
+            
+            
+                
+                
+                    
+                    
+                    
+                            <tr bgcolor="#CCCCCC">
+                                <td align="center" class="stylegarisemua"><br/>
+                                28/07/2025 - 03/08/2025</td>
+                                <td align="center" class="stylegarisemua" colspan="7">
+                                <font color="#000066" style="font-size:14px"><strong>MINGGU SUAIKENAL</strong></font>
+                                </td></tr>
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">1<br/>
+                                        04/08/2025 - 10/08/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>1.0 <strong>Project Planning</strong> involves organizing all necessary components to ensure successful project execution:</p>
+<div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+<div class="flex-col gap-1 md:gap-3">
+<div class="flex max-w-full flex-col flex-grow">
+<div class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="e24e084a-d141-4552-9662-1a88d75c3d2a" data-message-model-slug="gpt-4o-mini">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>1.1 <strong>Organize Project Requirements</strong>:</p>
+<ul>
+<li><strong>Schedule and Milestones</strong>: Develop a timeline with key deadlines.</li>
+<li><strong>Individual Logbook</strong>: Maintain detailed records of daily activities.</li>
+</ul>
+<p>1.2 <strong>Coordinate Project Plan</strong>: Align tasks with project goals and ensure consistency.</p>
+<p>1.3 <strong>Organize Project Scope and Limitations</strong>: Define the boundaries and constraints of the project.</p>
+<p>1.4 <strong>Organize Project Methodology</strong>:</p>
+<ul>
+<li><strong>Sketch Project Design or Case Study</strong>: Detail the project&rsquo;s design or case study.</li>
+<li><strong>Construct Design Analysis</strong>: Analyze the feasibility and performance of the design.</li>
+<li><strong>Estimate Project Costs and Outcomes</strong>: Determine the financial requirements and expected results.</li>
+<li><strong>Organize Needs, Equipment, Tools, and Materials</strong>: Identify and secure necessary resources for successful project completion.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO1, CLO2</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO3, PLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p>Log book</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204147" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>07/08/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204147" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Course outline explanation and assessment percentage.</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Organize project requirements</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">2) Coordinate project plan</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">3) Organize project scope and limitation</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Students able to&nbsp;carry out the project under the supervision of supervisors.</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">&nbsp;</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">2<br/>
+                                        11/08/2025 - 17/08/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>1.4 Organizing the project methodology involves detailing the project design or case study, constructing design analysis, estimating project costs and outcomes, and securing necessary resources such as equipment, tools, and materials.</p>
+<p>2.0 Project development includes organizing the overall development process and coordinating each stage in detail to ensure smooth progress and successful completion.</p><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO1, CLO2</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO3, PLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Log book</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204151" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>14/08/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204151" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Organize project methodology<br /> 2) Organize project development</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">3) Coordinate each stage of project development in details</span></p>
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; mso-fareast-font-family: 'Times New Roman';"><br /><br /></span></strong></p>
+<p class="MsoNormal" style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; mso-fareast-font-family: 'Times New Roman';"><br /><br /></span></p>
+<p>&nbsp;</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10pt; font-family: Arial, sans-serif;">Students able to&nbsp;carry out the project under the supervision of supervisors. </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10pt; font-family: Arial, sans-serif;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10pt; font-family: Arial, sans-serif;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10pt; font-family: Arial, sans-serif;">- Not relevant</span></p>
+<p>&nbsp;</p>
+<p class="MsoNormal" style="text-align: center;" align="center">&nbsp;</p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">3<br/>
+                                        18/08/2025 - 24/08/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <div class="flex-shrink-0 flex flex-col relative items-end">&nbsp;</div>
+<div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+<div class="flex-col gap-1 md:gap-3">
+<div class="flex max-w-full flex-col flex-grow">
+<div class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="f6c365aa-5a8c-4676-afe5-c0eaccef0098" data-message-model-slug="gpt-4o-mini">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>2.3 <strong>Construct the Project Using Appropriate Techniques and Tools</strong>: Implement the project using suitable methods, ensuring efficiency and accuracy in execution.</p>
+<p>2.5.1 <strong>Construct Project Using Equipment, Materials, and Tools in the Laboratory and Workshop</strong>: Utilize the required resources in the laboratory or workshop for construction, adhering to specifications.</p>
+<p>2.5.2 <strong>Assemble the Project Following Safety Measures</strong>: Assemble the project carefully, ensuring all safety protocols are followed to minimize risk and ensure a safe working environment.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO1, CLO2</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO3, PLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Log book</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204159" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>21/08/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204159" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Construct the project using appropriate techniques and tools<br /> 2) Construct project using equipment, materials and tools in the laboratory and workshop<br /> 3) Assemble project follows safety measures</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Students able to&nbsp;carry out the project under the supervision of supervisors. </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">4<br/>
+                                        25/08/2025 - 31/08/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>2.4 <strong>Measure the Validity and Reliability of the Project</strong>: Assess the accuracy and consistency of the project&rsquo;s outcomes to ensure it meets the intended objectives and performs reliably under different conditions.</p><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO1, CLO2</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO3, PLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Log book</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204160" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>28/08/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204160" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Measure the validity and reliability of the project</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Students able to&nbsp;carry out the project under the supervision of supervisors. </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">5<br/>
+                                        01/09/2025 - 07/09/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>2.5 <strong>Organize Project Results and Analysis</strong>: Compile and structure the project findings and data analysis for clear understanding and evaluation.</p>
+<p>2.5.2 <strong>Interpret the Results of the Analysis</strong>: Analyze the results to draw meaningful conclusions and assess the project's success or areas for improvement.</p>
+<p>2.5.3 <strong>Propose Future Enhancement of the Project</strong>: Identify opportunities for further development and improvements to enhance the project's performance or scalability.</p><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO1, CLO2</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO3, PLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Project Report</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204161" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>04/09/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204161" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Organizes project results and analysis</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">2) Interpret the results of the analysis</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">3) Propose future enhancement of the project.</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Students able to&nbsp;carry out the project under the supervision of supervisors. </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">6<br/>
+                                        08/09/2025 - 14/09/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>3.0 <strong>Project Report</strong>: Prepare the project report following the standard format:</p>
+<p>3.1 <strong>Write a Project Report Based on</strong>:</p>
+<ul>
+<li><strong>Introduction to the Title</strong>: Provide an overview of the project, including its objectives, scope, and significance.</li>
+<li><strong>Literature Review</strong>: Summarize relevant research and previous work in the field, highlighting key findings and how they relate to the project.</li>
+</ul><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">PLO11</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Project Report</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204164" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>11/09/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204164" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Write a project report according to the standard format based on;<br /> i. Introductory to the title<br /> ii. Literature review</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Students able to write proper and details report&nbsp;related to the project&nbsp;and able to&nbsp;carry out the project under the supervision of supervisors</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                            <tr bgcolor="#CCCCCC">
+                                <td align="center" class="stylegarisemua"><br/>
+                                15/09/2025 - 21/09/2025</td>
+                                <td align="center" class="stylegarisemua" colspan="7">
+                                <font color="#000066" style="font-size:14px"><strong>CUTI PERTENGAHAN SEMESTER</strong></font>
+                                </td></tr>
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">7<br/>
+                                        22/09/2025 - 28/09/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <div class="flex max-w-full flex-col flex-grow">
+<div class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="765e8b13-08b6-43e7-ab4e-54d79f933e0c" data-message-model-slug="gpt-4o-mini">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>3.0 <strong>Project Report</strong>: Write the project report following the standard format:</p>
+<p>3.1 <strong>Write a Project Report Based on</strong>:</p>
+<ul>
+<li><strong>Introduction to the Title</strong>: Provide an overview of the project, its objectives, scope, and significance.</li>
+<li><strong>Literature Review</strong>: Summarize existing research and work in the field, highlighting key findings and their relevance to the project.</li>
+<li><strong>Methodology</strong>: Describe the methods and techniques used to conduct the project, explaining the rationale behind the chosen approach.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-2 flex gap-3 empty:hidden -ml-2">&nbsp;</div><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO11</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Project Report</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204165" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>25/09/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204165" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Write a project report according to the standard format based on;<br /> i. Introductory to the title<br /> ii. Literature review<br /> iii. Methodology</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Students able to write proper and details report&nbsp;related to the project&nbsp;and able to&nbsp;carry out the project under the supervision of supervisors</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">8<br/>
+                                        29/09/2025 - 05/10/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>3.0 <strong>Project Report</strong>: Prepare the project report according to the standard format:</p>
+<p>3.1 <strong>Write a Project Report Based on</strong>:</p>
+<ul>
+<li><strong>Introduction to the Title</strong>: Provide an overview of the project, its objectives, scope, and significance.</li>
+<li><strong>Literature Review</strong>: Summarize existing research and previous work in the field, highlighting key findings and their relevance to the project.</li>
+<li><strong>Methodology</strong>: Describe the methods and techniques used to conduct the project, explaining the rationale behind the approach.</li>
+<li><strong>Results and Analysis</strong>: Present the findings of the project, followed by a detailed analysis of the data, discussing key trends, patterns, and insights.</li>
+</ul><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">PLO11</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Project Report</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m204168" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>02/10/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n204168" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1. Safety briefing:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Follow lab instructions </span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Switch off all switches when exit the class</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Emergency exit</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">2. Formative/Summative Assessment:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Summative:</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Logbook, report</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Formative:</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">1) </span><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Write a project report according to the standard format based on;<br /> i. Introductory to the title<br /> ii. Literature review<br /> iii. Methodology</span></p>
+<p><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">iv. Result and analysis</span></p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Students able to write proper and details report&nbsp;related to the project&nbsp;and able to&nbsp;carry out the project under the supervision of supervisors</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">&nbsp;</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">Postponement of Assessment (if related):</span></p>
+<p style="margin: 0cm;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif; color: black;">- Not relevant</span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">9<br/>
+                                        06/10/2025 - 12/10/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <div class="flex-shrink-0 flex flex-col relative items-end">&nbsp;</div>
+<div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+<div class="flex-col gap-1 md:gap-3">
+<div class="flex max-w-full flex-col flex-grow">
+<div class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="df6f4ad7-ebab-4d8f-8949-b7e63185555a" data-message-model-slug="gpt-4o-mini">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>3.0 <strong>Project Report</strong>: Prepare the project report following the standard format:</p>
+<p>3.1 <strong>Write a Project Report Based on</strong>:</p>
+<ul>
+<li><strong>Introduction to the Title</strong>: Provide an overview of the project, outlining its objectives, scope, and significance.</li>
+<li><strong>Literature Review</strong>: Summarize relevant research and prior work in the field, highlighting key findings and their relevance to the project.</li>
+<li><strong>Methodology</strong>: Explain the methods and techniques used in the project, including the rationale behind the chosen approach.</li>
+<li><strong>Results and Analysis</strong>: Present the project findings and analyze the data, discussing key trends, patterns, and insights.</li>
+<li><strong>Conclusion and Recommendations</strong>: Summarize the project outcomes, draw conclusions based on the results, and suggest potential recommendations or areas for future work.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO4</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">PLO11</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Project Report</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m214533" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>09/10/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n214533" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>1. Safety briefing:</p>
+<p>&nbsp;- Follow lab instructions</p>
+<p>&nbsp;- Switch off all switches when exit the class</p>
+<p>&nbsp;- Emergency exit</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>2. Formative/Summative Assessment:</p>
+<p>&nbsp;Summative:</p>
+<p>Logbook, report</p>
+<p>&nbsp;</p>
+<p>&nbsp;Formative:</p>
+<p>1) Write a project report according to the standard format based on;</p>
+<p>i. Introductory to the title</p>
+<p>ii. Literature review</p>
+<p>iii. Methodology</p>
+<p>iv. Result and analysis</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>Students able to write proper and details report related to the project and able to carry out the project under the supervision of supervisors</p>
+<p>&nbsp;</p>
+<p>Postponement of Assessment (if related):</p>
+<p>- Not relevant</p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>-none</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">10<br/>
+                                        13/10/2025 - 19/10/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>4.0 <strong>Project Presentation</strong>: Deliver a well-structured presentation to effectively communicate the project's outcomes.</p>
+<p>4.1 <strong>Organize a Good Presentation</strong>:</p>
+<ul>
+<li><strong>Explain the Research Product with Good Communication Skills</strong>: Clearly and confidently present the project&rsquo;s findings, using simple language and visual aids to enhance understanding.</li>
+<li><strong>Defend the Research Product Effectively</strong>: Be prepared to answer questions and address any challenges or critiques, providing logical, well-supported responses to defend the project&rsquo;s conclusions and approach.</li>
+</ul><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO3</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">PLO10</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Presentation</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m214534" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>16/10/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n214534" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>1. Safety briefing:</p>
+<p>- Follow lab instructions</p>
+<p>- Switch off all switches when exit the class</p>
+<p>- Emergency exit</p>
+<p>&nbsp;</p>
+<p>2. Formative/Summative Assessment:</p>
+<p>Summative:</p>
+<p>Logbook, report</p>
+<p>&nbsp;</p>
+<p>&nbsp;Formative:</p>
+<p>1) Write a project report according to the standard format based on;</p>
+<p>i. Introductory to the title</p>
+<p>ii. Literature review</p>
+<p>iii. Methodology</p>
+<p>iv. Result and analysis</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p><span style="font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif;"><span style="font-size: 13.3333px; font-variant-ligatures: none;">Students able to write proper and details report related to the project and able to carry out the project under the supervision of supervisors</span></span></p>
+<p><span style="font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif;"><span style="font-size: 13.3333px; font-variant-ligatures: none;">&nbsp;</span></span></p>
+<p><span style="font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif;"><span style="font-size: 13.3333px; font-variant-ligatures: none;">&nbsp;Postponement of Assessment (if related):</span></span></p>
+<p><span style="font-family: Arial, Arial_EmbeddedFont, Arial_MSFontService, sans-serif;"><span style="font-size: 13.3333px; font-variant-ligatures: none;">- Not relevant</span></span></p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>-none</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">11<br/>
+                                        20/10/2025 - 26/10/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>3.1 <strong>Write a Project Report According to the Standard Format</strong>:</p>
+<ul>
+<li><strong>Introduction to the Title</strong>: Provide an overview of the project, explaining its purpose, objectives, and scope.</li>
+<li><strong>Literature Review</strong>: Summarize existing research and theories related to the project, identifying key findings and gaps that the project aims to address.</li>
+<li><strong>Methodology</strong>: Outline the approach, techniques, and tools used to carry out the project, including any rationale behind the selection of methods.</li>
+<li><strong>Results and Analysis</strong>: Present the project&rsquo;s findings, analyzing the data to highlight key trends, patterns, and insights.</li>
+<li><strong>Conclusion and Recommendations</strong>: Summarize the key conclusions drawn from the results, offering recommendations for future work or improvements.</li>
+</ul><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">CLO4</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">PLO11</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Presentation</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m214535" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>23/10/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n214535" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>1. Safety briefing:</p>
+<p>- Follow lab instructions</p>
+<p>- Switch off all switches when exit the class</p>
+<p>- Emergency exit</p>
+<p>&nbsp;</p>
+<p>2. Formative/Summative Assessment:</p>
+<p>Summative:</p>
+<p>Logbook, report</p>
+<p>&nbsp;</p>
+<p>&nbsp;Formative:</p>
+<p>1) Write a project report according to the standard format based on;</p>
+<p>i. Introductory to the title</p>
+<p>ii. Literature review</p>
+<p>iii. Methodology</p>
+<p>iv. Result and analysis</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>Students able to write proper and details report related to the project and able to carry out the project under the supervision of supervisors</p>
+<p>&nbsp;</p>
+<p>&nbsp;Postponement of Assessment (if related):</p>
+<p>- Not relevant</p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>n/a</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">12<br/>
+                                        27/10/2025 - 02/11/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <div class="flex-shrink-0 flex flex-col relative items-end">&nbsp;</div>
+<div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+<div class="flex-col gap-1 md:gap-3">
+<div class="flex max-w-full flex-col flex-grow">
+<div class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="bfbd60b4-34aa-426c-be2a-742e342feecd" data-message-model-slug="gpt-4o-mini">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>4.0 <strong>Project Presentation</strong>: Deliver a well-organized and effective presentation of the project.</p>
+<p>4.1 <strong>Organize a Good Presentation</strong>:</p>
+<ul>
+<li><strong>Explain the Research Product with Good Communication Skills</strong>: Present the project clearly, using appropriate language and visuals to convey complex ideas in an understandable way.</li>
+<li><strong>Defend the Research Product Effectively</strong>: Be prepared to respond to questions and critiques, providing well-reasoned explanations to support the validity and significance of the research findings.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO3</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">PLO10</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Presentation</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m214544" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>30/10/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n214544" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>1. Safety briefing:</p>
+<p>- Follow lab instructions</p>
+<p>- Switch off all switches when exit the class</p>
+<p>- Emergency exit</p>
+<p>&nbsp;</p>
+<p>2. Formative/Summative Assessment:</p>
+<p>Summative:</p>
+<p>Logbook, report</p>
+<p>&nbsp;</p>
+<p>&nbsp;Formative:</p>
+<p>1) Write a project report according to the standard format based on;</p>
+<p>i. Introductory to the title</p>
+<p>ii. Literature review</p>
+<p>iii. Methodology</p>
+<p>iv. Result and analysis</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>Students able to write proper and details report related to the project and able to carry out the project under the supervision of supervisors</p>
+<p>&nbsp;</p>
+<p>&nbsp;Postponement of Assessment (if related):</p>
+<p>- Not relevant</p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">13<br/>
+                                        03/11/2025 - 09/11/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <p>4.0 <strong>Project Presentation</strong>: Present the project clearly and confidently.</p>
+<p>4.1 <strong>Organize a Good Presentation</strong>:</p>
+<ul>
+<li><strong>Explain the Research Product with Good Communication Skills</strong>: Articulate the research findings in a clear, concise manner, using appropriate language and visuals to support the message.</li>
+<li><strong>Defend the Research Product Effectively</strong>: Respond to questions and critiques with confidence, providing solid reasoning and evidence to justify the conclusions and methodology of the research.</li>
+</ul><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;">CLO3</p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO10</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Presentation</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m214545" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>07/11/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n214545" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>1. Safety briefing:</p>
+<p>- Follow lab instructions</p>
+<p>- Switch off all switches when exit the class</p>
+<p>- Emergency exit</p>
+<p>&nbsp;</p>
+<p>2. Formative/Summative Assessment:</p>
+<p>Summative:</p>
+<p>Logbook, report</p>
+<p>&nbsp;</p>
+<p>&nbsp;Formative:</p>
+<p>1) Write a project report according to the standard format based on;</p>
+<p>i. Introductory to the title</p>
+<p>ii. Literature review</p>
+<p>iii. Methodology</p>
+<p>iv. Result and analysis</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>Students able to write proper and details report related to the project and able to carry out the project under the supervision of supervisors</p>
+<p>&nbsp;</p>
+<p>&nbsp;Postponement of Assessment (if related):</p>
+<p>- Not relevant</p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                            
+                            
+                            
+                            
+                                
+                                
+                                
+                                
+                                        <tr>
+                                        <td align="center" class="stylegarisemua">14<br/>
+                                        10/11/2025 - 16/11/2025</td>
+                                        <td align="left" class="stylegarisemua" valign="top"> <div class="flex-shrink-0 flex flex-col relative items-end">&nbsp;4.0 <strong>Project Presentation</strong>: Ensure the presentation is clear, engaging, and persuasive.</div>
+<div class="group/conversation-turn relative flex w-full min-w-0 flex-col agent-turn">
+<div class="flex-col gap-1 md:gap-3">
+<div class="flex max-w-full flex-col flex-grow">
+<div class="min-h-8 text-message flex w-full flex-col items-end gap-2 whitespace-normal break-words text-start [.text-message+&amp;]:mt-5" dir="auto" data-message-author-role="assistant" data-message-id="d8cf68b6-420e-4723-8e0a-deb38b5943e6" data-message-model-slug="gpt-4o-mini">
+<div class="flex w-full flex-col gap-1 empty:hidden first:pt-[3px]">
+<div class="markdown prose w-full break-words dark:prose-invert light">
+<p>4.1 <strong>Organize a Good Presentation</strong>:</p>
+<ul>
+<li><strong>Explain the Research Product with Good Communication Skills</strong>: Present the research findings clearly, using effective verbal and non-verbal communication techniques.</li>
+<li><strong>Defend the Research Product Effectively</strong>: Address questions or concerns confidently, providing clear and well-supported responses to justify the research approach and results.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />
+                                        </td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">CLO3</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top">&nbsp;<p style="text-align: center;" align="center"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">PLO10</span></p>&nbsp;</td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">4H - PRACTICAL</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top"><p style="text-align: center;">Review</p></td>
+                                        <td align="center" class="stylegarisemua" valign="top">
+                                        
+                                           
+                                                
+                                                
+                                                
+													<fieldset id="m214548" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh : WILSON ANAK INTAI</em></legend>
+														<div style="padding: 0.2em" align="left"><center>14/11/2025<br />[4 Hour]</center>
+<p><br /><br /></p>
+<center></center>
+<p>&nbsp;</p></div>
+													</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        <td align="left" class="stylegarisemua" valign="top">
+                                        
+                                          
+                                                
+                                                
+                                                
+													<fieldset id="n214548" style="font-size:12px"><legend  style="font-size:10px"><em style="color:#069">Oleh: WILSON ANAK INTAI</em></legend>
+													<div align="center"><strong><u>NOTES</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>1. Safety briefing:</p>
+<p>- Follow lab instructions</p>
+<p>- Switch off all switches when exit the class</p>
+<p>- Emergency exit</p>
+<p>&nbsp;</p>
+<p>2. Formative/Summative Assessment:</p>
+<p>Summative:</p>
+<p>Logbook, report</p>
+<p>&nbsp;</p>
+<p>&nbsp;Formative:</p>
+<p>1) Write a project report according to the standard format based on;</p>
+<p>i. Introductory to the title</p>
+<p>ii. Literature review</p>
+<p>iii. Methodology</p>
+<p>iv. Result and analysis</p></div>
+														<div align="center" style="padding-top: 0.2em"><strong><br /><u>REFLECTION</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>Students able to write proper and details report related to the project and able to carry out the project under the supervision of supervisors</p>
+<p>&nbsp;</p>
+<p>&nbsp;Postponement of Assessment (if related):</p>
+<p>- Not relevant</p></div>
+														<div align="center"><br /><strong><u>ANALYSIS & CQI</u></strong></div>
+														<div style="padding: 0.2em" align="left"><p>N/A</p></div>
+												</fieldset>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                        
+                                         &nbsp;
+                                        </td>
+                                        </tr>
+                            
+							<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const fieldsets1 = document.querySelectorAll('fieldset[id^="n"]'); // Semua fieldset kolum 1
+    const fieldsets2 = document.querySelectorAll('fieldset[id^="m"]'); // Semua fieldset kolum 2
+
+    // Pastikan jumlah sama
+    if (fieldsets1.length === fieldsets2.length) {
+        fieldsets1.forEach((fs1, index) => {
+            const fs2 = fieldsets2[index]; 
+            if (fs2) {
+                // Ambil tinggi maksimum antara 2 fieldset
+                const maxHeight = Math.max(fs1.offsetHeight, fs2.offsetHeight);
+                fs1.style.height = maxHeight - 10 + 'px';
+                fs2.style.height = maxHeight - 10 + 'px';
+            }
+        });
+    } else {
+        console.error("Jumlah fieldset kolum 1 dan kolum 2 tak sama.");
+    }
+});
+
+	
+</script>
+                            
+                            
+                            
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                            <tr bgcolor="#CCCCCC">
+                                <td align="center" class="stylegarisemua"><br/>
+                                17/11/2025 - 23/11/2025</td>
+                                <td align="center" class="stylegarisemua" colspan="7">
+                                <font color="#000066" style="font-size:14px"><strong>MINGGU ULANGKAJI</strong></font>
+                                </td></tr>
+                    
+                    
+                
+                    
+                    
+                    
+                            <tr bgcolor="#CCCCCC">
+                                <td align="center" class="stylegarisemua"><br/>
+                                24/11/2025 - 30/11/2025</td>
+                                <td align="center" class="stylegarisemua" colspan="7">
+                                <font color="#000066" style="font-size:14px"><strong>PEPERIKSAAN AKHIR</strong></font>
+                                </td></tr>
+                    
+                    
+                
+                    
+                    
+                    
+                            <tr bgcolor="#CCCCCC">
+                                <td align="center" class="stylegarisemua"><br/>
+                                01/12/2025 - 07/12/2025</td>
+                                <td align="center" class="stylegarisemua" colspan="7">
+                                <font color="#000066" style="font-size:14px"><strong>PEPERIKSAAN AKHIR</strong></font>
+                                </td></tr>
+                    
+                    
+                
+                    
+                    
+                    
+                            <tr bgcolor="#CCCCCC">
+                                <td align="center" class="stylegarisemua"><br/>
+                                08/12/2025 - 14/12/2025</td>
+                                <td align="center" class="stylegarisemua" colspan="7">
+                                <font color="#000066" style="font-size:14px"><strong>PEPERIKSAAN AKHIR</strong></font>
+                                </td></tr>
+                    
+                    
+                
+            
+    
+
+    
+    <tr>
+    	<td align="left" colspan="4" style="font-weight:normal; padding-top:3; padding-bottom:10">&nbsp;<br/><br/></td></tr>
+        
+    <tr>
+    	<td align="left" colspan="4" style="font-weight:normal; padding-top:3; padding-bottom:40">Disediakan Oleh:</td>
+    	<td align="left" colspan="4" style="font-weight:normal; padding-top:3; padding-bottom:40">Disahkan Oleh:</td>
+    
+    <tr>
+    	<td align="left" colspan="4" style="font-weight:normal; padding-top:3; padding-bottom:3">
+        ....................................<br/> ( WILSON ANAK INTAI )<br/><br/>
+        Tarikh : </td>
+    	<td align="left" colspan="4">.....................................................<br/>
+        (Tandatangan TIMB. PENGARAH/ KJ/ KP/ KU)<br/><br/>
+        Tarikh :</td></tr>
+    
+    
+     <tr>
+    	<td align="left" colspan="4" class="break" style="font-weight:normal; padding-top:3; padding-bottom:10">&nbsp;<br/><br/></td></tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    </table>
+    </center>
+    
+    
+    
+    
+    
+    <h3 class="break">&nbsp;</h3>
+    <br clear=all style='mso-special-character:line-break;page-break-before:always'/>
+            
+                        
+                        <div style="mso-element:header" id="h1">
+                        <!-- HEADER-tags -->
+                            
+                        <!-- end HEADER-tags -->
+                        </div>
+                        
+                        <div style='mso-element:footer' id=f1 align="left">
+                        <span style='position:relative;z-index:-1;' > 
+                                <!-- FOOTER-tags -->
+                                
+                                
+                                
+                                
+                                
+                                 
+                                	PLSP-04 (5) (07-01-25)
+                                
+                                
+                                
+							<span style='mso-no-proof:yes'></span>
+                               <p class=MsoFooter>
+                               <span style='mso-tab-count:10'></span>
+                               <span style='mso-field-code: PAGE '></span>
+                               <span style='mso-no-proof:yes'></span>/
+                               <span style='mso-field-code: NUMPAGES '></span>
+                    
+                           <!--end FOOTER-tags -->
+                       		   </span></div>
+   
+   						<!--<div style='mso-element:header' id=fh1>
+                            <p class=MsoHeader><span lang=EN-US style='mso-ansi-language:EN-US'>&nbsp;<o:p></o:p></span></p>
+                            </div>
+                            <div style='mso-element:footer' id=ff1>
+                            <p class=MsoFooter><span lang=EN-US style='mso-ansi-language:EN-US'>&nbsp;<o:p></o:p></span></p>
+                        </div>-->
+   
+   
+   
+   
+           
+   
+    
+	
+
+
+<br /><br /><br />
+</td>
+</tr>
+</table>
+	</center>
+</div>
+</body>
+
+</html>

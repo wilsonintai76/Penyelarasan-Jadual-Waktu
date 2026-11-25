@@ -4,6 +4,33 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.1] - 2026-11-25
+
+### Fixed
+
+- Master timetable (jadual induk) course names: the extraction pipeline used
+  [course_catalog.json](public/assets/course_catalog.json) **before** the name read from the uploaded
+  document, and that catalogue still carried pre-v3 titles. Publishing therefore replaced correct names
+  with stale ones (`DJJ30313` became "Mechanics of Machines" instead of "Engineering Mechanics",
+  `DJJ30293` "Pneumatics & Hydraulics" instead of "Thermodynamics", ...). Names are now resolved in the
+  order **curriculum -> name read from the document -> catalogue**.
+- `POST /api/jadual` re-derives `Course_Name` (and a missing/invalid `Credit`) from the programme
+  curriculum for every published slot, so a shifted name column can never reach `jadual_induk_jkm` again.
+  The response reports `namesCorrected`, `creditsCorrected` and `unknownCourseCodes`.
+- [public/assets/course_catalog.json](public/assets/course_catalog.json) refreshed against DKM v3
+  (19 names corrected, 31 codes added).
+- The bundled offline snapshot [public/data/jadual.json](public/data/jadual.json) was an old 290-slot
+  extraction with wrong cohorts, rooms and course codes; it now mirrors the published 421-slot master.
+  The live `jadual_induk_jkm` was corrected in place (same 421 slots, 200 course names realigned with the
+  curriculum, previous copy kept in R2 `backups/`).
+
+### Added
+
+- Upload review now validates the staged timetable before publishing: structural errors (missing
+  cohort/course, invalid day or time, duplicate or overlapping slots) disable the publish button, and
+  warnings flag implausible cohort loads, course codes missing from the curriculum, and names that
+  disagree with it.
+
 ## [1.3.0] - 2026-11-25
 
 ### Added

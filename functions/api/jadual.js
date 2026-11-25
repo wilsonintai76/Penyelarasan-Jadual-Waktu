@@ -8,6 +8,7 @@
  *   Optional Env Secret:  ADMIN_PASSCODE (if set, POST requires matching X-Admin-Passcode)
  */
 import { snapshotBeforeOverwrite, putFallbackMirror } from './_backup.js';
+import { loadCanonicalCourses, applyCanonicalCourseNames } from './_courseNames.js';
 
 const DEFAULT_KEY = 'jadual_induk_jkm';
 const PIN_CONFIG_KEY = 'admin_pin_config';
@@ -159,6 +160,17 @@ export async function onRequestPost(context) {
       );
     }
 
+    // Course names/credits are re-derived from the curriculum so a stale catalogue
+    // or a shifted OCR/JSON column can never publish wrong names to the master.
+    let canonical = {};
+    try {
+      canonical = await loadCanonicalCourses(env, request);
+    } catch {
+      canonical = {};
+    }
+    const named = applyCanonicalCourseNames(rawEntries, canonical);
+    const entries = named.entries;
+
     let previousSlots = 0;
     let existingRaw = null;
     try {
@@ -183,7 +195,7 @@ export async function onRequestPost(context) {
       }
     }
 
-    const serialized = JSON.stringify(rawEntries);
+    const serialized = JSON.stringify(entries);
     await env.JADUAL_KV.put(kvKey, serialized);
 
     // Refresh the R2 fallback mirror so /api/jadual-fallback tracks KV.
@@ -193,7 +205,7 @@ export async function onRequestPost(context) {
       // mirror refresh is best-effort; publishing must still succeed
     }
 
-    const cohortsCount = new Set(rawEntries.map((r) => String(r.Cohort || '').trim()).filter(Boolean)).size;
+    const cohortsCount = new Set(entries.map((r) => String(r.Cohort || '').trim()).filter(Boolean)).size;
     const timestamp = new Date().toISOString();
     const source = (body && body.source) || 'web_pdf_upload';
     const filename = (body && body.filename) || 'jadual_induk_jkm.pdf';
@@ -206,9 +218,12 @@ export async function onRequestPost(context) {
       source,
       filename,
       previousSlots,
-      newSlots: rawEntries.length,
-      deltaSlots: rawEntries.length - previousSlots,
+      newSlots: entries.length,
+      deltaSlots: entries.length - previousSlots,
       cohortsCount,
+      namesCorrected: named.namesCorrected,
+      creditsCorrected: named.creditsCorrected,
+      unknownCourseCodes: named.unknownCodes.slice(0, 20),
       engineLabel,
       backupKey
     };
@@ -219,8 +234,11 @@ export async function onRequestPost(context) {
       JSON.stringify({
         ok: true,
         kvKey,
-        slotsCount: rawEntries.length,
+        slotsCount: entries.length,
         cohortsCount,
+        namesCorrected: named.namesCorrected,
+        creditsCorrected: named.creditsCorrected,
+        unknownCourseCodes: named.unknownCodes.slice(0, 20),
         backupKey,
         latestLog: latestEntry
       }),

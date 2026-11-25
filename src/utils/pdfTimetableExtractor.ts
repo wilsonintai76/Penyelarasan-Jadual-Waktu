@@ -68,9 +68,44 @@ export async function loadCourseCatalogMap(): Promise<Record<string, string>> {
   return {};
 }
 
+/**
+ * Course names taken from the programme curricula (`/api/curriculum`). They win over
+ * both the extracted text and the bundled catalogue, because the catalogue can be
+ * stale while the curriculum is the document the department maintains.
+ */
+export async function loadCanonicalCourseNames(): Promise<Record<string, string>> {
+  const map: Record<string, string> = {};
+  try {
+    const summaryRes = await fetch('/api/curriculum', { cache: 'no-store' });
+    if (!summaryRes.ok) return map;
+    const summary = await summaryRes.json();
+    const programmes: string[] = (summary?.programmes || [])
+      .filter((item: { source?: string }) => item && item.source && item.source !== 'none')
+      .map((item: { programme: string }) => item.programme);
+
+    for (const programme of programmes) {
+      const docRes = await fetch(`/api/curriculum?programme=${encodeURIComponent(programme)}`, {
+        cache: 'no-store'
+      });
+      if (!docRes.ok) continue;
+      const payload = await docRes.json();
+      const courses = (payload && payload.curriculum && payload.curriculum.courses) || {};
+      Object.entries<{ name?: string }>(courses).forEach(([code, course]) => {
+        const key = String(code).toUpperCase().replace(/\s+/g, '');
+        const name = String((course && course.name) || '').trim();
+        if (key && name && !map[key]) map[key] = name;
+      });
+    }
+  } catch {
+    // offline or curriculum unavailable: fall back to the catalogue
+  }
+  return map;
+}
+
 export function enrichTimetableEntries(
   rawEntries: unknown[],
-  catalog: Record<string, string>
+  catalog: Record<string, string>,
+  canonical: Record<string, string> = {}
 ): MasterTimetableEntry[] {
   const preNormalized = normalizeExternalEntries(rawEntries);
   const dedup = new Map<string, MasterTimetableEntry>();
@@ -80,12 +115,12 @@ export function enrichTimetableEntries(
     const code = cleanCourseCode(item.Course_Code);
     if (!cohort || !code || code.includes('TUANGAN')) continue;
 
-    const catalogName = catalog[code];
-    const courseName =
-      catalogName ||
-      (item.Course_Name && !item.Course_Name.startsWith('Course ')
-        ? item.Course_Name
-        : `Course ${code}`);
+    // Curriculum name > name read from the document > stale catalogue > placeholder.
+    const extractedName =
+      item.Course_Name && !String(item.Course_Name).startsWith('Course ')
+        ? String(item.Course_Name).trim()
+        : '';
+    const courseName = canonical[code] || extractedName || catalog[code] || `Course ${code}`;
 
     const credit =
       Number.isFinite(item.Credit) && item.Credit >= 1 && item.Credit <= 8
@@ -202,7 +237,10 @@ export async function extractTimetableFromPdf(
 ): Promise<{ entries: MasterTimetableEntry[]; engineLabel: string }> {
   const arrayBuffer = await file.arrayBuffer();
   const pdfDoc = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
-  const catalog = await loadCourseCatalogMap();
+  const [catalog, canonical] = await Promise.all([
+    loadCourseCatalogMap(),
+    loadCanonicalCourseNames()
+  ]);
 
   const totalPages = pdfDoc.numPages;
   const collectedRaw: unknown[] = [];
@@ -260,7 +298,7 @@ export async function extractTimetableFromPdf(
     await (pdfDoc as unknown as { destroy?: () => Promise<void> }).destroy?.();
   }
 
-  const enriched = enrichTimetableEntries(collectedRaw, catalog);
+  const enriched = enrichTimetableEntries(collectedRaw, catalog, canonical);
   return {
     entries: enriched,
     engineLabel: lastEngine
@@ -270,7 +308,10 @@ export async function extractTimetableFromPdf(
 export async function parseUploadedJsonTimetable(file: File): Promise<MasterTimetableEntry[]> {
   const text = await file.text();
   const parsed = JSON.parse(text);
-  const catalog = await loadCourseCatalogMap();
+  const [catalog, canonical] = await Promise.all([
+    loadCourseCatalogMap(),
+    loadCanonicalCourseNames()
+  ]);
   const rawList = Array.isArray(parsed)
     ? parsed
     : parsed && Array.isArray(parsed.entries)
@@ -278,5 +319,5 @@ export async function parseUploadedJsonTimetable(file: File): Promise<MasterTime
       : parsed && Array.isArray(parsed.data)
         ? parsed.data
         : [];
-  return enrichTimetableEntries(rawList, catalog);
+  return enrichTimetableEntries(rawList, catalog, canonical);
 }

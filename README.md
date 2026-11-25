@@ -57,6 +57,16 @@ Source precedence in [externalTimetableLoader.ts](src/utils/externalTimetableLoa
 publish and restore, so the fallback tracks the latest upload instead of a build-time snapshot. If the
 mirror is missing it serves the bundled `/data/jadual.json`.
 
+## Master timetable data quality
+
+Course names in the master timetable are **derived from the curriculum, never from the uploaded file**:
+`POST /api/jadual` rewrites `Course_Name` (and a missing `Credit`) per course code using the programme
+curriculum (KV override, then `/assets/curriculum/<programme>.json`) before storing, and the PDF/JSON
+extractor resolves names in the order curriculum -> text read from the document -> `course_catalog.json`.
+The publish response reports `namesCorrected` / `unknownCourseCodes`, and the upload review panel blocks a
+publish with structural errors (missing cohort/course, invalid day or time, duplicate or overlapping slots)
+while warning about implausible loads and names that disagree with the curriculum.
+
 ## Curriculum prerequisites (per programme)
 
 Prerequisites are curriculum rules, not schedule data, so each programme has its own document and they
