@@ -4,6 +4,24 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.16] - 2026-11-25
+
+### Fixed
+
+- **The class hours of several cohorts did not match the official timetable PDF.** A page whose grid could not
+  be read exactly produced classes that started one or two hours too early and ended too soon
+  (for example `DPU2-S2` stored `DJU20112` as 08:00–10:00 instead of 08:00–12:00, `DJJ20263` as 08:00–10:00
+  instead of 10:00–12:00, and showed `Sukan 2` at 14:00–17:00 instead of 15:00–17:00).
+  [jadual.json](public/data/jadual.json) was rebuilt from the ruling lines of
+  `JW PROGRAM JKM SESI II_2026_2027.pdf`, so every class now carries the exact hour span printed on the sheet:
+  **68 rows corrected and 13 missing rows added** (462 → 473 rows), covering the whole `DPU2`, `DPU3`, `DPU4`,
+  `DPU5` block and a handful of rows in `DAD1-S1`, `DAD2-S2`, `DKM2-S2`, `DKM2-S3`, `DTP1-S1`, `DTP1-S2` and
+  `DTP4-S1`.
+- The same table geometry is now the default path in the desktop extractor
+  ([jkm_pure_timetable_extractor.py](desktop/jkm_pure_timetable_extractor.py)): `_parse_text_table_page` reads
+  the printable hour header and each cell's ruling-line box, so merged cells keep their real span. The
+  image/OpenCV parser is still used for scanned PDFs and for the JW Induk layout.
+
 ## [1.3.15] - 2026-11-25
 
 ### Fixed
@@ -250,7 +268,7 @@ footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
   (e.g. repeat `DBM10163` → `DBM20173` dropped, and `DBM30183` too when applicable). Rules are keyed by
   course code and merged across all programme documents, so shared codes apply to every programme.
 - Repaired Windows-1252 mojibake in [PlannerView.tsx](src/components/PlannerView.tsx) (emoji and dashes
-  rendered as `ðŸ“` / `â€“`).
+  rendered as `ðŸ“` / `–`).
 - Advisor warning when a repeat list combines a course with its own prerequisite.
 
 - Borang PK01 and Jadual Waktu Kuliah printouts now reproduce the official templates:
