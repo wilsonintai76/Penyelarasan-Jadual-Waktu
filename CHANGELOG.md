@@ -4,6 +4,15 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.7] - 2026-11-25
+
+### Changed
+
+- Four non-canonical utility classes replaced with their Tailwind v4 equivalents (identical CSS output):
+  `min-w-[794px]` -> `min-w-198.5`, `min-w-[1123px]` -> `min-w-280.75`,
+  `-rotate-[30deg]` -> `rotate-[-30deg]`, `underline-offset-[2px]` -> `underline-offset-2`.
+  The workspace Problems panel is now clean.
+
 ## [1.3.6] - 2026-11-25
 
 ### Fixed

@@ -277,14 +277,14 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
           <div
             id="printable-sheet-pk01"
             style={{ fontFamily: "Calibri, Carlito, 'Segoe UI', Arial, sans-serif" }}
-            className={`print-sheet bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-300 text-black w-full min-w-[794px] max-w-[210mm] mx-auto text-[8.5pt] leading-normal relative page-break transition-all ${
+            className={`print-sheet bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-300 text-black w-full max-w-[210mm] min-w-198.5 mx-auto text-[8.5pt] leading-normal relative page-break transition-all ${
               isPrintPreview ? `print-preview-sheet ${isGrayscalePreview ? 'grayscale' : ''}` : ''
             }`}
           >
           {/* Page frame — mirrors the official Borang PK01 border */}
           <div className="border border-black px-[9mm] pt-[4mm] pb-[4mm]">
             {/* Submission-deadline stamp, top-left as on the official printed form */}
-            <div className="absolute left-[3mm] top-[2mm] -rotate-[30deg] border-2 border-dashed border-red-600 bg-red-50/90 px-2 py-1 text-center text-[7pt] font-extrabold uppercase leading-tight text-red-600">
+            <div className="absolute left-[3mm] top-[2mm] rotate-[-30deg] border-2 border-dashed border-red-600 bg-red-50/90 px-2 py-1 text-center text-[7pt] font-extrabold uppercase leading-tight text-red-600">
               Sila kembalikan<br />borang ini pada<br />selewat-lewatnya
               <br />
               <span className="text-[8.5pt] font-black">{student.deadline}</span>

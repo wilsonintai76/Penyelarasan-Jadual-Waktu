@@ -162,7 +162,7 @@ export const JadualKuliahView: React.FC<JadualKuliahViewProps> = ({
           <div
             id="printable-sheet-jadual"
             style={{ fontFamily: "Calibri, Carlito, 'Segoe UI', Arial, sans-serif" }}
-            className={`print-sheet bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-300 text-black w-full min-w-[1123px] max-w-[297mm] mx-auto text-[8.5pt] leading-normal page-break transition-all ${
+            className={`print-sheet bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-300 text-black w-full min-w-280.75 max-w-[297mm] mx-auto text-[8.5pt] leading-normal page-break transition-all ${
               isPrintPreview ? `print-preview-sheet print-preview-sheet--landscape ${isGrayscalePreview ? 'grayscale' : ''}` : ''
             }`}
           >
@@ -172,7 +172,7 @@ export const JadualKuliahView: React.FC<JadualKuliahViewProps> = ({
             <div className="flex justify-center">
               <PKSLogo customLogo={customLogo} boxClassName="w-[56mm] h-[20mm]" />
             </div>
-            <h1 className="mt-[2mm] text-center text-[14pt] font-bold uppercase underline decoration-1 underline-offset-[2px]">
+            <h1 className="mt-[2mm] text-center text-[14pt] font-bold uppercase underline decoration-1 underline-offset-2">
               Jadual Waktu Kuliah
             </h1>
 
