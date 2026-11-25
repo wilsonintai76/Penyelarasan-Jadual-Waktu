@@ -12,6 +12,7 @@ import {
   CurriculumLibrary
 } from '../types';
 import { buildPrerequisiteGraph, findPrerequisiteDrops, findRepeatPrerequisiteViolations } from './prerequisiteEngine';
+import { findChoiceGroups, sharedChoiceSlot } from './choiceSchedule';
 
 export function parseTime(t: string): number {
   if (!t) return 0;
@@ -192,32 +193,21 @@ export function solveOptimal(ctx: SolveContext): { assignment: AssignmentItem[];
 
 
 /**
- * Courses of one cohort that share the exact same slot are alternatives (Sukan 2 /
- * Kelab-Persatuan 2 / Unit Beruniform 2). A student registers only one, so the
- * unselected options are removed from the kept timetable and never counted twice.
+ * Courses of one cohort that occupy the same class slot are registration alternatives
+ * (Sukan / Kelab-Persatuan / Unit Beruniform, or Sains Teknologi Islam vs Nilai
+ * Masyarakat Malaysia). A student registers only one, so the unselected options are
+ * removed from the kept timetable and never counted twice.
  */
 export function buildElectiveGroups(
   packages: CoursePackage[],
   selections: Record<string, string> = {}
 ): ElectiveChoiceGroup[] {
-  const bySlot = new Map<string, CoursePackage[]>();
-
-  packages.forEach(pkg => {
-    if (!pkg.slots || pkg.slots.length === 0) return;
-    const signature = pkg.slots
-      .map(slot => `${slot.Day}|${slot.Start_Time}|${slot.End_Time}`)
-      .sort()
-      .join(';');
-    const key = `${pkg.Cohort}|${signature}`;
-    if (!bySlot.has(key)) bySlot.set(key, []);
-    const bucket = bySlot.get(key)!;
-    if (!bucket.some(existing => existing.Course_Code === pkg.Course_Code)) bucket.push(pkg);
-  });
-
   const groups: ElectiveChoiceGroup[] = [];
-  bySlot.forEach((bucket, key) => {
-    if (bucket.length < 2) return;
-    const options = bucket
+
+  findChoiceGroups(packages).forEach(members => {
+    const sharedSlot = sharedChoiceSlot(members) || members[0].slots[0];
+    const key = `${members[0].Cohort}|${sharedSlot.Day}|${sharedSlot.Start_Time}|${sharedSlot.End_Time}`;
+    const options = members
       .map(pkg => ({
         courseCode: pkg.Course_Code,
         courseName: pkg.Course_Name,
@@ -229,18 +219,22 @@ export function buildElectiveGroups(
       selected && options.some(option => option.courseCode === selected)
         ? selected
         : options[0].courseCode;
-    const slot = bucket[0].slots[0];
     groups.push({
       key,
-      day: slot.Day,
-      startTime: slot.Start_Time,
-      endTime: slot.End_Time,
+      day: sharedSlot.Day,
+      startTime: sharedSlot.Start_Time,
+      endTime: sharedSlot.End_Time,
       options,
       selectedCourseCode
     });
   });
 
-  return groups.sort((a, b) => a.day.localeCompare(b.day) || a.startTime.localeCompare(b.startTime));
+  return groups.sort(
+    (a, b) =>
+      a.day.localeCompare(b.day) ||
+      a.startTime.localeCompare(b.startTime) ||
+      a.options[0].courseCode.localeCompare(b.options[0].courseCode)
+  );
 }
 
 export function runFullAnalysis(

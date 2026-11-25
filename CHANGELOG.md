@@ -4,6 +4,29 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.11] - 2026-11-25
+
+### Changed
+
+- Master timetable republished from the patched NiceGUI extraction (`desktop/jadual_waktu_program_jkm.json`,
+  462 rows, 38 sections, 73 course codes). The extractor now keeps both co-curriculum alternatives, so the
+  five cohorts that offer **Sains Teknologi dan Kejuruteraan Islam** or **Nilai Masyarakat Malaysia**
+  (`DAD5-S1`, `DKM5-S1`, `DKM5-S2`, `DPU5-S1`, `DTP4-S1`) finally show both choices instead of only the
+  Islam option. All 462 rows resolve to an official course name (0 corrections needed).
+
+### Fixed
+
+- "Pilih satu" now also covers alternatives whose weekly hours differ. The old rule only grouped courses with
+  an *identical* slot set, so Sains Teknologi Islam (3–4 h) and Nilai Masyarakat (2–3 h) — share a 2 h class
+  slot but add different extra sessions — were never grouped and appeared as a clash. The rule now treats two
+  courses of one cohort as alternatives when they share a slot long enough to cover the course's weekly hours
+  and carry the same credit. Courses that merely overlap are still reported, so the real anomaly in the source
+  (Engineering Mathematics 1 and 2 in the same slot of `DTP2-S3`) stays visible.
+- The shared rule lives in [choiceSchedule.ts](src/utils/choiceSchedule.ts) and is used by both the planner and
+  the upload review, which no longer raises 23 false "dua kursus berbeza bertindih" warnings. The upload review
+  for the new master reports **0 errors** and only two warnings: the `DTP2-S3` Mathematics overlap and the
+  codes of programmes whose curriculum document is not uploaded yet.
+
 ## [1.3.10] - 2026-11-25
 
 ### Fixed

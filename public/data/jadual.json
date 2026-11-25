@@ -1,5 +1,6 @@
 [
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -12,6 +13,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -24,6 +26,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -36,6 +39,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -48,6 +52,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -60,6 +65,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DJJ10232",
     "Course_Name": "Mechanical Workshop Practice 1",
@@ -72,6 +78,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -84,6 +91,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "MPU24071",
     "Course_Name": "Sukan 1",
@@ -96,6 +104,20 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
+    "Cohort": "DAD1-S1",
+    "Course_Code": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DUW10042",
     "Course_Name": "Occupational, Safety and Health for Engineering",
@@ -108,6 +130,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DJJ10223",
     "Course_Name": "Engineering Drawing",
@@ -120,6 +143,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD1-S1",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -132,6 +156,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJA20132",
     "Course_Name": "Automotive Workshop Practice 1",
@@ -144,6 +169,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJA20103",
     "Course_Name": "Automotive Workshop Practice",
@@ -156,6 +182,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -168,6 +195,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -180,6 +208,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -192,6 +221,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -204,6 +234,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -216,6 +247,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -228,6 +260,20 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
+    "Cohort": "DAD2-S1",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJA20113",
     "Course_Name": "Automotive Engine Systems",
@@ -240,6 +286,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -252,6 +299,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJA20103",
     "Course_Name": "Automotive Workshop Practice",
@@ -264,6 +312,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DJA20113",
     "Course_Name": "Automotive Engine Systems",
@@ -276,6 +325,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S1",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -288,6 +338,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJA20103",
     "Course_Name": "Automotive Workshop Practice",
@@ -300,6 +351,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -312,6 +364,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJA20113",
     "Course_Name": "Automotive Engine Systems",
@@ -324,6 +377,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -336,6 +390,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJA20113",
     "Course_Name": "Automotive Engine Systems",
@@ -348,6 +403,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJA20103",
     "Course_Name": "Automotive Workshop Practice",
@@ -360,6 +416,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -372,6 +429,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -384,6 +442,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -396,6 +455,20 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
+    "Cohort": "DAD2-S2",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJA20132",
     "Course_Name": "Automotive Workshop Practice 1",
@@ -408,6 +481,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -420,6 +494,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -432,6 +507,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -444,6 +520,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -456,6 +533,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DJJ30332",
     "Course_Name": "Engineering and Society",
@@ -468,6 +546,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -480,6 +559,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -492,6 +572,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DJA30132",
     "Course_Name": "Vehicle Chassis & Suspension",
@@ -504,6 +585,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -516,6 +598,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -528,6 +611,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -540,6 +624,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DJA30123",
     "Course_Name": "Automotive Transmission",
@@ -552,6 +637,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S1",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -564,6 +650,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -576,6 +663,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DJJ30332",
     "Course_Name": "Engineering and Society",
@@ -588,6 +676,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -600,6 +689,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -612,6 +702,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DJA30132",
     "Course_Name": "Vehicle Chassis & Suspension",
@@ -624,6 +715,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -636,6 +728,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -648,6 +741,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -660,6 +754,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DJA30123",
     "Course_Name": "Automotive Transmission",
@@ -672,6 +767,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD3-S2",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -684,6 +780,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJA40182",
     "Course_Name": "Automotive Diagnostics & Testing",
@@ -696,6 +793,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJA40152",
     "Course_Name": "Automotive Workshop Technology",
@@ -708,6 +806,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -720,6 +819,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -732,9 +832,10 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJA40192",
-    "Course_Name": "Course DJA40192",
+    "Course_Name": "Automotive Electronics",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "10:00",
@@ -744,6 +845,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -756,6 +858,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJA40143",
     "Course_Name": "Engine Management System",
@@ -768,6 +871,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -780,6 +884,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJA40143",
     "Course_Name": "Engine Management System",
@@ -792,6 +897,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -804,6 +910,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -816,6 +923,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJA40143",
     "Course_Name": "Engine Management System",
@@ -828,6 +936,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -840,6 +949,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJA40182",
     "Course_Name": "Automotive Diagnostics & Testing",
@@ -852,6 +962,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -864,6 +975,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJA40143",
     "Course_Name": "Engine Management System",
@@ -876,6 +988,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -888,6 +1001,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -900,9 +1014,10 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJA40192",
-    "Course_Name": "Course DJA40192",
+    "Course_Name": "Automotive Electronics",
     "Credit": 2,
     "Day": "Selasa",
     "Start_Time": "15:00",
@@ -912,6 +1027,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -924,6 +1040,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJA40152",
     "Course_Name": "Automotive Workshop Technology",
@@ -936,6 +1053,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S2",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -948,6 +1066,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJA40143",
     "Course_Name": "Engine Management System",
@@ -960,6 +1079,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -972,6 +1092,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -984,6 +1105,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -996,6 +1118,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJA40143",
     "Course_Name": "Engine Management System",
@@ -1008,6 +1131,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -1020,6 +1144,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -1032,6 +1157,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1044,9 +1170,10 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJA40192",
-    "Course_Name": "Course DJA40192",
+    "Course_Name": "Automotive Electronics",
     "Credit": 2,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -1056,6 +1183,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJA40152",
     "Course_Name": "Automotive Workshop Technology",
@@ -1068,6 +1196,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD4-S3",
     "Course_Code": "DJA40182",
     "Course_Name": "Automotive Diagnostics & Testing",
@@ -1080,6 +1209,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -1092,9 +1222,10 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DJA50162",
-    "Course_Name": "Course DJA50162",
+    "Course_Name": "Automotive Project Management",
     "Credit": 2,
     "Day": "Isnin",
     "Start_Time": "13:00",
@@ -1104,6 +1235,20 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
+    "Cohort": "DAD5-S1",
+    "Course_Code": "MPU23172",
+    "Course_Name": "Nilai Masyarakat Malaysia",
+    "Credit": 2,
+    "Day": "Isnin",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "BPJPA2",
+    "Lecturer": "ANUR",
+    "Status": "D"
+  },
+  {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -1111,11 +1256,12 @@
     "Day": "Isnin",
     "Start_Time": "15:00",
     "End_Time": "17:00",
-    "Venue": "BPJPA2, BK1",
-    "Lecturer": "ANUR/AIFI",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -1128,6 +1274,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -1140,6 +1287,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -1152,6 +1300,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1164,6 +1313,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DJA50172",
     "Course_Name": "Automotive Air Conditioning",
@@ -1176,9 +1326,10 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DJA50162",
-    "Course_Name": "Course DJA50162",
+    "Course_Name": "Automotive Project Management",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "13:00",
@@ -1188,6 +1339,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -1200,6 +1352,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -1212,6 +1365,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DJJ50403",
     "Course_Name": "Project 2",
@@ -1224,6 +1378,7 @@
     "Status": "D"
   },
   {
+    "Program": "DAD",
     "Cohort": "DAD5-S1",
     "Course_Code": "DJA50172",
     "Course_Name": "Automotive Air Conditioning",
@@ -1236,6 +1391,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -1248,6 +1404,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DJJ10223",
     "Course_Name": "Engineering Drawing",
@@ -1260,6 +1417,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DUW10042",
     "Course_Name": "Occupational, Safety and Health for Engineering",
@@ -1272,6 +1430,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1284,6 +1443,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1296,6 +1456,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "MPU24071",
     "Course_Name": "Sukan 1",
@@ -1308,6 +1469,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM1-S1",
+    "Course_Code": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DJJ10232",
     "Course_Name": "Mechanical Workshop Practice 1",
@@ -1320,6 +1495,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -1332,6 +1508,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -1344,6 +1521,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -1356,6 +1534,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S1",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -1368,6 +1547,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DUW10042",
     "Course_Name": "Occupational, Safety and Health for Engineering",
@@ -1380,6 +1560,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1392,6 +1573,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DJJ10232",
     "Course_Name": "Mechanical Workshop Practice 1",
@@ -1404,6 +1586,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DJJ10223",
     "Course_Name": "Engineering Drawing",
@@ -1416,6 +1599,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -1428,6 +1612,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "MPU24071",
     "Course_Name": "Sukan 1",
@@ -1440,6 +1625,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM1-S2",
+    "Course_Code": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "MPU22422",
     "Course_Name": "Kokurikulum",
@@ -1452,6 +1651,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1464,6 +1664,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -1476,6 +1677,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -1488,6 +1690,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -1500,6 +1703,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM1-S2",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -1512,6 +1716,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -1524,6 +1729,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1536,6 +1742,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -1548,6 +1755,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -1560,6 +1768,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1572,6 +1781,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -1584,6 +1794,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1596,6 +1807,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1608,6 +1820,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -1620,6 +1833,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -1632,6 +1846,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM2-S1",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -1644,6 +1872,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "DJJ20252",
     "Course_Name": "Mechanical Workshop Practice 2",
@@ -1656,6 +1885,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S1",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1668,6 +1898,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -1680,6 +1911,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1692,6 +1924,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -1704,6 +1937,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -1716,6 +1950,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1728,6 +1963,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -1740,6 +1976,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -1752,6 +1989,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1764,6 +2002,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -1776,6 +2015,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM2-S2",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -1788,6 +2041,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1800,6 +2054,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DJJ20252",
     "Course_Name": "Mechanical Workshop Practice 2",
@@ -1812,6 +2067,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S2",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1824,6 +2080,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -1836,6 +2093,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1848,6 +2106,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -1860,6 +2119,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -1872,6 +2132,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -1884,6 +2145,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -1896,6 +2158,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -1908,6 +2171,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DJJ20252",
     "Course_Name": "Mechanical Workshop Practice 2",
@@ -1920,6 +2184,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -1932,6 +2197,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM2-S3",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1944,6 +2223,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -1956,6 +2236,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -1968,6 +2249,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S3",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1980,6 +2262,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -1992,6 +2275,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -2004,6 +2288,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -2016,6 +2301,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -2028,6 +2314,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -2040,6 +2327,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -2052,6 +2340,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DJJ20252",
     "Course_Name": "Mechanical Workshop Practice 2",
@@ -2064,6 +2353,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -2076,6 +2366,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -2088,6 +2379,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM2-S4",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -2100,6 +2405,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -2112,6 +2418,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -2124,6 +2431,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM2-S4",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -2136,6 +2444,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -2148,6 +2457,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -2160,6 +2470,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -2172,6 +2483,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -2184,6 +2496,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30332",
     "Course_Name": "Engineering and Society",
@@ -2196,6 +2509,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -2208,6 +2522,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -2220,6 +2535,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -2232,6 +2548,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30302",
     "Course_Name": "Mechanical Workshop Practice 3",
@@ -2244,6 +2561,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -2256,6 +2574,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -2268,6 +2587,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -2280,6 +2600,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S1",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -2292,6 +2613,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -2304,6 +2626,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -2316,6 +2639,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -2328,6 +2652,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30332",
     "Course_Name": "Engineering and Society",
@@ -2340,6 +2665,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -2352,6 +2678,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -2364,6 +2691,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -2376,6 +2704,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30302",
     "Course_Name": "Mechanical Workshop Practice 3",
@@ -2388,6 +2717,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -2400,6 +2730,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -2412,6 +2743,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -2424,6 +2756,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM3-S2",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -2436,6 +2769,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2448,6 +2782,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2460,6 +2795,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2472,6 +2808,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2484,6 +2821,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2496,6 +2834,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2508,6 +2847,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40432",
     "Course_Name": "Engineering Plant Technology",
@@ -2520,6 +2860,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2532,6 +2873,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2544,6 +2886,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2556,6 +2899,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S1",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2568,6 +2912,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40442",
     "Course_Name": "Industrial Management",
@@ -2580,6 +2925,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2592,6 +2938,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2604,6 +2951,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2616,6 +2964,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2628,6 +2977,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2640,6 +2990,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2652,6 +3003,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2664,6 +3016,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2676,6 +3029,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2688,6 +3042,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S2",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2700,6 +3055,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2712,6 +3068,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2724,6 +3081,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2736,6 +3094,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2748,6 +3107,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2760,6 +3120,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2772,6 +3133,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40442",
     "Course_Name": "Industrial Management",
@@ -2784,6 +3146,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2796,6 +3159,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2808,6 +3172,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2820,6 +3185,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S3",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2832,6 +3198,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2844,6 +3211,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2856,6 +3224,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2868,6 +3237,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40363",
     "Course_Name": "Mechanics of Machines",
@@ -2880,6 +3250,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2892,6 +3263,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2904,6 +3276,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -2916,6 +3289,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -2928,6 +3302,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40343",
     "Course_Name": "Material Science and Engineering",
@@ -2940,6 +3315,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40383",
     "Course_Name": "Engineering Design",
@@ -2952,6 +3328,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM4-S4",
     "Course_Code": "DJJ40442",
     "Course_Name": "Industrial Management",
@@ -2964,6 +3341,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DJJ50413",
     "Course_Name": "Troubleshooting and Maintenance for Mechanical Components",
@@ -2976,6 +3354,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -2988,6 +3367,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DJJ50422",
     "Course_Name": "Maintenance Engineering and Management",
@@ -3000,6 +3380,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM5-S1",
+    "Course_Code": "MPU23172",
+    "Course_Name": "Nilai Masyarakat Malaysia",
+    "Credit": 2,
+    "Day": "Isnin",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "BPJPA2",
+    "Lecturer": "ANUR",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -3007,11 +3401,12 @@
     "Day": "Isnin",
     "Start_Time": "15:00",
     "End_Time": "17:00",
-    "Venue": "BPJPA2, BK1",
-    "Lecturer": "ANUR/AIFI",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -3024,6 +3419,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DJJ50403",
     "Course_Name": "Project 2",
@@ -3036,6 +3432,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DJJ50413",
     "Course_Name": "Troubleshooting and Maintenance for Mechanical Components",
@@ -3048,6 +3445,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -3060,6 +3458,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -3072,6 +3471,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S1",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -3084,6 +3484,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DJJ50403",
     "Course_Name": "Project 2",
@@ -3096,6 +3497,20 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
+    "Cohort": "DKM5-S2",
+    "Course_Code": "MPU23172",
+    "Course_Name": "Nilai Masyarakat Malaysia",
+    "Credit": 2,
+    "Day": "Isnin",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "BPJPA2",
+    "Lecturer": "ANUR",
+    "Status": "D"
+  },
+  {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -3103,11 +3518,12 @@
     "Day": "Isnin",
     "Start_Time": "15:00",
     "End_Time": "17:00",
-    "Venue": "BPJPA2, BK1",
-    "Lecturer": "ANUR/AIFI",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -3120,6 +3536,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -3132,6 +3549,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DJJ50422",
     "Course_Name": "Maintenance Engineering and Management",
@@ -3144,6 +3562,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DJJ50413",
     "Course_Name": "Troubleshooting and Maintenance for Mechanical Components",
@@ -3156,6 +3575,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -3168,6 +3588,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -3180,6 +3601,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DJJ50413",
     "Course_Name": "Troubleshooting and Maintenance for Mechanical Components",
@@ -3192,6 +3614,7 @@
     "Status": "D"
   },
   {
+    "Program": "DKM",
     "Cohort": "DKM5-S2",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -3204,6 +3627,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DUW10042",
     "Course_Name": "Occupational, Safety and Health for Engineering",
@@ -3216,6 +3640,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -3228,6 +3653,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -3240,6 +3666,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -3252,6 +3679,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -3264,6 +3692,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -3276,6 +3705,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DJJ10223",
     "Course_Name": "Engineering Drawing",
@@ -3288,6 +3718,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -3300,6 +3731,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "MPU24071",
     "Course_Name": "Sukan 1",
@@ -3312,6 +3744,20 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
+    "Cohort": "DPU1-S1",
+    "Course_Code": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DJJ10232",
     "Course_Name": "Mechanical Workshop Practice 1",
@@ -3324,6 +3770,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU1-S1",
     "Course_Code": "DBM20233",
     "Course_Name": "Engineering Mathematics 2",
@@ -3336,6 +3783,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DJU20112",
     "Course_Name": "Basic Air Conditioning and Refrigeration Workshop",
@@ -3348,6 +3796,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -3360,6 +3809,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -3372,6 +3822,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -3384,6 +3835,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -3396,6 +3848,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -3408,6 +3861,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -3420,9 +3874,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DJU20102",
-    "Course_Name": "Course DJU20102",
+    "Course_Name": "Manufacturing Workshop",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "12:00",
@@ -3432,6 +3887,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -3444,6 +3900,20 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
+    "Cohort": "DPU2-S1",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "14:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DPU",
     "Cohort": "DPU2-S1",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -3456,6 +3926,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DJU20112",
     "Course_Name": "Basic Air Conditioning and Refrigeration Workshop",
@@ -3468,6 +3939,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -3480,6 +3952,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -3492,6 +3965,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -3504,6 +3978,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -3516,6 +3991,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -3528,9 +4004,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DJU20102",
-    "Course_Name": "Course DJU20102",
+    "Course_Name": "Manufacturing Workshop",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "12:00",
@@ -3540,6 +4017,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -3552,6 +4030,20 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
+    "Cohort": "DPU2-S2",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "14:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -3564,6 +4056,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU2-S2",
     "Course_Code": "DJJ30293",
     "Course_Name": "Thermodynamics",
@@ -3576,6 +4069,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -3588,6 +4082,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -3600,6 +4095,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -3612,6 +4108,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJU30132",
     "Course_Name": "Manufacturing Technology",
@@ -3624,6 +4121,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJJ30332",
     "Course_Name": "Engineering and Society",
@@ -3636,6 +4134,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -3648,9 +4147,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJU30122",
-    "Course_Name": "Course DJU30122",
+    "Course_Name": "Manufacturing Systems",
     "Credit": 2,
     "Day": "Rabu",
     "Start_Time": "08:00",
@@ -3660,6 +4160,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -3672,6 +4173,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DJJ30313",
     "Course_Name": "Engineering Mechanics",
@@ -3684,6 +4186,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DBM30183",
     "Course_Name": "Engineering Mathematics 3",
@@ -3696,6 +4199,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU3-S1",
     "Course_Code": "DUE30072",
     "Course_Name": "Technical English 2",
@@ -3708,6 +4212,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -3720,6 +4225,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -3732,6 +4238,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -3744,6 +4251,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -3756,9 +4264,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40142",
-    "Course_Name": "Course DJU40142",
+    "Course_Name": "Tool and Die Design",
     "Credit": 2,
     "Day": "Selasa",
     "Start_Time": "12:00",
@@ -3768,6 +4277,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -3780,6 +4290,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40162",
     "Course_Name": "Industrial Robotics",
@@ -3792,9 +4303,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40153",
-    "Course_Name": "Course DJU40153",
+    "Course_Name": "CAD/CAM",
     "Credit": 3,
     "Day": "Rabu",
     "Start_Time": "09:00",
@@ -3804,6 +4316,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -3816,9 +4329,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40153",
-    "Course_Name": "Course DJU40153",
+    "Course_Name": "CAD/CAM",
     "Credit": 3,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -3828,6 +4342,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -3840,6 +4355,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S1",
     "Course_Code": "DJU40162",
     "Course_Name": "Industrial Robotics",
@@ -3852,6 +4368,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -3864,6 +4381,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -3876,6 +4394,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -3888,6 +4407,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -3900,9 +4420,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40142",
-    "Course_Name": "Course DJU40142",
+    "Course_Name": "Tool and Die Design",
     "Credit": 2,
     "Day": "Selasa",
     "Start_Time": "12:00",
@@ -3912,6 +4433,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "MPU22071",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -3924,6 +4446,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40162",
     "Course_Name": "Industrial Robotics",
@@ -3936,9 +4459,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40153",
-    "Course_Name": "Course DJU40153",
+    "Course_Name": "CAD/CAM",
     "Credit": 3,
     "Day": "Rabu",
     "Start_Time": "09:00",
@@ -3948,6 +4472,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJJ30323",
     "Course_Name": "Strength of Materials",
@@ -3960,9 +4485,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40153",
-    "Course_Name": "Course DJU40153",
+    "Course_Name": "CAD/CAM",
     "Credit": 3,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -3972,6 +4498,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -3984,6 +4511,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU4-S2",
     "Course_Code": "DJU40162",
     "Course_Name": "Industrial Robotics",
@@ -3996,9 +4524,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "DJU50183",
-    "Course_Name": "Course DJU50183",
+    "Course_Name": "Manufacturing Project",
     "Credit": 3,
     "Day": "Isnin",
     "Start_Time": "08:00",
@@ -4008,6 +4537,20 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
+    "Cohort": "DPU5-S1",
+    "Course_Code": "MPU23172",
+    "Course_Name": "Nilai Masyarakat Malaysia",
+    "Credit": 2,
+    "Day": "Isnin",
+    "Start_Time": "14:00",
+    "End_Time": "17:00",
+    "Venue": "BPJPA2",
+    "Lecturer": "ANUR",
+    "Status": "D"
+  },
+  {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -4015,11 +4558,12 @@
     "Day": "Isnin",
     "Start_Time": "14:00",
     "End_Time": "17:00",
-    "Venue": "BPJPA2, BK1",
-    "Lecturer": "ANUR/AIFI",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "DUU10072",
     "Course_Name": "Entrepreneurship",
@@ -4032,6 +4576,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -4044,6 +4589,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "DUE50082",
     "Course_Name": "Technical English 3",
@@ -4056,6 +4602,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -4068,9 +4615,10 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "DJU50172",
-    "Course_Name": "Course DJU50172",
+    "Course_Name": "Quality Engineering",
     "Credit": 2,
     "Day": "Khamis",
     "Start_Time": "08:00",
@@ -4080,6 +4628,7 @@
     "Status": "D"
   },
   {
+    "Program": "DPU",
     "Cohort": "DPU5-S1",
     "Course_Code": "DJJ50403",
     "Course_Name": "Project 2",
@@ -4092,6 +4641,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -4104,6 +4654,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -4116,6 +4667,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DBM10252",
     "Course_Name": "Engineering Mathematics",
@@ -4128,6 +4680,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DJJ10232",
     "Course_Name": "Mechanical Workshop Practice 1",
@@ -4140,6 +4693,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -4152,6 +4706,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -4164,6 +4719,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DUW10042",
     "Course_Name": "Occupational, Safety and Health for Engineering",
@@ -4176,6 +4732,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DBM10252",
     "Course_Name": "Engineering Mathematics",
@@ -4188,6 +4745,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "MPU24071",
     "Course_Name": "Sukan 1",
@@ -4200,6 +4758,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP1-S1",
+    "Course_Code": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "MPU22422",
     "Course_Name": "Kokurikulum",
@@ -4212,6 +4784,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -4224,6 +4797,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S1",
     "Course_Code": "DJJ10223",
     "Course_Name": "Engineering Drawing",
@@ -4236,6 +4810,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DUW10042",
     "Course_Name": "Occupational, Safety and Health for Engineering",
@@ -4248,6 +4823,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DBM10252",
     "Course_Name": "Engineering Mathematics",
@@ -4260,6 +4836,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -4272,6 +4849,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DJJ10223",
     "Course_Name": "Engineering Drawing",
@@ -4284,6 +4862,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DJJ10232",
     "Course_Name": "Mechanical Workshop Practice 1",
@@ -4296,6 +4875,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -4308,6 +4888,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -4320,6 +4901,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DJJ10243",
     "Course_Name": "Workshop Technology",
@@ -4332,6 +4914,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "MPU24071",
     "Course_Name": "Sukan 1",
@@ -4344,6 +4927,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP1-S2",
+    "Course_Code": "MPU24081",
+    "Course_Name": "Kelab/Persatuan 1",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "MPU22422",
     "Course_Name": "Kokurikulum",
@@ -4356,6 +4953,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DBS10082",
     "Course_Name": "Engineering Science",
@@ -4368,6 +4966,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "DBM10252",
     "Course_Name": "Engineering Mathematics",
@@ -4380,6 +4979,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP1-S2",
     "Course_Code": "MPU21082",
     "Course_Name": "Kursus Integriti dan Anti-Rasuah",
@@ -4392,6 +4992,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4404,6 +5005,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4416,6 +5018,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DJF22042",
     "Course_Name": "Refrigeration & Air Conditioning Workshop",
@@ -4428,6 +5031,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -4440,6 +5044,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4452,6 +5057,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4464,6 +5070,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -4476,6 +5083,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP2-S1",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -4488,6 +5109,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4500,6 +5122,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4512,6 +5135,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4524,6 +5148,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S1",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4536,6 +5161,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4548,6 +5174,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DJF22042",
     "Course_Name": "Refrigeration & Air Conditioning Workshop",
@@ -4560,6 +5187,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -4572,6 +5200,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4584,6 +5213,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4596,6 +5226,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4608,6 +5239,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4620,6 +5252,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -4632,6 +5265,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP2-S2",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4644,6 +5291,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4656,6 +5304,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4668,6 +5317,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S2",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -4680,6 +5330,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4692,6 +5343,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4704,6 +5356,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -4716,6 +5369,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4728,6 +5382,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4740,6 +5395,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4752,6 +5408,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4764,6 +5421,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -4776,6 +5434,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -4788,6 +5447,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP2-S3",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DBM20173",
     "Course_Name": "Engineering Mathematics 2",
@@ -4800,6 +5473,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4812,6 +5486,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4824,6 +5499,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S3",
     "Course_Code": "DJF22042",
     "Course_Name": "Refrigeration & Air Conditioning Workshop",
@@ -4836,6 +5512,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DJJ20282",
     "Course_Name": "Computer Aided Design",
@@ -4848,6 +5525,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4860,6 +5538,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4872,6 +5551,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "MPU22042",
     "Course_Name": "Kokurikulum",
@@ -4884,6 +5564,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4896,6 +5577,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4908,6 +5590,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DBM10163",
     "Course_Name": "Engineering Mathematics 1",
@@ -4920,6 +5603,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DJJ20263",
     "Course_Name": "Electrical and Electronic Technology",
@@ -4932,6 +5616,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DJJ20273",
     "Course_Name": "Fluid Mechanics",
@@ -4944,6 +5629,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "MPU24051",
     "Course_Name": "Sukan 2",
@@ -4956,6 +5642,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP2-S4",
+    "Course_Code": "MPU24061",
+    "Course_Name": "Kelab/Persatuan 2",
+    "Credit": 1,
+    "Day": "Rabu",
+    "Start_Time": "15:00",
+    "End_Time": "17:00",
+    "Venue": "-",
+    "Lecturer": "KOKO",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "MPU21072",
     "Course_Name": "Penghayatan Etika dan Peradaban",
@@ -4968,6 +5668,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP2-S4",
     "Course_Code": "DJF22042",
     "Course_Name": "Refrigeration & Air Conditioning Workshop",
@@ -4980,6 +5681,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -4992,6 +5694,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJJ30332",
     "Course_Name": "Engineering and Society",
@@ -5004,6 +5707,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJF42112",
     "Course_Name": "Energy Management in HVAC",
@@ -5016,6 +5720,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJF42062",
     "Course_Name": "Refrigeration & Air Conditioning Practice",
@@ -5028,6 +5733,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -5040,6 +5746,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJF52122",
     "Course_Name": "HVAC Maintenance & Commissioning",
@@ -5052,6 +5759,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "MPU23172",
     "Course_Name": "Nilai Masyarakat Malaysia",
@@ -5064,6 +5772,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -5076,6 +5785,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJF42072",
     "Course_Name": "Refrigeration & Air Conditioning Lab",
@@ -5088,6 +5798,20 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
+    "Cohort": "DTP4-S1",
+    "Course_Code": "MPU23172",
+    "Course_Name": "Nilai Masyarakat Malaysia",
+    "Credit": 2,
+    "Day": "Khamis",
+    "Start_Time": "08:00",
+    "End_Time": "10:00",
+    "Venue": "BK30",
+    "Lecturer": "ANUR",
+    "Status": "D"
+  },
+  {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "MPU23182",
     "Course_Name": "Sains Teknologi dan Kejuruteraan Islam",
@@ -5095,11 +5819,12 @@
     "Day": "Khamis",
     "Start_Time": "08:00",
     "End_Time": "10:00",
-    "Venue": "BK30, B07",
-    "Lecturer": "ANUR/ASAK",
+    "Venue": "B07",
+    "Lecturer": "ASAK",
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJJ40392",
     "Course_Name": "Project 1",
@@ -5112,6 +5837,7 @@
     "Status": "D"
   },
   {
+    "Program": "DTP",
     "Cohort": "DTP4-S1",
     "Course_Code": "DJJ40373",
     "Course_Name": "Pneumatic and Hydraulics",
@@ -5124,6 +5850,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40153",
     "Course_Name": "CAD/CAM",
@@ -5136,6 +5863,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ30103",
     "Course_Name": "Manufacturing Processes",
@@ -5148,6 +5876,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40173",
     "Course_Name": "Industrial Automation",
@@ -5160,6 +5889,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJU51033",
     "Course_Name": "Manufacturing System Design",
@@ -5172,6 +5902,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ30103",
     "Course_Name": "Manufacturing Processes",
@@ -5184,6 +5915,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40173",
     "Course_Name": "Industrial Automation",
@@ -5196,6 +5928,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40153",
     "Course_Name": "CAD/CAM",
@@ -5208,6 +5941,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJF51082",
     "Course_Name": "HVAC Control & Automation",
@@ -5220,6 +5954,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJU51033",
     "Course_Name": "Manufacturing System Design",
@@ -5232,6 +5967,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40442",
     "Course_Name": "Industrial Management",
@@ -5244,6 +5980,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40153",
     "Course_Name": "CAD/CAM",
@@ -5256,6 +5993,7 @@
     "Status": "D"
   },
   {
+    "Program": "JKM",
     "Cohort": "JKM*",
     "Course_Code": "DJJ40153",
     "Course_Name": "CAD/CAM",
@@ -5265,222 +6003,6 @@
     "End_Time": "15:00",
     "Venue": "M8TM",
     "Lecturer": "JAAB",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DAD1-S1",
-    "Course_Code": "MPU24081",
-    "Course_Name": "Kelab/Persatuan 1",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DAD2-S1",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DAD2-S2",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DKM1-S1",
-    "Course_Code": "MPU24081",
-    "Course_Name": "Kelab/Persatuan 1",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DKM1-S2",
-    "Course_Code": "MPU24081",
-    "Course_Name": "Kelab/Persatuan 1",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DKM2-S1",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DKM2-S2",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DKM2-S3",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DKM2-S4",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DPU1-S1",
-    "Course_Code": "MPU24081",
-    "Course_Name": "Kelab/Persatuan 1",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DPU2-S1",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "14:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DPU2-S2",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "14:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DTP1-S1",
-    "Course_Code": "MPU24081",
-    "Course_Name": "Kelab/Persatuan 1",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DTP1-S2",
-    "Course_Code": "MPU24081",
-    "Course_Name": "Kelab/Persatuan 1",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DTP2-S1",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DTP2-S2",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DTP2-S3",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
-    "Status": "D"
-  },
-  {
-    "Cohort": "DTP2-S4",
-    "Course_Code": "MPU24061",
-    "Course_Name": "Kelab/Persatuan 2",
-    "Credit": 1,
-    "Day": "Rabu",
-    "Start_Time": "15:00",
-    "End_Time": "17:00",
-    "Venue": "-",
-    "Lecturer": "KOKO",
     "Status": "D"
   }
 ]

@@ -1,5 +1,11 @@
 import { CurriculumData, CurriculumLibrary, MasterTimetableEntry } from '../types';
 import { normalizeCourseCode, toCurriculumDocuments } from './prerequisiteEngine';
+import {
+  ChoiceCandidate,
+  ChoiceSchedule,
+  choicePairKey,
+  findChoiceGroups
+} from './choiceSchedule';
 
 export interface TimetableIssue {
   code: string;
@@ -137,7 +143,34 @@ export function validateTimetableSlots(
   });
 
   // Overlaps are reported but never blocked: co-curriculum and MPU alternatives
-  // (e.g. Sukan 2 / Kelab 2 / Unit Beruniform 2) share the same slot by design.
+  // (e.g. Sukan 2 / Kelab 2 / Unit Beruniform 2) share the same slot by design, so the
+  // "pilih satu" pairs are collected first and skipped below.
+  const choicePackages = new Map<string, ChoiceCandidate & { slots: ChoiceSchedule[] }>();
+  entries.forEach(entry => {
+    const cohort = String(entry.Cohort || '').trim();
+    const code = String(entry.Course_Code || '').trim();
+    if (!cohort || !code) return;
+    const key = `${cohort.toUpperCase()}|${code.toUpperCase()}`;
+    const pkg =
+      choicePackages.get(key) ||
+      ({ Cohort: cohort, Course_Code: code, Credit: Number(entry.Credit || 0), slots: [] } as ChoiceCandidate & {
+        slots: ChoiceSchedule[];
+      });
+    const slot = { Day: entry.Day, Start_Time: entry.Start_Time, End_Time: entry.End_Time };
+    if (!pkg.slots.some(existing => existing.Day === slot.Day && existing.Start_Time === slot.Start_Time && existing.End_Time === slot.End_Time)) {
+      pkg.slots.push(slot);
+    }
+    choicePackages.set(key, pkg);
+  });
+  const choicePairs = new Set<string>();
+  findChoiceGroups(Array.from(choicePackages.values())).forEach(members => {
+    for (let i = 0; i < members.length; i += 1) {
+      for (let j = i + 1; j < members.length; j += 1) {
+        choicePairs.add(choicePairKey(members[i].Cohort, members[i].Course_Code, members[j].Course_Code));
+      }
+    }
+  });
+
   const byCohortDay = new Map<string, MasterTimetableEntry[]>();
   entries.forEach(entry => {
     const key = `${String(entry.Cohort || '').trim().toUpperCase()}|${String(entry.Day || '').trim().toUpperCase()}`;
@@ -155,7 +188,10 @@ export function validateTimetableSlots(
       const sameCourse =
         String(sorted[i - 1].Course_Code || '').toUpperCase() ===
         String(sorted[i].Course_Code || '').toUpperCase();
-      if (!sameCourse && prevEnd !== null && currentStart !== null && prevEnd > currentStart) {
+      const isChoicePair = choicePairs.has(
+        choicePairKey(sorted[i].Cohort, sorted[i - 1].Course_Code, sorted[i].Course_Code)
+      );
+      if (!sameCourse && !isChoicePair && prevEnd !== null && currentStart !== null && prevEnd > currentStart) {
         addIssue(
           warnings,
           'COHORT_OVERLAP',
