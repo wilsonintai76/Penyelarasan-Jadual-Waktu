@@ -19,6 +19,8 @@ footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
   [courseSemesterRules.ts](src/utils/courseSemesterRules.ts) hides the wrong code from the Bahagian B dropdown,
   rejects it with an explanation naming the correct code, and the upload review warns with
   `COURSE_SEMESTER_MISMATCH`. Sections without a semester in their name (`DBS10042-MKS1`) are not restricted.
+  Changing the student's class also drops a stored repeat course that no longer matches the semester (with a
+  toast), so the planner never keeps planning a code the student may not register.
 
 ## [1.3.19] - 2026-11-25
 

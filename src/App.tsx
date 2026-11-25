@@ -642,6 +642,33 @@ export default function App() {
     setToasts(prev => prev.filter(t => t.id !== id));
   };
 
+  // Changing the class can invalidate a stored repeat course (semester rule for the
+  // Bahasa Kebangsaan A and Engineering Science codes): drop it instead of silently
+  // planning a code the student may not register.
+  useEffect(() => {
+    if (!student.currentCohort || selectedRepeatCourses.length === 0) return;
+    const invalid = selectedRepeatCourses
+      .map(selection => ({
+        selection,
+        issue:
+          bahasaKebangsaanSemesterIssue(selection.code, student.currentCohort) ||
+          courseSemesterIssue(selection.code, student.currentCohort)
+      }))
+      .filter(item => Boolean(item.issue));
+    if (invalid.length === 0) return;
+
+    const invalidCodes = new Set(invalid.map(item => item.selection.code));
+    setSelectedRepeatCourses(prev => prev.filter(selection => !invalidCodes.has(selection.code)));
+    invalid.forEach(item => {
+      addToast({
+        id: `repeat-auto-remove-${item.selection.code}-${Date.now()}`,
+        title: `${item.selection.code} Dibuang Dari Bahagian B`,
+        message: item.issue as string,
+        type: 'danger'
+      });
+    });
+  }, [student.currentCohort, selectedRepeatCourses]);
+
   const handleUpdateStudent = (field: keyof StudentInfo, value: string) => {
     setStudent(prev => {
       const updated = { ...prev, [field]: value };
