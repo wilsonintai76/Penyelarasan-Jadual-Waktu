@@ -4,6 +4,24 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.18] - 2026-11-25
+
+### Fixed
+
+- **16 master rows carried a venue/lecturer copied from the neighbouring cell** by the old merged-cell
+  parser, e.g. `MPU23182` (Rabu) showed `BK1, BK4` and `AIFI/ANUR` because `MPU23172`'s room and lecturer
+  were folded into it, and `DTP1-S1 DBS10082` (Khamis) had no venue at all (`MSABZBI/BNHT`). Venue and
+  lecturer are now refreshed from the extractor for every row the two disagree on.
+
+### Verified
+
+- The desktop extractor output and [jadual.json](public/data/jadual.json) now agree on **all 488
+  cohort/day/course slots**: 0 differences in start/end time, course name, credit, venue or lecturer.
+  The only remaining difference is cosmetic ? `DJJ40392` is one merged row in the master and two
+  back-to-back rows in the extractor (same 09:00???11:00 block, two rooms).
+- `MPU24XX1` is labelled per semester inside the extractor too (*Unit Beruniform 1* / *Unit Beruniform 2*),
+  so a re-extract reproduces the master exactly.
+
 ## [1.3.17] - 2026-11-25
 
 ### Fixed

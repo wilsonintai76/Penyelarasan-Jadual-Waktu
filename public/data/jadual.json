@@ -1386,8 +1386,8 @@
     "Day": "Rabu",
     "Start_Time": "16:00",
     "End_Time": "17:00",
-    "Venue": "BK1, BK4",
-    "Lecturer": "AIFI/ANUR",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
@@ -2440,7 +2440,7 @@
     "Start_Time": "08:00",
     "End_Time": "12:00",
     "Venue": "M4W, M2M, M12FD",
-    "Lecturer": "JASN/JDSM/JYAT/JNZL/JAAR",
+    "Lecturer": "JASN/JDSM/JYAT/JNZL/JAAR/JYBH/JNSS",
     "Status": "D"
   },
   {
@@ -2661,7 +2661,7 @@
     "Start_Time": "08:00",
     "End_Time": "12:00",
     "Venue": "M2M, M7HT, M13CAD",
-    "Lecturer": "JBNM/JWJH",
+    "Lecturer": "JBNM/JJWV/JWJH",
     "Status": "D"
   },
   {
@@ -2817,7 +2817,7 @@
     "Start_Time": "08:00",
     "End_Time": "12:00",
     "Venue": "M2M, M7HT, M13CAD",
-    "Lecturer": "JBNM/JWJH",
+    "Lecturer": "JBNM/JJWV/JWJH",
     "Status": "D"
   },
   {
@@ -3570,8 +3570,8 @@
     "Day": "Rabu",
     "Start_Time": "16:00",
     "End_Time": "17:00",
-    "Venue": "BK1, BK4",
-    "Lecturer": "AIFI/ANUR",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
@@ -3713,8 +3713,8 @@
     "Day": "Rabu",
     "Start_Time": "16:00",
     "End_Time": "17:00",
-    "Venue": "BK1, BK4",
-    "Lecturer": "AIFI/ANUR",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
@@ -3973,7 +3973,7 @@
     "Day": "Selasa",
     "Start_Time": "08:00",
     "End_Time": "10:00",
-    "Venue": "DK3 (J), EPE",
+    "Venue": "DK3, EPE",
     "Lecturer": "JBLA/JCYS",
     "Status": "D"
   },
@@ -4883,8 +4883,8 @@
     "Day": "Rabu",
     "Start_Time": "16:00",
     "End_Time": "17:00",
-    "Venue": "BK1, BK4",
-    "Lecturer": "AIFI/ANUR",
+    "Venue": "BK1",
+    "Lecturer": "AIFI",
     "Status": "D"
   },
   {
@@ -5091,8 +5091,8 @@
     "Day": "Khamis",
     "Start_Time": "10:00",
     "End_Time": "11:00",
-    "Venue": "BK33, MSA",
-    "Lecturer": "JSMG/BZBI/BNHT",
+    "Venue": "BK33",
+    "Lecturer": "JSMG",
     "Status": "D"
   },
   {
@@ -5104,8 +5104,8 @@
     "Day": "Khamis",
     "Start_Time": "11:00",
     "End_Time": "12:00",
-    "Venue": "-",
-    "Lecturer": "MSABZBI/BNHT",
+    "Venue": "MSA",
+    "Lecturer": "BZBI/BNHT",
     "Status": "D"
   },
   {
