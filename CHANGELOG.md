@@ -4,6 +4,23 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.9] - 2026-11-25
+
+### Fixed
+
+- DKM co-curriculum codes now follow the session rule **Semester 1 = new codes, Semester 2 and above = old
+  codes** in [dkm.json](public/assets/curriculum/dkm.json):
+  `MPU24031/MPU24041` (Sukan 1 / Kelab-Persatuan 1) became `MPU24071`/`MPU24081`, while `MPU24051`/`MPU24061`
+  (Sukan 2 / Kelab-Persatuan 2) keep the old codes and now require the new Semester 1 codes.
+- The unresolved `MPU24XX1` placeholder is replaced by the real uniformed-body codes:
+  Semester 1 `MPU24331` Askar Wataniah 1, `MPU24341` PLAS TLDM 1, `MPU24351` PLAS TUDM 1, `MPU24371` PISPA 1,
+  `MPU24411` Relasis 1; Semester 2 `MPU24221`, `MPU24231`, `MPU24461`, `MPU24261`, `MPU24301`
+  (each requires its Semester 1 counterpart). The curriculum is now 71 courses / 15 prerequisite links with no
+  unresolved entries.
+- `buildCanonicalNameMap` read the curriculum library with the wrong shape (it expected a `documents` wrapper
+  while `CurriculumLibrary` is a `programme -> document` map), so the upload review never compared course
+  names against the curriculum. It now uses the same document splitter as the prerequisite engine.
+
 ## [1.3.8] - 2026-11-25
 
 ### Changed

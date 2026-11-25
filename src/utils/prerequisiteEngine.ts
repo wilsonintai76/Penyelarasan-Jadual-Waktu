@@ -31,7 +31,8 @@ export interface PrerequisiteGraph {
  */
 export type CurriculumInput = CurriculumData | CurriculumLibrary | null | undefined;
 
-function toCurriculumDocuments(input: CurriculumInput): CurriculumData[] {
+/** Accepts either one programme document or the library map (programme -> document). */
+export function toCurriculumDocuments(input: CurriculumInput): CurriculumData[] {
   if (!input) return [];
   const asDocument = input as CurriculumData;
   if (asDocument.courses && typeof asDocument.courses === 'object') return [asDocument];

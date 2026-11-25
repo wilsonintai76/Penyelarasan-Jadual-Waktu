@@ -17,37 +17,6 @@
       "credit": 2,
       "prerequisites": []
     },
-    "MPU24031": {
-      "name": "Sukan 1",
-      "type": "Compulsory",
-      "semesters": [
-        1
-      ],
-      "credit": 1,
-      "prerequisites": [],
-      "note": "Choose 1 co-curriculum pathway"
-    },
-    "MPU24041": {
-      "name": "Kelab/Persatuan 1",
-      "type": "Compulsory",
-      "semesters": [
-        1
-      ],
-      "credit": 1,
-      "prerequisites": [],
-      "note": "Choose 1 co-curriculum pathway"
-    },
-    "MPU24XX1": {
-      "name": "Unit Beruniform 1 / Unit Beruniform 2",
-      "type": "Compulsory",
-      "semesters": [
-        1,
-        2
-      ],
-      "credit": 1,
-      "prerequisites": [],
-      "note": "Placeholder code used for both Sem 1 and Sem 2 in the source document; replace with real codes when issued."
-    },
     "DUW10042": {
       "name": "Occupational, Safety and Health for Engineering",
       "type": "Common Core",
@@ -119,7 +88,7 @@
       ],
       "credit": 1,
       "prerequisites": [
-        "MPU24031"
+        "MPU24071"
       ]
     },
     "MPU24061": {
@@ -130,7 +99,7 @@
       ],
       "credit": 1,
       "prerequisites": [
-        "MPU24041"
+        "MPU24081"
       ]
     },
     "MPU22071": {
@@ -548,16 +517,127 @@
       "semesters": [],
       "credit": 2,
       "prerequisites": []
+    },
+    "MPU24071": {
+      "name": "Sukan 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24081": {
+      "name": "Kelab/Persatuan 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24331": {
+      "name": "Askar Wataniah 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24341": {
+      "name": "PLAS TLDM 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24351": {
+      "name": "PLAS TUDM 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24371": {
+      "name": "PISPA 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24411": {
+      "name": "Relasis 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "MPU24221": {
+      "name": "Askar Wataniah 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24331"
+      ]
+    },
+    "MPU24231": {
+      "name": "PLAS TLDM 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24341"
+      ]
+    },
+    "MPU24461": {
+      "name": "PLAS TUDM 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24351"
+      ]
+    },
+    "MPU24261": {
+      "name": "PISPA 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24371"
+      ]
+    },
+    "MPU24301": {
+      "name": "Relasis 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24411"
+      ]
     }
   },
-  "unresolvedPrerequisites": [
-    {
-      "courseCode": "MPU24XX1",
-      "courseName": "Unit Beruniform 2",
-      "prerequisiteName": "Unit Beruniform 1",
-      "note": "The source document uses the same placeholder code MPU 24XX1 for Unit Beruniform 1 (Sem 1) and Unit Beruniform 2 (Sem 2), so the pair cannot be distinguished by code. Add the real course codes before enabling this rule."
-    }
-  ],
+  "unresolvedPrerequisites": [],
   "conditionalRequiredCourses": [
     {
       "courseCode": "DBM10222",

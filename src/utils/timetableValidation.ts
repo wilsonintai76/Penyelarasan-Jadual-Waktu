@@ -1,5 +1,5 @@
 import { CurriculumData, CurriculumLibrary, MasterTimetableEntry } from '../types';
-import { normalizeCourseCode } from './prerequisiteEngine';
+import { normalizeCourseCode, toCurriculumDocuments } from './prerequisiteEngine';
 
 export interface TimetableIssue {
   code: string;
@@ -61,13 +61,7 @@ export function buildCanonicalNameMap(
   curricula: CurriculumData | CurriculumLibrary | null | undefined
 ): Record<string, string> {
   const map: Record<string, string> = {};
-  if (!curricula) return map;
-
-  const documents: CurriculumData[] = 'documents' in curricula
-    ? Object.values((curricula as CurriculumLibrary).documents || {})
-    : [curricula as CurriculumData];
-
-  documents.forEach(document => {
+  toCurriculumDocuments(curricula).forEach(document => {
     const courses = (document && document.courses) || {};
     Object.entries(courses).forEach(([code, course]) => {
       const key = normalizeCourseCode(code);
