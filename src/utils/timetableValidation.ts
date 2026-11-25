@@ -17,6 +17,7 @@ export interface TimetableValidationResult {
     courses: number;
     minWeeklyHours: number;
     medianWeeklyHours: number;
+    parallelGroupSlots: number;
   };
 }
 
@@ -92,7 +93,9 @@ export function validateTimetableSlots(
 
   const weeklyMinutes = new Map<string, number>();
   const cohortCourses = new Map<string, Set<string>>();
-  const slotKeys = new Set<string>();
+  const slotKeys = new Map<string, string>();
+  const parallelGroupSlots = new Set<string>();
+  const contactBlocks = new Set<string>();
 
   entries.forEach((entry, index) => {
     const label = `${entry.Cohort || '?'} ${entry.Course_Code || '?'} ${entry.Day || '?'} ${entry.Start_Time || '?'}`;
@@ -112,21 +115,35 @@ export function validateTimetableSlots(
     }
 
     if (cohort && code && day && entry.Start_Time) {
+      // Identical rows are a duplicate; the same slot in several workshops is a
+      // legitimate parallel group (students are split by venue/instructor).
       const key = `${cohort}|${code}|${day}|${entry.Start_Time}`;
-      if (slotKeys.has(key)) addIssue(errors, 'DUPLICATE_SLOT', 'Slot berganda (seksyen + kursus + hari + masa)', label);
-      slotKeys.add(key);
+      const seen = slotKeys.get(key);
+      const venueLecturer = `${entry.Venue || ''}|${entry.Lecturer || ''}`;
+      if (seen === undefined) {
+        slotKeys.set(key, venueLecturer);
+      } else if (seen === venueLecturer) {
+        addIssue(errors, 'DUPLICATE_SLOT', 'Baris berganda sepenuhnya (seksyen, kursus, hari, masa, tempat, pensyarah)', label);
+      } else {
+        parallelGroupSlots.add(key);
+      }
     }
 
     if (cohort) {
       if (!cohortCourses.has(cohort)) cohortCourses.set(cohort, new Set());
       if (code) cohortCourses.get(cohort)!.add(code);
+      // Parallel workshop groups must not multiply the contact hours.
       if (start !== null && end !== null && end > start) {
-        weeklyMinutes.set(cohort, (weeklyMinutes.get(cohort) || 0) + (end - start));
+        if (!contactBlocks.has(`${cohort}|${day}|${entry.Start_Time}|${entry.End_Time}`)) {
+          contactBlocks.add(`${cohort}|${day}|${entry.Start_Time}|${entry.End_Time}`);
+          weeklyMinutes.set(cohort, (weeklyMinutes.get(cohort) || 0) + (end - start));
+        }
       }
     }
   });
 
-  // Overlapping slots inside one cohort mean the grid was read out of alignment.
+  // Overlaps are reported but never blocked: co-curriculum and MPU alternatives
+  // (e.g. Sukan 2 / Kelab 2 / Unit Beruniform 2) share the same slot by design.
   const byCohortDay = new Map<string, MasterTimetableEntry[]>();
   entries.forEach(entry => {
     const key = `${String(entry.Cohort || '').trim().toUpperCase()}|${String(entry.Day || '').trim().toUpperCase()}`;
@@ -140,11 +157,15 @@ export function validateTimetableSlots(
     for (let i = 1; i < sorted.length; i += 1) {
       const prevEnd = toMinutes(sorted[i - 1].End_Time);
       const currentStart = toMinutes(sorted[i].Start_Time);
-      if (prevEnd !== null && currentStart !== null && prevEnd > currentStart) {
+      // Parallel groups of the same course share the slot on purpose.
+      const sameCourse =
+        String(sorted[i - 1].Course_Code || '').toUpperCase() ===
+        String(sorted[i].Course_Code || '').toUpperCase();
+      if (!sameCourse && prevEnd !== null && currentStart !== null && prevEnd > currentStart) {
         addIssue(
-          errors,
+          warnings,
           'COHORT_OVERLAP',
-          'Dua kursus bertindih pada masa yang sama dalam seksyen yang sama',
+          'Dua kursus berbeza bertindih pada masa yang sama (kursus pilihan/ko-kurikulum selari?)',
           `${sorted[i].Cohort} ${sorted[i].Day} ${sorted[i - 1].Course_Code}/${sorted[i].Course_Code}`
         );
       }
@@ -238,7 +259,8 @@ export function validateTimetableSlots(
       cohorts: cohortCourses.size,
       courses: new Set(entries.map(entry => String(entry.Course_Code || '').toUpperCase())).size,
       minWeeklyHours: sortedHours.length ? sortedHours[0] : 0,
-      medianWeeklyHours: median
+      medianWeeklyHours: median,
+      parallelGroupSlots: parallelGroupSlots.size
     }
   };
 }

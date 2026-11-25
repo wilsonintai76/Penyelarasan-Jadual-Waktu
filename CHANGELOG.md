@@ -4,6 +4,16 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.2] - 2026-11-25
+
+### Fixed
+
+- The upload validation added in 1.3.1 no longer treats legitimate timetable structures as errors:
+  parallel workshop groups (same course and slot in several workshops with different venues and
+  instructors) and co-curriculum / MPU alternatives sharing one slot (Sukan 2, Kelab 2, Unit Beruniform 2,
+  Pengajian Islam vs Moral) are recognised, contact hours are counted per distinct time block instead of per
+  row, and cross-course overlaps are reported as warnings rather than blocking the publish button.
+
 ## [1.3.1] - 2026-11-25
 
 ### Fixed
