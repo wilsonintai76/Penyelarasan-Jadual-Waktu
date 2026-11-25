@@ -41,6 +41,7 @@ import {
 } from '../utils/timetableSolver';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
 import { bahasaKebangsaanSemesterIssue } from '../utils/bahasaKebangsaan';
+import { MAX_CREDITS, MIN_CREDITS } from '../utils/creditRules';
 
 interface PlannerViewProps {
   analysis: SolverAnalysis;
@@ -336,9 +337,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               </p>
             </div>
             <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
-              <div className="font-black text-emerald-900 mb-1">3. Semak Had 12–18 Kredit</div>
+              <div className="font-black text-emerald-900 mb-1">3. Semak Had {MIN_CREDITS}–{MAX_CREDITS} Kredit</div>
               <p className="text-[11px] text-slate-700 leading-relaxed">
-                Jumlah jam kredit setiap semester mestilah antara <b>12 – 18 jam kredit</b>. Jika <b>&lt; 12</b> atau <b>&gt; 18 jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
+                Jumlah jam kredit setiap semester mestilah antara <b>{MIN_CREDITS} – {MAX_CREDITS} jam kredit</b>. Jika <b>&lt; {MIN_CREDITS}</b> atau <b>&gt; {MAX_CREDITS} jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
               </p>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -875,20 +876,20 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           </div>
 
           <div>
-            {totalCredits < 12 ? (
+            {totalCredits < MIN_CREDITS ? (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-rose-50 text-rose-800 border-rose-300 flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                <span>Kurang Had (&lt; 12 Kredit) · Perlu Kebenaran KJ</span>
+                <span>Kurang Had (&lt; {MIN_CREDITS} Kredit) · Perlu Kebenaran KJ</span>
               </div>
-            ) : totalCredits > 18 ? (
+            ) : totalCredits > MAX_CREDITS ? (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-amber-50 text-amber-900 border-amber-300 flex items-center gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span>Melebihi Had (&gt; 18 Kredit) · Perlu Kebenaran KJ</span>
+                <span>Melebihi Had (&gt; {MAX_CREDITS} Kredit) · Perlu Kebenaran KJ</span>
               </div>
             ) : (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>Beban Kredit Sah (12 – 18 Jam Kredit)</span>
+                <span>Beban Kredit Sah ({MIN_CREDITS} – {MAX_CREDITS} Jam Kredit)</span>
               </div>
             )}
           </div>

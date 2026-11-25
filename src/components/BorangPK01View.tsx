@@ -3,6 +3,7 @@ import { Printer, Image as ImageIcon, Upload, RotateCcw, Check, X, Eye, EyeOff, 
 import { SolverAnalysis, StudentInfo } from '../types';
 import { getPackageLecturers } from '../utils/timetableSolver';
 import { fitSheetToOnePage, triggerPrintDocument } from '../utils/printHelper';
+import { MAX_CREDITS, MIN_CREDITS } from '../utils/creditRules';
 import { PKSLogo } from './PKSLogo';
 
 interface BorangPK01ViewProps {
@@ -21,7 +22,7 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
 }) => {
   const { keptBasePackages, sectionBPackages, creditsA, creditsB, totalCredits } = analysis;
   const programCode = (student.currentCohort || "").substring(0, 3).toUpperCase();
-  const isCreditOutOfRange = totalCredits < 12 || totalCredits > 20;
+  const isCreditOutOfRange = totalCredits < MIN_CREDITS || totalCredits > MAX_CREDITS;
 
   // Custom logo state (Cloudflare R2 official logo takes precedence; falls back to local override)
   const [customLogo, setCustomLogo] = useState<string>(() => {
@@ -355,7 +356,7 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
           {/* Special Credit Warning Notice (If < 12 or > 20 credits) */}
           {isCreditOutOfRange && (
             <div className="mt-[4mm] border border-black bg-amber-50 px-2 py-1 text-[8.5pt]">
-              <b>PERHATIAN BEBAN KREDIT KHAS:</b> Jumlah jam kredit semasa ialah <b>{totalCredits} jam kredit</b> {totalCredits < 12 ? '(kurang daripada had minimum 12 jam kredit)' : '(melebihi had maksimum 20 jam kredit)'}. Sila dapatkan kelulusan khas Ketua Jabatan (KJ) di ruangan pengesahan di bawah.
+              <b>PERHATIAN BEBAN KREDIT KHAS:</b> Jumlah jam kredit semasa ialah <b>{totalCredits} jam kredit</b> {totalCredits < MIN_CREDITS ? `(kurang daripada had minimum ${MIN_CREDITS} jam kredit)` : `(melebihi had maksimum ${MAX_CREDITS} jam kredit)`}. Sila dapatkan kelulusan khas Ketua Jabatan (KJ) di ruangan pengesahan di bawah.
             </div>
           )}
 

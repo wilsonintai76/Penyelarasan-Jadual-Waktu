@@ -8,6 +8,7 @@ import { DataManagementModal, ModalSubTab, BindingsStatus } from './components/D
 import { ToastContainer, ToastItem } from './components/ToastContainer';
 import { runFullAnalysis } from './utils/timetableSolver';
 import { bahasaKebangsaanSemesterIssue } from './utils/bahasaKebangsaan';
+import { MAX_CREDITS, MIN_CREDITS, isAboveCreditLoad, isBelowCreditLoad } from './utils/creditRules';
 import { APP_VERSION_LABEL, formatBuildStamp } from './version';
 import {
   fetchLatestExternalTimetable,
@@ -546,12 +547,12 @@ export default function App() {
     bahasaKebangsaanPassed
   ]);
 
-  // Credit rule toast alerts
+  // Credit rule toast alerts (Borang PK01: <12 or >20 needs Ketua Jabatan approval)
   useEffect(() => {
     let currentState: 'normal' | 'under' | 'over' = 'normal';
-    if (analysis.totalCredits < 12) {
+    if (isBelowCreditLoad(analysis.totalCredits)) {
       currentState = 'under';
-    } else if (analysis.totalCredits > 18) {
+    } else if (isAboveCreditLoad(analysis.totalCredits)) {
       currentState = 'over';
     }
 
@@ -559,9 +560,8 @@ export default function App() {
       if (currentState === 'under') {
         addToast({
           id: `credit-under-${Date.now()}`,
-          title: `Jumlah Kredit Kurang (${analysis.totalCredits} Jam < 12 Jam)`,
-          message:
-            'Jumlah jam kredit anda kurang daripada 12 jam kredit. Anda masih boleh meneruskan perancangan jadual, namun kebenaran bertulis Ketua Jabatan (KJ) diperlukan semasa serahan Borang PK01.',
+          title: `Jumlah Kredit Kurang (${analysis.totalCredits} Jam < ${MIN_CREDITS} Jam)`,
+          message: `Jumlah jam kredit anda kurang daripada ${MIN_CREDITS} jam kredit. Anda masih boleh meneruskan perancangan jadual, namun kebenaran bertulis Ketua Jabatan (KJ) diperlukan semasa serahan Borang PK01.`,
           type: 'danger',
           actionBtnText: 'Semak PK01',
           onActionClick: () => setActiveTab('pk01')
@@ -569,9 +569,8 @@ export default function App() {
       } else if (currentState === 'over') {
         addToast({
           id: `credit-over-${Date.now()}`,
-          title: `Jumlah Kredit Melebihi Had (${analysis.totalCredits} Jam > 18 Jam)`,
-          message:
-            'Jumlah jam kredit anda melebihi 18 jam kredit. Anda masih boleh meneruskan perancangan jadual, namun kebenaran bertulis Ketua Jabatan (KJ) diperlukan semasa serahan Borang PK01.',
+          title: `Jumlah Kredit Melebihi Had (${analysis.totalCredits} Jam > ${MAX_CREDITS} Jam)`,
+          message: `Jumlah jam kredit anda melebihi ${MAX_CREDITS} jam kredit. Anda masih boleh meneruskan perancangan jadual, namun kebenaran bertulis Ketua Jabatan (KJ) diperlukan semasa serahan Borang PK01.`,
           type: 'warning',
           actionBtnText: 'Semak PK01',
           onActionClick: () => setActiveTab('pk01')

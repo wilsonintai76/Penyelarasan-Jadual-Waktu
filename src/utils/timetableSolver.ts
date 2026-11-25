@@ -14,6 +14,7 @@ import {
 import { buildPrerequisiteGraph, findPrerequisiteDrops, findRepeatPrerequisiteViolations } from './prerequisiteEngine';
 import { findChoiceGroups, sharedChoiceSlot } from './choiceSchedule';
 import { collectBahasaKebangsaanCodes, isBahasaKebangsaanA } from './bahasaKebangsaan';
+import { MAX_CREDITS, MIN_CREDITS } from './creditRules';
 
 export function parseTime(t: string): number {
   if (!t) return 0;
@@ -84,7 +85,7 @@ export function getPackageLecturers(pkg: CoursePackage): string {
 const SOLVER_WEIGHTS = {
   dropPerCredit: 1000,          // penalty per credit of current course dropped
   repeatClash: 100000,          // MK/BD clashing between each other
-  creditWindowPerCredit: 50,    // penalty per credit outside 12-18 range
+  creditWindowPerCredit: 50,    // penalty per credit outside the 12-20 study-load window
   swapSection: 10,              // penalty for moving current course to alternate section
   otherProgram: 1               // penalty for picking another program section
 };
@@ -159,7 +160,7 @@ export function solveOptimal(ctx: SolveContext): { assignment: AssignmentItem[];
     if (i === vars.length) {
       let total = 0;
       chosen.forEach(c => { if (c.pkg) total += c.pkg.Credit; });
-      const outside = total < 12 ? 12 - total : (total > 18 ? total - 18 : 0);
+      const outside = total < MIN_CREDITS ? MIN_CREDITS - total : (total > MAX_CREDITS ? total - MAX_CREDITS : 0);
       const finalCost = cost + outside * W.creditWindowPerCredit;
       if (finalCost < bestCost) {
         bestCost = finalCost;

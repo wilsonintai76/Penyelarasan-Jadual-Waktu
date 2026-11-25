@@ -4,6 +4,18 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.15] - 2026-11-25
+
+### Fixed
+
+- The study-load ceiling was **18 credits** in the planner, while the official Borang PK01 note says
+  *"Jika jumlah jam kredit kurang dari 12 jam kredit atau melebihi 20 jam kredit, pelajar perlu mendapat
+  kebenaran Ketua Jabatan"*. A 20-credit load was therefore shown as *"Melebihi Had (> 18 Kredit)"*. The limit
+  is now **20** everywhere: credit badge, guide step 3, toast alerts and the solver's credit-window penalty
+  (which was also pushing a legitimate 19–20 credit load down).
+- The limits live in one place, [creditRules.ts](src/utils/creditRules.ts) (`MIN_CREDITS` 12 / `MAX_CREDITS` 20),
+  because they were hard-coded in three screens that could drift apart again.
+
 ## [1.3.14] - 2026-11-25
 
 ### Fixed
