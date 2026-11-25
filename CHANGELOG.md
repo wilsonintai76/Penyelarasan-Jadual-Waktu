@@ -4,6 +4,24 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.17] - 2026-11-25
+
+### Fixed
+
+- **Course names now follow the official legend printed on every timetable sheet.** 29 codes were mis-titled in
+  [course_catalog.json](public/assets/course_catalog.json) ? for example `DJU20102` was *Manufacturing Workshop*
+  instead of *Air Conditioning and Refrigeration System*, `DJU50192` was *Lean Manufacturing* instead of
+  *Air Conditioning and Refrigeration Control System*, and the whole `DJA` (automotive) and `DJF` (fabrication)
+  series was shifted by one row. The 67 master rows that carry those codes were renamed too.
+
+### Added
+
+- **`MPU24XX1` (Unit Beruniform) is now a real third option for the co-curriculum slot.** The code is printed on
+  the sheet but the desktop extractor used to drop it, so a student in a uniformed body could not plan the course.
+  The extractor now recognises the placeholder (`clean_and_extract_course_codes`), and the master carries the 18
+  `MPU24XX1` rows (Rabu 15:00?17:00, 1 credit, *Unit Beruniform 1* for Semester 1 cohorts and *Unit Beruniform 2*
+  for the rest). The planner groups it with *Sukan* and *Kelab/Persatuan* as "Pilih satu" (491 rows, was 473).
+
 ## [1.3.16] - 2026-11-25
 
 ### Fixed
