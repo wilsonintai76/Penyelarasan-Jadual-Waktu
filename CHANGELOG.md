@@ -4,6 +4,19 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.3] - 2026-11-25
+
+### Changed
+
+- Master timetable republished from the 508-slot programme extraction
+  (`sample/jadual_waktu_program_jkm.json`): 421 -> 508 slots, 38 sections, 73 course codes. Added the
+  Semester 2 co-curriculum block (`MPU24051` Sukan 2, `MPU24061` Kelab/Persatuan 2, `MPU24071`, `MPU24081`)
+  and `DJF42062`; dropped `DJU50192`. The previous 421-slot master is kept in R2
+  (`backups/jadual_induk_jkm-2026-11-25T04-02-40-000Z.json`) and referenced by the change log.
+- Course names of the new master are resolved from the curriculum (365 rows), the previous master
+  (127 rows) and the catalogue; `MPU24071`, `MPU24081` and `DJF42062` have no official name yet and are
+  displayed as their code until the catalogue/curriculum is updated.
+
 ## [1.3.2] - 2026-11-25
 
 ### Fixed
