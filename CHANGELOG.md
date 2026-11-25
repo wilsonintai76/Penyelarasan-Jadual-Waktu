@@ -4,6 +4,24 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.10] - 2026-11-25
+
+### Fixed
+
+- [course_catalog.json](public/assets/course_catalog.json) now carries the official course names for the
+  elective codes that were still stored as placeholders (`"Course DJA40192"` and 40 others). The names come from
+  the department extraction and are used as the last fallback when a curriculum does not cover a code.
+- The catalogue also lists the complete co-curriculum code set for **both** cohorts, so a code is never left
+  unnamed during upload review: Semester 1 (Sesi II 2026/2027) `MPU24071` Sukan 1, `MPU24081` Kelab/Persatuan 1,
+  `MPU24091` Sukan 2, `MPU24101` Kelab/Persatuan 2, plus the uniformed bodies `MPU24331/24341/24351/24371/24411`
+  (… 1); Semester 2 and above (Sesi I 2026/2027) `MPU24031/24041/24051/24061` and the uniformed bodies
+  `MPU24111/24221/24121/24231/24351/24461/24151/24261/24191/24301` (… 2). 177 entries in total.
+- NiceGUI extractor (`desktop/jkm_pure_timetable_extractor.py`): `MPU24071`/`MPU24081` were labelled
+  "Unit Beruniform 1/2" instead of "Sukan 1"/"Kelab/Persatuan 1", the uniformed-body codes were missing, and
+  `PARALLEL_CHOICE_GROUPS` merged same-slot co-curriculum alternatives (Sukan/Kelab/Unit Beruniform) into a
+  single row — which is what dropped the student's choice from the master timetable. The merge list is now empty
+  so the planner's "Pilih satu" panel keeps both codes.
+
 ## [1.3.9] - 2026-11-25
 
 ### Fixed
