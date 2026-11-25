@@ -2,7 +2,76 @@
  * Safe print helper for A4 documents (Borang PK01 & Jadual Kuliah)
  * Operates cleanly whether embedded in Google Sites iframe or hosted directly on Cloudflare Pages.
  */
+
+const MM_TO_PX = 96 / 25.4;
+
+/**
+ * Shrinks the printable sheet when its content is taller than one A4 page, so Borang PK01
+ * always prints on a single page (a repeat course adds a Bahagian B row and would otherwise
+ * spill onto page 2). The whole form is scaled uniformly — the official layout is preserved,
+ * just slightly smaller.
+ *
+ * The scale is applied inline so the iframe print window (which copies `outerHTML`) gets it too.
+ */
+export function fitSheetToOnePage(
+  sheet: HTMLElement | null,
+  pageHeightMm = 297,
+  minimumScale = 0.6
+): number {
+  if (!sheet) return 1;
+  const frame = sheet.firstElementChild;
+  if (!(frame instanceof HTMLElement)) return 1;
+
+  // Reset a previous fit before measuring.
+  frame.style.transform = '';
+  frame.style.width = '';
+  sheet.classList.remove('sheet-scaled');
+
+  const previous = {
+    sheetWidth: sheet.style.width,
+    sheetMaxWidth: sheet.style.maxWidth,
+    sheetPadding: sheet.style.padding
+  };
+  const hiddenAncestors: { node: HTMLElement; display: string }[] = [];
+  let node: HTMLElement | null = sheet;
+  while (node && node !== document.body) {
+    if (window.getComputedStyle(node).display === 'none') {
+      hiddenAncestors.push({ node, display: node.style.display });
+      node.style.display = 'block';
+    }
+    node = node.parentElement;
+  }
+
+  // Measure with the exact geometry used by the print stylesheet.
+  sheet.style.width = '210mm';
+  sheet.style.maxWidth = 'none';
+  sheet.style.padding = '6mm 10mm';
+  const neededPx = frame.getBoundingClientRect().height;
+  const availablePx = (pageHeightMm - 12) * MM_TO_PX;
+
+  sheet.style.width = previous.sheetWidth;
+  sheet.style.maxWidth = previous.sheetMaxWidth;
+  sheet.style.padding = previous.sheetPadding;
+  hiddenAncestors.forEach(({ node: element, display }) => {
+    element.style.display = display;
+  });
+
+  if (!neededPx || neededPx <= availablePx) return 1;
+
+  const scale = Math.max(minimumScale, Math.min(1, availablePx / neededPx));
+  frame.style.transform = `scale(${scale})`;
+  frame.style.transformOrigin = 'top left';
+  frame.style.width = `${Number((100 / scale).toFixed(2))}%`;
+  sheet.classList.add('sheet-scaled');
+  return scale;
+}
+
 export function triggerPrintDocument(target: 'pk01' | 'jadual' | 'all'): void {
+  // Guarantee one page per document before the browser paginates it.
+  if (target !== 'jadual') {
+    fitSheetToOnePage(document.getElementById('printable-sheet-pk01'));
+  }
+
   const isTopLevel = (() => {
     try {
       return window.self === window.top;
@@ -69,6 +138,11 @@ export function triggerPrintDocument(target: 'pk01' | 'jadual' | 'all'): void {
             padding: 8mm 10mm;
             border: 1px solid #000000;
             box-sizing: border-box;
+          }
+          /* Auto-fitted to a single A4 page (see fitSheetToOnePage). */
+          .print-sheet.sheet-scaled {
+            height: 297mm;
+            overflow: hidden;
           }
           .diagonal-stamp {
             position: absolute;

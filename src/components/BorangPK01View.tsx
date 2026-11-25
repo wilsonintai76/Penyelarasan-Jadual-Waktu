@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Printer, Image as ImageIcon, Upload, RotateCcw, Check, X, Eye, EyeOff, FileCheck2 } from 'lucide-react';
 import { SolverAnalysis, StudentInfo } from '../types';
 import { getPackageLecturers } from '../utils/timetableSolver';
-import { triggerPrintDocument } from '../utils/printHelper';
+import { fitSheetToOnePage, triggerPrintDocument } from '../utils/printHelper';
 import { PKSLogo } from './PKSLogo';
 
 interface BorangPK01ViewProps {
@@ -33,6 +33,17 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
   const [logoUploadNotice, setLogoUploadNotice] = useState<string | null>(null);
   const [isPrintPreview, setIsPrintPreview] = useState(false);
   const [isGrayscalePreview, setIsGrayscalePreview] = useState(false);
+
+  // Keep the form on a single A4 page: adds a Bahagian B row and it is re-measured.
+  useLayoutEffect(() => {
+    const sheet = document.getElementById('printable-sheet-pk01');
+    fitSheetToOnePage(sheet);
+    // Web fonts change the text metrics, so measure again once they are ready.
+    const fonts = (document as Document & { fonts?: { ready?: Promise<unknown> } }).fonts;
+    fonts?.ready?.then(() => {
+      fitSheetToOnePage(document.getElementById('printable-sheet-pk01'));
+    });
+  }, [analysis, student, effectiveLogo, isPrintPreview]);
 
   useEffect(() => {
     if (customLogo) {

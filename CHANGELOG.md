@@ -4,6 +4,20 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.14] - 2026-11-25
+
+### Fixed
+
+- **Borang PK01 now always prints on one A4 page.** The form filled 294 mm of the 297 mm page for a full
+  cohort, so adding a single Bahagian B (tumpang/mengulang) row pushed it to 302 mm and the signature block
+  spilled onto page 2. `fitSheetToOnePage` in [printHelper.ts](src/utils/printHelper.ts) measures the form at
+  print geometry and, only when it overflows, scales the page frame down (uniformly, floor 0.6) with the sheet
+  pinned to `297 mm` / `overflow:hidden`. The scale is inline, so the iframe print window and the on-screen
+  "Pratonton Cetak" both show exactly what comes out of the printer. The form is re-measured when the
+  content changes and once the web fonts load (their metrics decide whether it overflows at all).
+  Verified with headless Chrome: 0, 2 and 4 Bahagian B rows all render as a single A4 page (scaled 1.0,
+  0.91 and 0.80) with the NOTA and status legend still present on the page.
+
 ## [1.3.13] - 2026-11-25
 
 ### Added

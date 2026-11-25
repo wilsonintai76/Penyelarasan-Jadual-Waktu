@@ -135,6 +135,13 @@
     min-height: 297mm !important;
   }
 
+  /* Auto-fitted to one A4 page (see fitSheetToOnePage in printHelper.ts). */
+  body.print-target-pk01 #printable-sheet-pk01.sheet-scaled,
+  body.print-target-all #printable-sheet-pk01.sheet-scaled {
+    height: 297mm !important;
+    overflow: hidden !important;
+  }
+
   body.print-target-jadual #printable-sheet-jadual,
   body.print-target-all #printable-sheet-jadual {
     page: jadualsheet;
