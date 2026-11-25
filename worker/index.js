@@ -15,6 +15,7 @@ import * as logo from '../functions/api/logo.js';
 import * as verifyPin from '../functions/api/verify-pin.js';
 import * as adminPin from '../functions/api/admin-pin.js';
 import * as extractPdf from '../functions/api/extract-pdf.js';
+import * as curriculum from '../functions/api/curriculum.js';
 
 const ROUTES = {
   '/api/jadual': jadual,
@@ -27,6 +28,7 @@ const ROUTES = {
   '/api/verify-pin': verifyPin,
   '/api/admin-pin': adminPin,
   '/api/extract-pdf': extractPdf,
+  '/api/curriculum': curriculum,
 };
 
 const METHOD_HANDLERS = {

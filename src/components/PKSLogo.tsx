@@ -3,12 +3,15 @@ import React, { useState, useEffect } from 'react';
 interface PKSLogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Replaces the preset size box entirely, e.g. an exact mm footprint for print documents. */
+  boxClassName?: string;
   customLogo?: string; // Supports Cloudflare R2 URL (/api/logo?v=...), base64 data URL, or direct image URL
 }
 
 export const PKSLogo: React.FC<PKSLogoProps> = ({
   className = '',
   size = 'md',
+  boxClassName,
   customLogo
 }) => {
   const [errorCount, setErrorCount] = useState(0);
@@ -28,7 +31,7 @@ export const PKSLogo: React.FC<PKSLogoProps> = ({
     xl: 'w-24 h-24'
   };
 
-  const selectedDim = dimMap[size] || dimMap.md;
+  const selectedDim = boxClassName || dimMap[size] || dimMap.md;
 
   // Determine active source:
   // If customLogo is specified and has not errored, use it first!

@@ -4,6 +4,42 @@ All notable changes to the Sistem Penyelarasan Jadual (JKM) web app are recorded
 The version is defined in [package.json](./package.json) and is surfaced in the app
 footer, the Tetapan modal, and `GET /api/version` on the deployed Worker.
 
+## [1.3.0] - 2026-11-25
+
+### Added
+
+- Curriculum prerequisites per programme: [public/assets/curriculum/dkm.json](public/assets/curriculum/dkm.json)
+  holds the 62 DKM courses with normalized prerequisite chains, and `GET/POST/DELETE /api/curriculum`
+  serves or overrides each programme's document through the `curriculum_<PROGRAMME>` KV key.
+- **Tetapan → Kurikulum & Prasyarat** tab: upload/download/validate a programme's curriculum JSON without
+  redeploying (same workflow as the master timetable upload), with DKM/DAD/DPU/DTP status per programme.
+- Overwrite protection: publishing over an existing curriculum asks for confirmation in the UI and is
+  refused server-side (`409 ALREADY_EXISTS`) unless `overwrite: true` is sent; deleting an override is
+  confirmed too.
+- Prerequisite enforcement in the planner: repeating a course (C1/C2/D) automatically drops every dependent
+  course from the Bahagian A timetable with a notice, cascading through the full prerequisite chain
+  (e.g. repeat `DBM10163` → `DBM20173` dropped, and `DBM30183` too when applicable). Rules are keyed by
+  course code and merged across all programme documents, so shared codes apply to every programme.
+- Repaired Windows-1252 mojibake in [PlannerView.tsx](src/components/PlannerView.tsx) (emoji and dashes
+  rendered as `ðŸ“` / `â€“`).
+- Advisor warning when a repeat list combines a course with its own prerequisite.
+
+- Borang PK01 and Jadual Waktu Kuliah printouts now reproduce the official templates:
+  centred Politeknik logo (53x20 mm on PK01, 56x20 mm on the jadual), page frame, `Borang PK01`
+  tag box, underlined/boxed student fields, the 6/7-column course tables with the shaded
+  `JUMLAH JAM KREDIT` row, the right-aligned `JUMLAH JAM KREDIT KESELURUHAN` box, signature
+  lines, the official **NOTA** wording and the centred `Status : D / MK1 / MK2` legend.
+- The Jadual Waktu Kuliah sheet prints on **A4 landscape** (named `@page` rules), matching the
+  supplied `JADUAL WAKTU KULIAH KOSONG` template; Borang PK01 keeps A4 portrait. The on-screen
+  print preview mirrors both paper sizes.
+- `PKSLogo` gained a `boxClassName` prop so print documents can pin the logo to an exact
+  millimetre footprint.
+
+### Changed
+
+- The credit-load rule printed on Borang PK01 now follows the official form (12-20 jam kredit,
+  previously 18), so the warning banner and the printed NOTA agree.
+
 ## [1.2.0] - 2026-11-18
 
 ### Added

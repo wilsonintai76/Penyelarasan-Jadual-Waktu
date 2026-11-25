@@ -24,13 +24,18 @@ import {
   EyeOff,
   Loader2,
   Layers,
-  Calendar
+  Calendar,
+  GraduationCap
 } from 'lucide-react';
 import {
+  CurriculumData,
+  CurriculumSummary,
+  CurriculumValidation,
   MasterTimetableEntry,
   SystemSettings,
   TimetableChangeLogEntry
 } from '../types';
+import { validateCurriculum } from '../utils/prerequisiteEngine';
 import { ExternalSourceType } from '../utils/externalTimetableLoader';
 import { APP_VERSION_LABEL } from '../version';
 import {
@@ -45,6 +50,7 @@ import { PKSLogo } from './PKSLogo';
 export type ModalSubTab =
   | 'upload_timetable'
   | 'settings_logo'
+  | 'curriculum'
   | 'changelog'
   | 'cloudflare_setup';
 
@@ -68,6 +74,8 @@ interface DataManagementModalProps {
   bindingsStatus: BindingsStatus;
   onSettingsSaved: (settings: SystemSettings) => void;
   onTimetablePublished: () => Promise<void>;
+  onCurriculumPublished?: () => void;
+  availableProgrammes?: string[];
   initialSubTab?: ModalSubTab;
 }
 
@@ -92,6 +100,8 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
   bindingsStatus,
   onSettingsSaved,
   onTimetablePublished,
+  onCurriculumPublished,
+  availableProgrammes = [],
   initialSubTab = 'upload_timetable'
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<ModalSubTab>(initialSubTab);
@@ -237,8 +247,40 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
       });
   }, [stagedEntries, cohortFilter, searchQuery]);
 
-  if (!isOpen) return null;
+  // Tab: Kurikulum & Prasyarat (per-programme JSON document, like the master timetable)
+  const curriculumFileRef = useRef<HTMLInputElement>(null);
+  const [curriculumProgramme, setCurriculumProgramme] = useState<string>('DKM');
+  const [curriculumSummaries, setCurriculumSummaries] = useState<CurriculumSummary[]>([]);
+  const [isLoadingCurriculum, setIsLoadingCurriculum] = useState(false);
+  const [curriculumDraft, setCurriculumDraft] = useState<CurriculumData | null>(null);
+  const [curriculumValidation, setCurriculumValidation] = useState<CurriculumValidation | null>(null);
+  const [curriculumFileName, setCurriculumFileName] = useState('');
+  const [isPublishingCurriculum, setIsPublishingCurriculum] = useState(false);
+  const [pendingCurriculumOverwrite, setPendingCurriculumOverwrite] = useState<{
+    existing: CurriculumSummary | null;
+    fromServer?: boolean;
+  } | null>(null);
+  const [pendingCurriculumDelete, setPendingCurriculumDelete] = useState<boolean>(false);
 
+  const loadCurriculumSummaries = async () => {
+    setIsLoadingCurriculum(true);
+    try {
+      const res = await fetch('/api/curriculum', { cache: 'no-store' });
+      const data = await res.json();
+      if (Array.isArray(data?.programmes)) setCurriculumSummaries(data.programmes);
+    } catch {
+      // status summary is informational only
+    } finally {
+      setIsLoadingCurriculum(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!isOpen || activeSubTab !== 'curriculum' || !isAdminUnlocked) return;
+    loadCurriculumSummaries();
+  }, [isOpen, activeSubTab, isAdminUnlocked]);
+
+  if (!isOpen) return null;
   const isPrivilegedTab = activeSubTab !== 'changelog';
   const requiresPinGate = isPrivilegedTab && !isAdminUnlocked;
 
@@ -490,6 +532,231 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
     });
   };
 
+  // ---- Tab: Kurikulum & Prasyarat handlers ----
+  const handleCurriculumFileSelected = async (file: File | undefined) => {
+    if (!file) return;
+    setNotice(null);
+    setPendingCurriculumOverwrite(null);
+    setPendingCurriculumDelete(false);
+    setCurriculumFileName(file.name);
+    setCurriculumDraft(null);
+    setCurriculumValidation(null);
+
+    if (!file.name.toLowerCase().endsWith('.json')) {
+      setNotice({
+        text: 'Format fail tidak disokong. Sila pilih fail .json kurikulum.',
+        type: 'error'
+      });
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(await file.text());
+      const validation = validateCurriculum(parsed);
+      setCurriculumDraft(parsed as CurriculumData);
+      setCurriculumValidation(validation);
+
+      const detected = (validation.programme || '').toUpperCase();
+      if (detected && detected !== curriculumProgramme) {
+        setCurriculumProgramme(detected);
+        setNotice({
+          text: `Fail dikesan untuk program ${detected}; pilihan program ditukar secara automatik.`,
+          type: 'info'
+        });
+      } else if (!validation.ok) {
+        setNotice({ text: validation.errors.join(' '), type: 'error' });
+      } else {
+        setNotice({
+          text: `Fail "${file.name}" sah: ${validation.coursesCount} kursus, ${validation.prerequisitesCount} peraturan prasyarat.`,
+          type: 'success'
+        });
+      }
+    } catch (err: any) {
+      setCurriculumFileName('');
+      setNotice({
+        text: `JSON tidak sah: ${err?.message || String(err)}`,
+        type: 'error'
+      });
+    }
+  };
+
+  const handlePublishCurriculum = async (overwrite = false) => {
+    if (!curriculumDraft || !curriculumValidation?.ok) return;
+
+    // Existing document -> never replace silently: ask for confirmation first.
+    if (!overwrite && selectedCurriculumSummary && selectedCurriculumSummary.source !== 'none') {
+      setPendingCurriculumOverwrite({ existing: selectedCurriculumSummary });
+      setPendingCurriculumDelete(false);
+      return;
+    }
+
+    setIsPublishingCurriculum(true);
+    setNotice(null);
+    try {
+      const res = await fetch('/api/curriculum', {
+        method: 'POST',
+        headers: buildWriteHeaders(),
+        body: JSON.stringify({
+          programme: curriculumProgramme,
+          curriculum: curriculumDraft,
+          filename: curriculumFileName,
+          overwrite
+        })
+      });
+
+      if (res.status === 401) {
+        lockAdminSession('PIN Admin tidak sah atau telah tamat. Sila sahkan semula PIN.');
+        return;
+      }
+
+      if (res.status === 409) {
+        const conflict = await res.json().catch(() => ({}));
+        setPendingCurriculumOverwrite({
+          existing: (conflict?.existing as CurriculumSummary) || selectedCurriculumSummary || null,
+          fromServer: true
+        });
+        setNotice({
+          text: conflict?.message || `Kurikulum ${curriculumProgramme} sudah wujud. Sahkan tindihan.`,
+          type: 'info'
+        });
+        return;
+      }
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.message || `Gagal menerbitkan kurikulum (HTTP ${res.status}).`);
+      }
+
+      setPendingCurriculumOverwrite(null);
+      setNotice({
+        text: `Kurikulum ${curriculumProgramme} diterbitkan ke Cloudflare KV (${curriculumValidation.coursesCount} kursus, ${curriculumValidation.prerequisitesCount} prasyarat). Peraturan prasyarat kini berkuat kuasa.`,
+        type: 'success'
+      });
+      setCurriculumDraft(null);
+      setCurriculumValidation(null);
+      setCurriculumFileName('');
+      if (curriculumFileRef.current) curriculumFileRef.current.value = '';
+      await loadCurriculumSummaries();
+      onCurriculumPublished?.();
+    } catch (err: any) {
+      setNotice({
+        text: err?.message || 'Ralat semasa menyimpan kurikulum ke Cloudflare KV.',
+        type: 'error'
+      });
+    } finally {
+      setIsPublishingCurriculum(false);
+    }
+  };
+
+  const handleDownloadCurriculum = async () => {
+    setNotice(null);
+    try {
+      const res = await fetch(`/api/curriculum?programme=${encodeURIComponent(curriculumProgramme)}`, {
+        cache: 'no-store'
+      });
+      const data = await res.json();
+      if (!data?.curriculum) {
+        setNotice({
+          text: `Tiada struktur kurikulum tersimpan untuk ${curriculumProgramme}. Muat naik fail JSON baharu untuk mencipta.`,
+          type: 'info'
+        });
+        return;
+      }
+      const blob = new Blob([JSON.stringify(data.curriculum, null, 2)], {
+        type: 'application/json;charset=utf-8'
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `kurikulum_${curriculumProgramme.toLowerCase()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      setNotice({
+        text: `kurikulum_${curriculumProgramme.toLowerCase()}.json dimuat turun untuk disunting.`,
+        type: 'info'
+      });
+    } catch (err: any) {
+      setNotice({ text: err?.message || String(err), type: 'error' });
+    }
+  };
+
+  const handleDownloadCurriculumTemplate = () => {
+    const template = {
+      meta: {
+        programme: curriculumProgramme,
+        programmeName: `Program ${curriculumProgramme}`,
+        version: '1',
+        effective: 'Session I 2026/2027',
+        source: 'Programme Information (Section 11)'
+      },
+      courses: {
+        CONTOH1012: {
+          name: 'Contoh Kursus',
+          type: 'Common Core',
+          semesters: [1],
+          credit: 2,
+          prerequisites: []
+        },
+        CONTOH1023: {
+          name: 'Contoh Kursus Lanjutan',
+          type: 'Discipline Core',
+          semesters: [2],
+          credit: 3,
+          prerequisites: ['CONTOH1012']
+        }
+      }
+    };
+    const blob = new Blob([JSON.stringify(template, null, 2)], {
+      type: 'application/json;charset=utf-8'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `templat_kurikulum_${curriculumProgramme.toLowerCase()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    setNotice({
+      text: `Templat kurikulum ${curriculumProgramme} dimuat turun. Isi senarai kursus dan prasyarat, kemudian muat naik semula.`,
+      type: 'info'
+    });
+  };
+
+  const handleDeleteCurriculumOverride = async (confirmed = false) => {
+    setNotice(null);
+    if (!confirmed) {
+      setPendingCurriculumDelete(true);
+      setPendingCurriculumOverwrite(null);
+      return;
+    }
+    try {
+      const res = await fetch(`/api/curriculum?programme=${encodeURIComponent(curriculumProgramme)}`, {
+        method: 'DELETE',
+        headers: buildWriteHeaders()
+      });
+      if (res.status === 401) {
+        lockAdminSession('PIN Admin tidak sah atau telah tamat. Sila sahkan semula PIN.');
+        return;
+      }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.message || `Gagal memadam override (HTTP ${res.status}).`);
+      }
+      setNotice({
+        text: `Override KV ${curriculumProgramme} dipadam. Aset kurikulum terbina (jika ada) digunakan semula.`,
+        type: 'success'
+      });
+      setPendingCurriculumDelete(false);
+      await loadCurriculumSummaries();
+      onCurriculumPublished?.();
+    } catch (err: any) {
+      setNotice({ text: err?.message || String(err), type: 'error' });
+    }
+  };
+
   // Save Session / Deadline / Department / Institution settings to KV
   const handleSaveSettings = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -692,6 +959,23 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
     }
   };
 
+  const selectedCurriculumSummary = curriculumSummaries.find(
+    summary => summary.programme === curriculumProgramme
+  );
+
+  // Programme pills are data-driven: timetable programmes + any document already published.
+  const programmeOptions = Array.from(
+    new Set(
+      [
+        ...availableProgrammes,
+        ...curriculumSummaries.map(summary => summary.programme),
+        curriculumProgramme
+      ]
+        .map(code => String(code || '').toUpperCase())
+        .filter(Boolean)
+    )
+  ).sort();
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-900/65 backdrop-blur-xs">
       <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-5xl max-h-[93vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -777,6 +1061,22 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
               <Settings className="w-3.5 h-3.5 text-emerald-600" />
             )}
             <span>Tetapan Sesi &amp; Logo (R2)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSubTab('curriculum')}
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+              activeSubTab === 'curriculum'
+                ? 'bg-white text-purple-700 shadow-xs font-bold border border-purple-200'
+                : 'text-slate-700 hover:text-slate-900'
+            }`}
+          >
+            {!isAdminUnlocked ? (
+              <Lock className="w-3 h-3 text-amber-600" />
+            ) : (
+              <GraduationCap className="w-3.5 h-3.5 text-purple-600" />
+            )}
+            <span>Kurikulum &amp; Prasyarat</span>
           </button>
           <button
             type="button"
@@ -1506,6 +1806,308 @@ export const DataManagementModal: React.FC<DataManagementModalProps> = ({
                     </button>
                   </form>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================== */}
+          {/* TAB: KURIKULUM & PRASYARAT (JSON PER PROGRAM)              */}
+          {/* ========================================================== */}
+          {!requiresPinGate && activeSubTab === 'curriculum' && (
+            <div className="space-y-4 text-xs">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-4 shadow-2xs">
+                <div className="border-b border-slate-100 pb-2.5 flex items-start justify-between gap-2">
+                  <div>
+                    <h4 className="font-black text-slate-900 text-sm flex items-center gap-1.5">
+                      <GraduationCap className="w-4 h-4 text-purple-600" />
+                      <span>Struktur Kurikulum &amp; Prasyarat (JSON per program)</span>
+                    </h4>
+                    <p className="text-[11px] text-slate-500">
+                      Satu dokumen untuk setiap program (DKM / DAD / DPU / DTP). Peraturan prasyarat
+                      digabungkan mengikut kod kursus merentas semua program, kerana kod kursus yang
+                      sama (cth. DBM20173) dikongsi antara program.
+                    </p>
+                  </div>
+                  {isLoadingCurriculum && (
+                    <Loader2 className="w-4 h-4 animate-spin text-slate-400 shrink-0" />
+                  )}
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 text-[11px] mb-1.5">
+                    Pilih Program
+                  </label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {programmeOptions.map(code => {
+                      const summary = curriculumSummaries.find(item => item.programme === code);
+                      const isActive = curriculumProgramme === code;
+                      const statusLabel = !summary
+                        ? '…'
+                        : summary.source === 'none'
+                          ? 'tiada struktur'
+                          : `${summary.coursesCount} kursus`;
+                      return (
+                        <button
+                          key={code}
+                          type="button"
+                          onClick={() => {
+                            setCurriculumProgramme(code);
+                            setCurriculumDraft(null);
+                            setCurriculumValidation(null);
+                            setCurriculumFileName('');
+                            setPendingCurriculumOverwrite(null);
+                            setPendingCurriculumDelete(false);
+                            if (curriculumFileRef.current) curriculumFileRef.current.value = '';
+                          }}
+                          className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-semibold transition flex items-center gap-1.5 cursor-pointer ${
+                            isActive
+                              ? 'bg-purple-700 text-white border-purple-700 shadow-xs'
+                              : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                          }`}
+                        >
+                          <span className="font-mono font-bold">{code}</span>
+                          <span className={`text-[10px] ${isActive ? 'text-purple-100' : 'text-slate-500'}`}>
+                            {statusLabel}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 text-[11px]">
+                  <span className="font-bold text-slate-700">
+                    Status {curriculumProgramme}:
+                  </span>
+                  {selectedCurriculumSummary ? (
+                    <>
+                      <span
+                        className={`px-1.5 py-0.5 rounded font-bold ${
+                          selectedCurriculumSummary.source === 'kv'
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : selectedCurriculumSummary.source === 'asset'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-slate-100 text-slate-600'
+                        }`}
+                      >
+                        {selectedCurriculumSummary.source === 'kv'
+                          ? 'KV (diterbitkan)'
+                          : selectedCurriculumSummary.source === 'asset'
+                            ? 'Aset terbina'
+                            : 'Tiada struktur'}
+                      </span>
+                      {selectedCurriculumSummary.source !== 'none' && (
+                        <>
+                          <span className="font-mono text-slate-600">
+                            {selectedCurriculumSummary.coursesCount} kursus ·{' '}
+                            {selectedCurriculumSummary.prerequisitesCount} prasyarat
+                          </span>
+                          {selectedCurriculumSummary.version && (
+                            <span className="text-slate-500">
+                              versi {selectedCurriculumSummary.version}
+                            </span>
+                          )}
+                          {selectedCurriculumSummary.updatedAt && (
+                            <span className="text-slate-400">
+                              dikemas kini {new Date(selectedCurriculumSummary.updatedAt).toLocaleString()}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <span className="text-slate-400">memuatkan…</span>
+                  )}
+                </div>
+
+                <div className="rounded-xl border border-dashed border-purple-300 bg-purple-50/40 p-3 space-y-2">
+                  <div className="flex items-center gap-1.5 font-bold text-purple-900 text-[11px]">
+                    <FileJson className="w-3.5 h-3.5 text-purple-600" />
+                    <span>Muat Naik Fail JSON Kurikulum</span>
+                  </div>
+                  <input
+                    ref={curriculumFileRef}
+                    type="file"
+                    accept=".json,application/json"
+                    onChange={e => handleCurriculumFileSelected(e.target.files?.[0])}
+                    className="block w-full text-[11px] text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"
+                  />
+                  <p className="text-[10.5px] text-purple-800/80 leading-relaxed">
+                    Format: <code className="font-mono">{'{ "meta": { "programme": "DKM" }, "courses": { "KOD": { "name", "semesters", "credit", "prerequisites": ["KOD_PRASYARAT"] } } }'}</code>.
+                    Kod program dikesan daripada <code className="font-mono">meta.programme</code> jika tiada pilihan manual.
+                  </p>
+                </div>
+
+                {curriculumValidation && (
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-1.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-bold text-slate-800 truncate max-w-60">
+                        {curriculumFileName || 'Fail dipilih'}
+                      </span>
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                          curriculumValidation.ok
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : 'bg-rose-100 text-rose-800'
+                        }`}
+                      >
+                        {curriculumValidation.ok ? 'SAH' : 'TIDAK SAH'}
+                      </span>
+                      <span className="font-mono text-[10.5px] text-slate-600">
+                        {curriculumValidation.coursesCount} kursus ·{' '}
+                        {curriculumValidation.prerequisitesCount} prasyarat
+                      </span>
+                      {curriculumValidation.programme && (
+                        <span className="font-mono text-[10.5px] text-purple-700">
+                          meta.programme = {curriculumValidation.programme}
+                        </span>
+                      )}
+                    </div>
+                    {curriculumValidation.errors.map(message => (
+                      <div key={message} className="text-[11px] font-semibold text-rose-700">
+                        • {message}
+                      </div>
+                    ))}
+                    {curriculumValidation.warnings.map(message => (
+                      <div key={message} className="text-[11px] text-amber-700">
+                        • {message}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {pendingCurriculumOverwrite && curriculumDraft && curriculumValidation?.ok && (
+                  <div className="rounded-xl border-2 border-amber-400 bg-amber-50 p-3 space-y-2">
+                    <div className="flex items-center gap-1.5 font-black text-amber-900 text-[11px] uppercase">
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Sahkan Tindihan Data — {curriculumProgramme}</span>
+                    </div>
+                    <p className="text-[11px] text-amber-900 leading-relaxed">
+                      {curriculumProgramme} sudah mempunyai dokumen kurikulum
+                      {pendingCurriculumOverwrite.existing
+                        ? pendingCurriculumOverwrite.existing.source === 'asset'
+                          ? ' (aset terbina)'
+                          : ' (diterbitkan di KV)'
+                        : ''}
+                      {pendingCurriculumOverwrite.existing
+                        ? `: ${pendingCurriculumOverwrite.existing.coursesCount} kursus · ${pendingCurriculumOverwrite.existing.prerequisitesCount} prasyarat`
+                        : ''}
+                      {pendingCurriculumOverwrite.existing?.version
+                        ? ` · versi ${pendingCurriculumOverwrite.existing.version}`
+                        : ''}
+                      {pendingCurriculumOverwrite.existing?.updatedAt
+                        ? ` · dikemas kini ${new Date(pendingCurriculumOverwrite.existing.updatedAt).toLocaleString()}`
+                        : ''}
+                      . Fail baharu ({curriculumValidation.coursesCount} kursus ·{' '}
+                      {curriculumValidation.prerequisitesCount} prasyarat) akan{' '}
+                      <b>MENGGANTIKAN</b> dokumen sedia ada.
+                    </p>
+                    {pendingCurriculumOverwrite.existing?.source === 'asset' && (
+                      <p className="text-[10.5px] text-amber-800">
+                        Aset terbina tidak dipadam — klik "Padam Override KV" untuk memulihkannya.
+                      </p>
+                    )}
+                    {pendingCurriculumOverwrite.fromServer && (
+                      <p className="text-[10.5px] text-amber-800">
+                        Disahkan oleh pelayan: dokumen ini berubah selepas senarai dimuatkan.
+                      </p>
+                    )}
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                      <button
+                        type="button"
+                        onClick={() => handlePublishCurriculum(true)}
+                        disabled={isPublishingCurriculum}
+                        className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white font-bold text-[11px] flex items-center gap-1.5 transition shadow-xs"
+                      >
+                        {isPublishingCurriculum ? (
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        ) : (
+                          <CloudUpload className="w-3.5 h-3.5" />
+                        )}
+                        <span>Ya, Ganti Dokumen {curriculumProgramme}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPendingCurriculumOverwrite(null)}
+                        className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold text-[11px] transition"
+                      >
+                        Batal
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {pendingCurriculumDelete && (
+                  <div className="rounded-xl border-2 border-rose-400 bg-rose-50 p-3 space-y-2">
+                    <div className="flex items-center gap-1.5 font-black text-rose-900 text-[11px] uppercase">
+                      <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                      <span>Sahkan Padam Override — {curriculumProgramme}</span>
+                    </div>
+                    <p className="text-[11px] text-rose-900 leading-relaxed">
+                      Override KV untuk {curriculumProgramme} akan dipadam dan{' '}
+                      {selectedCurriculumSummary?.source === 'kv'
+                        ? 'sistem akan kembali kepada aset terbina (jika ada) atau tiada prasyarat langsung.'
+                        : 'tiada perubahan lain akan berlaku.'}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteCurriculumOverride(true)}
+                        className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-[11px] flex items-center gap-1.5 transition shadow-xs"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Ya, Padam</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPendingCurriculumDelete(false)}
+                        className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold text-[11px] transition"
+                      >
+                        Batal
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => handlePublishCurriculum()}
+                    disabled={!curriculumValidation?.ok || isPublishingCurriculum}
+                    className="px-3 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-[11px] flex items-center gap-1.5 transition shadow-xs"
+                  >
+                    {isPublishingCurriculum ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <CloudUpload className="w-3.5 h-3.5" />
+                    )}
+                    <span>Terbitkan ke Cloudflare KV</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDownloadCurriculum}
+                    className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold text-[11px] flex items-center gap-1.5 transition"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Muat Turun Semasa</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDownloadCurriculumTemplate}
+                    className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold text-[11px] flex items-center gap-1.5 transition"
+                  >
+                    <FileJson className="w-3.5 h-3.5" />
+                    <span>Templat Kosong</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteCurriculumOverride()}
+                    className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-300 text-rose-700 font-bold text-[11px] flex items-center gap-1.5 transition ml-auto"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Padam Override KV</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}

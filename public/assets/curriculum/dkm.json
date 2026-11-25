@@ -1,0 +1,573 @@
+{
+  "meta": {
+    "programme": "DKM",
+    "programmeName": "Diploma in Mechanical Engineering",
+    "version": "06062024_3",
+    "effective": "Session I 2026/2027",
+    "source": "PROGRAMME INFORMATION DKM v3, Section 11 (pages 7-9)",
+    "totalCredits": 93
+  },
+  "courses": {
+    "DUE10062": {
+      "name": "Technical English 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "MPU24031": {
+      "name": "Sukan 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": [],
+      "note": "Choose 1 co-curriculum pathway"
+    },
+    "MPU24041": {
+      "name": "Kelab/Persatuan 1",
+      "type": "Compulsory",
+      "semesters": [
+        1
+      ],
+      "credit": 1,
+      "prerequisites": [],
+      "note": "Choose 1 co-curriculum pathway"
+    },
+    "MPU24XX1": {
+      "name": "Unit Beruniform 1 / Unit Beruniform 2",
+      "type": "Compulsory",
+      "semesters": [
+        1,
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [],
+      "note": "Placeholder code used for both Sem 1 and Sem 2 in the source document; replace with real codes when issued."
+    },
+    "DUW10042": {
+      "name": "Occupational, Safety and Health for Engineering",
+      "type": "Common Core",
+      "semesters": [
+        1
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DBM10163": {
+      "name": "Engineering Mathematics 1",
+      "type": "Common Core",
+      "semesters": [
+        1
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DBS10042": {
+      "name": "Engineering Science",
+      "type": "Common Core",
+      "semesters": [
+        1
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ10223": {
+      "name": "Engineering Drawing",
+      "type": "Discipline Core",
+      "semesters": [
+        1
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ10232": {
+      "name": "Mechanical Workshop Practice 1",
+      "type": "Discipline Core",
+      "semesters": [
+        1
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ10243": {
+      "name": "Workshop Technology",
+      "type": "Discipline Core",
+      "semesters": [
+        1
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "MPU21072": {
+      "name": "Penghayatan Etika dan Peradaban",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "MPU24051": {
+      "name": "Sukan 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24031"
+      ]
+    },
+    "MPU24061": {
+      "name": "Kelab/Persatuan 2",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": [
+        "MPU24041"
+      ]
+    },
+    "MPU22071": {
+      "name": "Kursus Integriti dan Anti-Rasuah",
+      "type": "Compulsory",
+      "semesters": [
+        2
+      ],
+      "credit": 1,
+      "prerequisites": []
+    },
+    "DBM20173": {
+      "name": "Engineering Mathematics 2",
+      "type": "Common Core",
+      "semesters": [
+        2
+      ],
+      "credit": 3,
+      "prerequisites": [
+        "DBM10163"
+      ]
+    },
+    "DJJ20252": {
+      "name": "Mechanical Workshop Practice 2",
+      "type": "Discipline Core",
+      "semesters": [
+        2
+      ],
+      "credit": 2,
+      "prerequisites": [
+        "DJJ10232"
+      ]
+    },
+    "DJJ20263": {
+      "name": "Electrical and Electronic Technology",
+      "type": "Discipline Core",
+      "semesters": [
+        2
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ20273": {
+      "name": "Fluid Mechanics",
+      "type": "Discipline Core",
+      "semesters": [
+        2
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ20282": {
+      "name": "Computer Aided Design",
+      "type": "Discipline Core",
+      "semesters": [
+        2
+      ],
+      "credit": 2,
+      "prerequisites": [
+        "DJJ10223"
+      ]
+    },
+    "DUE30072": {
+      "name": "Technical English 2",
+      "type": "Compulsory",
+      "semesters": [
+        3
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DBM30183": {
+      "name": "Engineering Mathematics 3",
+      "type": "Common Core",
+      "semesters": [
+        3
+      ],
+      "credit": 3,
+      "prerequisites": [
+        "DBM20173"
+      ]
+    },
+    "DJJ30332": {
+      "name": "Engineering and Society",
+      "type": "Common Core",
+      "semesters": [
+        3
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ30302": {
+      "name": "Mechanical Workshop Practice 3",
+      "type": "Discipline Core",
+      "semesters": [
+        3
+      ],
+      "credit": 2,
+      "prerequisites": [
+        "DJJ20252"
+      ]
+    },
+    "DJJ30313": {
+      "name": "Engineering Mechanics",
+      "type": "Discipline Core",
+      "semesters": [
+        3
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ30323": {
+      "name": "Strength of Materials",
+      "type": "Discipline Core",
+      "semesters": [
+        3
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ30293": {
+      "name": "Thermodynamics",
+      "type": "Discipline Core",
+      "semesters": [
+        3
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ40343": {
+      "name": "Material Science and Engineering",
+      "type": "Discipline Core",
+      "semesters": [
+        4
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ40373": {
+      "name": "Pneumatic and Hydraulics",
+      "type": "Discipline Core",
+      "semesters": [
+        4
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ40383": {
+      "name": "Engineering Design",
+      "type": "Discipline Core",
+      "semesters": [
+        4
+      ],
+      "credit": 3,
+      "prerequisites": [
+        "DJJ20282"
+      ]
+    },
+    "DJJ40363": {
+      "name": "Mechanics of Machines",
+      "type": "Discipline Core",
+      "semesters": [
+        4
+      ],
+      "credit": 3,
+      "prerequisites": [
+        "DJJ30313"
+      ]
+    },
+    "DJJ40392": {
+      "name": "Project 1",
+      "type": "Discipline Core",
+      "semesters": [
+        4
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DXXXXXX": {
+      "name": "Elective",
+      "type": "Electives",
+      "semesters": [
+        4
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "MPU23182": {
+      "name": "Sains Teknologi dan Kejuruteraan Islam",
+      "type": "Compulsory",
+      "semesters": [
+        5
+      ],
+      "credit": 2,
+      "prerequisites": [],
+      "note": "For Muslim Students"
+    },
+    "MPU23172": {
+      "name": "Nilai Masyarakat Malaysia",
+      "type": "Compulsory",
+      "semesters": [
+        5
+      ],
+      "credit": 2,
+      "prerequisites": [],
+      "note": "For Non-Muslim Students"
+    },
+    "DUE50082": {
+      "name": "Technical English 3",
+      "type": "Compulsory",
+      "semesters": [
+        5
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DUU10072": {
+      "name": "Entrepreneurship",
+      "type": "Common Core",
+      "semesters": [
+        5
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ50403": {
+      "name": "Project 2",
+      "type": "Discipline Core",
+      "semesters": [
+        5
+      ],
+      "credit": 3,
+      "prerequisites": [
+        "DJJ40392"
+      ]
+    },
+    "DJJ50413": {
+      "name": "Troubleshooting and Maintenance for Mechanical Components",
+      "type": "Discipline Core",
+      "semesters": [
+        5
+      ],
+      "credit": 3,
+      "prerequisites": []
+    },
+    "DJJ50422": {
+      "name": "Maintenance Engineering and Management",
+      "type": "Discipline Core",
+      "semesters": [
+        5
+      ],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DUT600910": {
+      "name": "Engineering Industrial Training",
+      "type": "Industrial Training",
+      "semesters": [
+        6
+      ],
+      "credit": 10,
+      "prerequisites": [],
+      "note": "800 hours SLT / 20 weeks"
+    },
+    "DJJ40432": {
+      "name": "Engineering Plant Technology",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ40442": {
+      "name": "Industrial Management",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ40462": {
+      "name": "Railway track system",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ40452": {
+      "name": "Instrumentation and control",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ40472": {
+      "name": "Renewable and Sustainable Energy",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJM40242": {
+      "name": "Programmable Logic Control",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJJ40352": {
+      "name": "Computer Programming",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJF52092": {
+      "name": "Quality Control",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJA20132": {
+      "name": "Automotive Workshop Practice 1",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJV20062": {
+      "name": "Automation Practice",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJL30092": {
+      "name": "Plant Engineering Practice 1",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJB20082": {
+      "name": "Materials Workshop Practice",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJP40132": {
+      "name": "Packaging Workshop Practice 2",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJX30132": {
+      "name": "Textile Workshop Practice 1",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DGM50272": {
+      "name": "Static And Rotating Equipment Workshop Practice",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJT30132": {
+      "name": "Automation & Robotic in Agriculture",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJU20112": {
+      "name": "Basic Air Conditioning and Refrigeration Workshop",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJD20092": {
+      "name": "Product Design",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJF32052": {
+      "name": "Manufacturing Workshop Practice 2",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJI20132": {
+      "name": "Automotive Technology Practice",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DJC40142": {
+      "name": "Plastic Workshop Practice 2",
+      "type": "Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    },
+    "DUD10012": {
+      "name": "Design Thinking",
+      "type": "Free Elective",
+      "semesters": [],
+      "credit": 2,
+      "prerequisites": []
+    }
+  },
+  "unresolvedPrerequisites": [
+    {
+      "courseCode": "MPU24XX1",
+      "courseName": "Unit Beruniform 2",
+      "prerequisiteName": "Unit Beruniform 1",
+      "note": "The source document uses the same placeholder code MPU 24XX1 for Unit Beruniform 1 (Sem 1) and Unit Beruniform 2 (Sem 2), so the pair cannot be distinguished by code. Add the real course codes before enabling this rule."
+    }
+  ],
+  "conditionalRequiredCourses": [
+    {
+      "courseCode": "DBM10222",
+      "courseName": "Basic Mathematics",
+      "condition": "Compulsory for students who did not attain credit in Mathematics at SPM level"
+    },
+    {
+      "courseCode": "MPU22212",
+      "courseName": "Bahasa Kebangsaan A",
+      "condition": "Compulsory for students who did not attain credit in Bahasa Melayu at SPM level"
+    }
+  ]
+}

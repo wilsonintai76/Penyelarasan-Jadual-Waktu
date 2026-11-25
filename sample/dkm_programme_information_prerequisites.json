@@ -1,0 +1,796 @@
+{
+  "note": "Valid JSON. Prerequisite data lives in prerequisite_rules only (the duplicated per-course 'prerequisite' field was removed). The application reads public/assets/dkm_curriculum.json; this file is the source record. MPU24XX1 -> MPU24XX1 is unresolved because the source document uses the same placeholder code for Unit Beruniform 1 (Sem 1) and Unit Beruniform 2 (Sem 2).",
+  "programme_metadata": {
+    "programme_name": "Diploma in Mechanical Engineering",
+    "programme_code": "DKM",
+    "institution": "Jabatan Pendidikan Politeknik dan Kolej Komuniti (JPPKK), Kementerian Pendidikan Tinggi",
+    "version": "06062024_3",
+    "effective_session": "Session I: 2026/2027",
+    "total_semesters": 6,
+    "academic_semesters": 5,
+    "industrial_training_semesters": 1,
+    "total_credits": 93,
+    "accreditation": [
+      "MQA",
+      "BEM",
+      "ETAC"
+    ]
+  },
+  "credit_distribution": {
+    "compulsory": {
+      "credits": 13,
+      "percentage": 14
+    },
+    "common_core": {
+      "credits": 17,
+      "percentage": 18
+    },
+    "discipline_core": {
+      "credits": 51,
+      "percentage": 55
+    },
+    "specialization": {
+      "credits": 0,
+      "percentage": 0
+    },
+    "industrial_training": {
+      "credits": 10,
+      "percentage": 11
+    },
+    "electives": {
+      "credits": 2,
+      "percentage": 2
+    },
+    "total": {
+      "credits": 93,
+      "percentage": 100
+    }
+  },
+  "prerequisite_rules": [
+    {
+      "course_code": "DBM20173",
+      "course_name": "Engineering Mathematics 2",
+      "semester": 2,
+      "prerequisite_code": "DBM10163",
+      "prerequisite_name": "Engineering Mathematics 1"
+    },
+    {
+      "course_code": "DJJ20252",
+      "course_name": "Mechanical Workshop Practice 2",
+      "semester": 2,
+      "prerequisite_code": "DJJ10232",
+      "prerequisite_name": "Mechanical Workshop Practice 1"
+    },
+    {
+      "course_code": "DJJ20282",
+      "course_name": "Computer Aided Design",
+      "semester": 2,
+      "prerequisite_code": "DJJ10223",
+      "prerequisite_name": "Engineering Drawing"
+    },
+    {
+      "course_code": "MPU24051",
+      "course_name": "Sukan 2",
+      "semester": 2,
+      "prerequisite_code": "MPU24031",
+      "prerequisite_name": "Sukan 1"
+    },
+    {
+      "course_code": "MPU24061",
+      "course_name": "Kelab/Persatuan 2",
+      "semester": 2,
+      "prerequisite_code": "MPU24041",
+      "prerequisite_name": "Kelab/Persatuan 1"
+    },
+    {
+      "course_code": "MPU24XX1",
+      "course_name": "Unit Beruniform 2",
+      "semester": 2,
+      "prerequisite_code": "MPU24XX1",
+      "prerequisite_name": "Unit Beruniform 1"
+    },
+    {
+      "course_code": "DBM30183",
+      "course_name": "Engineering Mathematics 3",
+      "semester": 3,
+      "prerequisite_code": "DBM20173",
+      "prerequisite_name": "Engineering Mathematics 2"
+    },
+    {
+      "course_code": "DJJ30302",
+      "course_name": "Mechanical Workshop Practice 3",
+      "semester": 3,
+      "prerequisite_code": "DJJ20252",
+      "prerequisite_name": "Mechanical Workshop Practice 2"
+    },
+    {
+      "course_code": "DJJ40383",
+      "course_name": "Engineering Design",
+      "semester": 4,
+      "prerequisite_code": "DJJ20282",
+      "prerequisite_name": "Computer Aided Design"
+    },
+    {
+      "course_code": "DJJ40363",
+      "course_name": "Mechanics of Machines",
+      "semester": 4,
+      "prerequisite_code": "DJJ30313",
+      "prerequisite_name": "Engineering Mechanics"
+    },
+    {
+      "course_code": "DJJ50403",
+      "course_name": "Project 2",
+      "semester": 5,
+      "prerequisite_code": "DJJ40392",
+      "prerequisite_name": "Project 1"
+    }
+  ],
+  "semesters": [
+    {
+      "semester": 1,
+      "total_contact_hours": 25,
+      "total_credits": 18,
+      "courses": [
+        {
+          "course_code": "DUE10062",
+          "course_name": "Technical English 1",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 1,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "MPU 24031",
+          "course_name": "Sukan 1",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 1,
+          "note": "Choose 1 co-curriculum pathway"
+        },
+        {
+          "course_code": "MPU 24041",
+          "course_name": "Kelab/Persatuan 1",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 1,
+          "note": "Choose 1 co-curriculum pathway"
+        },
+        {
+          "course_code": "MPU 24XX1",
+          "course_name": "Unit Beruniform 1",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 1,
+          "note": "Choose 1 co-curriculum pathway"
+        },
+        {
+          "course_code": "DUW10042",
+          "course_name": "Occupational, Safety and Health for Engineering",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DBM10163",
+          "course_name": "Engineering Mathematics 1",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DBS10042",
+          "course_name": "Engineering Science",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DJJ10223",
+          "course_name": "Engineering Drawing",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 1,
+            "P": 3,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ10232",
+          "course_name": "Mechanical Workshop Practice 1",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 0,
+            "P": 4,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DJJ10243",
+          "course_name": "Workshop Technology",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 3,
+            "P": 0,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 3
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "total_contact_hours": 26,
+      "total_credits": 17,
+      "courses": [
+        {
+          "course_code": "MPU21072",
+          "course_name": "Penghayatan Etika dan Peradaban",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 1,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "MPU 24051",
+          "course_name": "Sukan 2",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 1
+        },
+        {
+          "course_code": "MPU 24061",
+          "course_name": "Kelab/Persatuan 2",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 1
+        },
+        {
+          "course_code": "MPU 24XX1",
+          "course_name": "Unit Beruniform 2",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 1
+        },
+        {
+          "course_code": "MPU22071",
+          "course_name": "Kursus Integriti dan Anti-Rasuah",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 0,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 1
+        },
+        {
+          "course_code": "DBM20173",
+          "course_name": "Engineering Mathematics 2",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ20252",
+          "course_name": "Mechanical Workshop Practice 2",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 0,
+            "P": 4,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DJJ20263",
+          "course_name": "Electrical and Electronic Technology",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ20273",
+          "course_name": "Fluid Mechanics",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ20282",
+          "course_name": "Computer Aided Design",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 1,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        }
+      ]
+    },
+    {
+      "semester": 3,
+      "total_contact_hours": 25,
+      "total_credits": 18,
+      "courses": [
+        {
+          "course_code": "DUE30072",
+          "course_name": "Technical English 2",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 1,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DBM30183",
+          "course_name": "Engineering Mathematics 3",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ30332",
+          "course_name": "Engineering and Society",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DJJ30302",
+          "course_name": "Mechanical Workshop Practice 3",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 0,
+            "P": 4,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DJJ30313",
+          "course_name": "Engineering Mechanics",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ30323",
+          "course_name": "Strength of Materials",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ30293",
+          "course_name": "Thermodynamics",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        }
+      ]
+    },
+    {
+      "semester": 4,
+      "total_contact_hours": 22,
+      "total_credits": 16,
+      "courses": [
+        {
+          "course_code": "DJJ40343",
+          "course_name": "Material Science and Engineering",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ40373",
+          "course_name": "Pneumatic and Hydraulics",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ40383",
+          "course_name": "Engineering Design",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ40363",
+          "course_name": "Mechanics of Machines",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ40392",
+          "course_name": "Project 1",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 1,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DXXXXXX",
+          "course_name": "Elective",
+          "type": "Electives",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        }
+      ]
+    },
+    {
+      "semester": 5,
+      "total_contact_hours": 19,
+      "total_credits": 14,
+      "courses": [
+        {
+          "course_code": "MPU23182",
+          "course_name": "Sains Teknologi dan Kejuruteraan Islam",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 1,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 2,
+          "note": "For Muslim Students"
+        },
+        {
+          "course_code": "MPU23172",
+          "course_name": "Nilai Masyarakat Malaysia",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 1,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 2,
+          "note": "For Non-Muslim Students"
+        },
+        {
+          "course_code": "DUE50082",
+          "course_name": "Technical English 3",
+          "type": "Compulsory",
+          "contact_hours": {
+            "L": 1,
+            "P": 0,
+            "T": 2,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DUU10072",
+          "course_name": "Entrepreneurship",
+          "type": "Common Core",
+          "contact_hours": {
+            "L": 1,
+            "P": 2,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        },
+        {
+          "course_code": "DJJ50403",
+          "course_name": "Project 2",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 1,
+            "P": 3,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ50413",
+          "course_name": "Troubleshooting and Maintenance for Mechanical Components",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 1,
+            "T": 1,
+            "O": 0
+          },
+          "credit": 3
+        },
+        {
+          "course_code": "DJJ50422",
+          "course_name": "Maintenance Engineering and Management",
+          "type": "Discipline Core",
+          "contact_hours": {
+            "L": 2,
+            "P": 0,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 2
+        }
+      ]
+    },
+    {
+      "semester": 6,
+      "total_contact_hours": 0,
+      "total_credits": 10,
+      "courses": [
+        {
+          "course_code": "DUT600910",
+          "course_name": "Engineering Industrial Training",
+          "type": "Industrial Training",
+          "contact_hours": {
+            "L": 0,
+            "P": 0,
+            "T": 0,
+            "O": 0
+          },
+          "credit": 10,
+          "note": "800 hours SLT / 20 weeks"
+        }
+      ]
+    }
+  ],
+  "electives": [
+    {
+      "course_code": "DJJ40432",
+      "course_name": "Engineering Plant Technology",
+      "credit": 2
+    },
+    {
+      "course_code": "DJJ40442",
+      "course_name": "Industrial Management",
+      "credit": 2
+    },
+    {
+      "course_code": "DJJ40462",
+      "course_name": "Railway track system",
+      "credit": 2
+    },
+    {
+      "course_code": "DJJ40452",
+      "course_name": "Instrumentation and control",
+      "credit": 2
+    },
+    {
+      "course_code": "DJJ40472",
+      "course_name": "Renewable and Sustainable Energy",
+      "credit": 2
+    },
+    {
+      "course_code": "DJM40242",
+      "course_name": "Programmable Logic Control",
+      "credit": 2
+    },
+    {
+      "course_code": "DJJ40352",
+      "course_name": "Computer Programming",
+      "credit": 2
+    },
+    {
+      "course_code": "DJF52092",
+      "course_name": "Quality Control",
+      "credit": 2
+    },
+    {
+      "course_code": "DJA20132",
+      "course_name": "Automotive Workshop Practice 1",
+      "credit": 2
+    },
+    {
+      "course_code": "DJV20062",
+      "course_name": "Automation Practice",
+      "credit": 2
+    },
+    {
+      "course_code": "DJL30092",
+      "course_name": "Plant Engineering Practice 1",
+      "credit": 2
+    },
+    {
+      "course_code": "DJB20082",
+      "course_name": "Materials Workshop Practice",
+      "credit": 2
+    },
+    {
+      "course_code": "DJP40132",
+      "course_name": "Packaging Workshop Practice 2",
+      "credit": 2
+    },
+    {
+      "course_code": "DJX30132",
+      "course_name": "Textile Workshop Practice 1",
+      "credit": 2
+    },
+    {
+      "course_code": "DGM50272",
+      "course_name": "Static And Rotating Equipment Workshop Practice",
+      "credit": 2
+    },
+    {
+      "course_code": "DJT30132",
+      "course_name": "Automation & Robotic in Agriculture",
+      "credit": 2
+    },
+    {
+      "course_code": "DJU20112",
+      "course_name": "Basic Air Conditioning and Refrigeration Workshop",
+      "credit": 2
+    },
+    {
+      "course_code": "DJD20092",
+      "course_name": "Product Design",
+      "credit": 2
+    },
+    {
+      "course_code": "DJF32052",
+      "course_name": "Manufacturing Workshop Practice 2",
+      "credit": 2
+    },
+    {
+      "course_code": "DJI20132",
+      "course_name": "Automotive Technology Practice",
+      "credit": 2
+    },
+    {
+      "course_code": "DJC40142",
+      "course_name": "Plastic Workshop Practice 2",
+      "credit": 2
+    }
+  ],
+  "free_electives": [
+    {
+      "course_code": "DUD10012",
+      "course_name": "Design Thinking",
+      "credit": 2
+    }
+  ],
+  "conditional_compulsory_courses": [
+    {
+      "course_code": "DBM10222",
+      "course_name": "Basic Mathematics",
+      "condition": "Compulsory for students who did not attain credit in Mathematics at SPM level"
+    },
+    {
+      "course_code": "MPU22212",
+      "course_name": "Bahasa Kebangsaan A",
+      "condition": "Compulsory for students who did not attain credit in Bahasa Melayu at SPM level"
+    }
+  ]
+}

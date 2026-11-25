@@ -20,7 +20,9 @@ import {
   MasterTimetableEntry,
   TimetableChangeLogEntry,
   TimetableChangeSource,
-  SystemSettings
+  SystemSettings,
+  CurriculumData,
+  CurriculumLibrary
 } from './types';
 
 const INITIAL_STUDENT_INFO: StudentInfo = {
@@ -71,6 +73,10 @@ export default function App() {
       return [];
     }
   });
+
+  // Curriculum prerequisites for every programme, merged by course code at runtime.
+  const [curricula, setCurricula] = useState<CurriculumLibrary | null>(null);
+  const [curriculumRefreshKey, setCurriculumRefreshKey] = useState(0);
 
   // Undo History Stack for course selection changes
   const [undoHistory, setUndoHistory] = useState<
@@ -437,15 +443,77 @@ export default function App() {
     return Array.from(new Set(timetable.map(t => t.Cohort))).sort();
   }, [timetable]);
 
+  // Load every available programme curriculum: prerequisite rules are course-level, and
+  // course codes are shared across programmes (a DAD student taking DBM20173 is still
+  // bound by the DBM10163 prerequisite). KV override first, bundled asset as fallback.
+  const activeProgramme = (student.currentCohort || '').substring(0, 3).toUpperCase();
+  const timetableProgrammes = useMemo(
+    () =>
+      Array.from(
+        new Set(timetable.map(entry => (entry.Cohort || '').substring(0, 3).toUpperCase()).filter(Boolean))
+      )
+        .sort()
+        .join(','),
+    [timetable]
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const readCurriculum = async (url: string): Promise<CurriculumData | null> => {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return null;
+        const payload = await res.json();
+        const data = payload && payload.curriculum ? payload.curriculum : payload;
+        return data && data.courses ? (data as CurriculumData) : null;
+      } catch {
+        return null;
+      }
+    };
+
+    (async () => {
+      const codes = new Set(timetableProgrammes.split(',').filter(Boolean));
+      if (activeProgramme) codes.add(activeProgramme);
+
+      if (codes.size === 0) {
+        if (!cancelled) setCurricula(null);
+        return;
+      }
+
+      const library: CurriculumLibrary = {};
+      await Promise.all(
+        Array.from(codes).map(async code => {
+          const fromApi = await readCurriculum(`/api/curriculum?programme=${encodeURIComponent(code)}`);
+          const data = fromApi || (await readCurriculum(`/assets/curriculum/${code.toLowerCase()}.json`));
+          if (data) library[code] = data;
+        })
+      );
+
+      if (!cancelled) setCurricula(Object.keys(library).length > 0 ? library : null);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [timetableProgrammes, activeProgramme, curriculumRefreshKey]);
+
   // Solver analysis run
   const analysis = useMemo(() => {
     return runFullAnalysis(
       student.currentCohort,
       timetable,
       selectedRepeatCourses,
-      manualDroppedCourseCodes
+      manualDroppedCourseCodes,
+      curricula
     );
-  }, [student.currentCohort, timetable, selectedRepeatCourses, manualDroppedCourseCodes]);
+  }, [
+    student.currentCohort,
+    timetable,
+    selectedRepeatCourses,
+    manualDroppedCourseCodes,
+    curricula
+  ]);
 
   // Credit rule toast alerts
   useEffect(() => {
@@ -481,6 +549,47 @@ export default function App() {
       prevCreditState.current = currentState;
     }
   }, [analysis.totalCredits]);
+
+  // Prerequisite enforcement notices: auto-dropped base courses and invalid repeat combinations
+  const prevPrereqSignature = useRef<string>('');
+  useEffect(() => {
+    const dropped = analysis.prereqDroppedCourses;
+    const violations = analysis.repeatPrereqViolations;
+    const signature = [
+      dropped.map(d => `${d.pkg.Course_Code}<-${d.blockedBy}`).sort().join('|'),
+      violations.map(v => `${v.code}<-${v.prerequisiteCode}`).sort().join('|')
+    ].join('#');
+
+    if (signature === prevPrereqSignature.current) return;
+    prevPrereqSignature.current = signature;
+
+    if (dropped.length > 0) {
+      addToast({
+        id: `prereq-drop-${Date.now()}`,
+        title: `Kursus Digugurkan Automatik (Prasyarat) — ${dropped.length}`,
+        message: dropped
+          .map(d => `${d.pkg.Course_Code} ${d.pkg.Course_Name} digugurkan. ${d.reason}`)
+          .join(' '),
+        type: 'warning',
+        actionBtnText: 'Semak PK01',
+        onActionClick: () => setActiveTab('pk01')
+      });
+    }
+
+    if (violations.length > 0) {
+      addToast({
+        id: `prereq-violation-${Date.now()}`,
+        title: 'Pilihan Tumpang Tidak Sah (Prasyarat)',
+        message: violations
+          .map(
+            v =>
+              `${v.code} tidak boleh diulang serentak dengan prasyaratnya ${v.prerequisiteCode} (${v.chain.join(' → ')}).`
+          )
+          .join(' '),
+        type: 'danger'
+      });
+    }
+  }, [analysis.prereqDroppedCourses, analysis.repeatPrereqViolations]);
 
   const addToast = (toast: ToastItem) => {
     setToasts(prev => [...prev.filter(t => !t.title.includes('Jumlah Kredit')), toast]);
@@ -665,6 +774,8 @@ export default function App() {
         onTimetablePublished={async () => {
           await syncExternalTimetable(false, true);
         }}
+        onCurriculumPublished={() => setCurriculumRefreshKey(key => key + 1)}
+        availableProgrammes={timetableProgrammes.split(',').filter(Boolean)}
         initialSubTab={modalInitialTab}
       />
 

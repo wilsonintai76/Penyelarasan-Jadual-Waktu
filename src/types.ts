@@ -77,6 +77,65 @@ export interface AutoDroppedCourse {
   clashedWithCodes: string[];
 }
 
+export interface CurriculumCourse {
+  name: string;
+  type: string;
+  semesters: number[];
+  credit: number;
+  prerequisites: string[];
+  note?: string;
+}
+
+export interface CurriculumData {
+  meta: {
+    programme: string;
+    programmeName: string;
+    version: string;
+    effective: string;
+    source?: string;
+    totalCredits?: number;
+  };
+  courses: Record<string, CurriculumCourse>;
+  unresolvedPrerequisites?: { courseCode: string; courseName?: string; prerequisiteName?: string; note: string }[];
+  conditionalRequiredCourses?: { courseCode: string; courseName: string; condition: string }[];
+}
+
+/** Curriculum documents keyed by programme code (DKM, DAD, DPU, DTP…). */
+export type CurriculumLibrary = Record<string, CurriculumData>;
+
+export interface CurriculumSummary {  programme: string;
+  source: 'kv' | 'asset' | 'none';
+  coursesCount: number;
+  prerequisitesCount: number;
+  version?: string;
+  effective?: string;
+  updatedAt?: string;
+  filename?: string;
+}
+
+export interface CurriculumValidation {
+  ok: boolean;
+  programme: string;
+  coursesCount: number;
+  prerequisitesCount: number;
+  errors: string[];
+  warnings: string[];
+}
+
+export interface PrereqDroppedCourse {  pkg: CoursePackage;
+  blockedBy: string;
+  blockedByName: string;
+  chain: string[];
+  reason: string;
+}
+
+export interface RepeatPrereqViolation {
+  code: string;
+  prerequisiteCode: string;
+  prerequisiteName: string;
+  chain: string[];
+}
+
 export interface SolverAnalysis {
   currentCohort: string;
   basePackages: CoursePackage[];
@@ -84,6 +143,8 @@ export interface SolverAnalysis {
   sectionBPackages: (AllocatedRepeatPackage | (CoursePackage & { displayStatus: string; isRescued: boolean; originalCohort?: string }))[];
   rescuedBaseCourses: RescuedCourse[];
   autoDroppedCourses: AutoDroppedCourse[];
+  prereqDroppedCourses: PrereqDroppedCourse[];
+  repeatPrereqViolations: RepeatPrereqViolation[];
   manualDroppedPackages: CoursePackage[];
   creditsA: number;
   creditsB: number;

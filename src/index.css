@@ -21,6 +21,20 @@
   margin: 7mm 8mm;
 }
 
+/* Named pages keep each generated document on the same paper orientation as
+   its official JKM template: Borang PK01 is portrait, Jadual Waktu Kuliah is
+   landscape. The sheet itself draws the page frame, so the paper has no
+   browser margin of its own. */
+@page pk01sheet {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@page jadualsheet {
+  size: A4 landscape;
+  margin: 0;
+}
+
 @media print {
   html, body {
     background-color: #ffffff !important;
@@ -89,6 +103,45 @@
   body.print-target-all .view-screen-jadual {
     display: block !important;
   }
+
+  /* Match each document to its official template orientation */
+  body.print-target-pk01 main,
+  body.print-target-jadual main,
+  body.print-target-all main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  body.print-target-pk01 .overflow-x-auto,
+  body.print-target-jadual .overflow-x-auto,
+  body.print-target-all .overflow-x-auto {
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  body.print-target-pk01 #printable-sheet-pk01,
+  body.print-target-jadual #printable-sheet-jadual,
+  body.print-target-all .print-sheet {
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  body.print-target-pk01 #printable-sheet-pk01,
+  body.print-target-all #printable-sheet-pk01 {
+    page: pk01sheet;
+    padding: 6mm 10mm !important;
+    min-height: 297mm !important;
+  }
+
+  body.print-target-jadual #printable-sheet-jadual,
+  body.print-target-all #printable-sheet-jadual {
+    page: jadualsheet;
+    max-width: none !important;
+    padding: 6mm 10mm !important;
+    min-height: 210mm !important;
+  }
 }
 
 /* Diagonal Red Official Stamp */
@@ -149,6 +202,14 @@
   border: 2px dashed #000000 !important;
   color: #000000 !important;
   background: transparent !important;
+}
+
+/* Landscape variant for the Jadual Waktu Kuliah sheet */
+.print-preview-sheet--landscape {
+  width: 297mm !important;
+  min-width: 297mm !important;
+  max-width: 297mm !important;
+  min-height: 210mm !important;
 }
 
 .print-preview-sheet th,

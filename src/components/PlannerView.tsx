@@ -127,6 +127,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
     sectionBPackages,
     rescuedBaseCourses,
     autoDroppedCourses,
+    prereqDroppedCourses,
+    repeatPrereqViolations,
     manualDroppedPackages,
     creditsA,
     creditsB,
@@ -270,7 +272,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
       <div className="no-print bg-linear-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-4 sm:p-5 rounded-2xl shadow-lg border border-blue-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
         <div>
           <span className="inline-block bg-blue-500/20 text-blue-300 text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-md mb-1.5 border border-blue-400/30">
-            {student.session} Â· Panduan Rasmi MK &amp; BD
+            {student.session} · Panduan Rasmi MK &amp; BD
           </span>
           <h2 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight leading-snug">
             Penyelarasan Jadual &amp; Penjanaan Borang PK01
@@ -321,9 +323,9 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               </p>
             </div>
             <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
-              <div className="font-black text-emerald-900 mb-1">3. Semak Had 12â€“18 Kredit</div>
+              <div className="font-black text-emerald-900 mb-1">3. Semak Had 12–18 Kredit</div>
               <p className="text-[11px] text-slate-700 leading-relaxed">
-                Jumlah jam kredit setiap semester mestilah antara <b>12 â€“ 18 jam kredit</b>. Jika <b>&lt; 12</b> atau <b>&gt; 18 jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
+                Jumlah jam kredit setiap semester mestilah antara <b>12 – 18 jam kredit</b>. Jika <b>&lt; 12</b> atau <b>&gt; 18 jam kredit</b>, kelulusan khas Ketua Jabatan (KJ) diperlukan.
               </p>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -426,7 +428,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* Seksyen Semasa Pelajar */}
           <div className="lg:col-span-5 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
+            <label className="text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-blue-600"></span> 1. Seksyen Semasa Pelajar (Kelas Asal)
             </label>
             <select
@@ -499,6 +501,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                     const isManualDropped = manualDroppedCourseCodes.includes(pkg.Course_Code);
                     const movedToSectionB = selectedRepeatCourses.find(r => r.code === pkg.Course_Code);
                     const rescueInfo = rescuedBaseCourses.find(r => r.originalPkg.Course_Code === pkg.Course_Code);
+                    const prereqDropInfo = prereqDroppedCourses.find(p => p.pkg.Course_Code === pkg.Course_Code);
                     const autoDropInfo = autoDroppedCourses.find(a => a.pkg.Course_Code === pkg.Course_Code);
 
                     let rowStyle = 'bg-white border-slate-200';
@@ -527,6 +530,16 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       statusBadge = (
                         <span className="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
                           Auto-Tumpang {rescueInfo.rescuePkg.Cohort}
+                        </span>
+                      );
+                    } else if (prereqDropInfo) {
+                      rowStyle = 'bg-rose-50/70 border-rose-300';
+                      statusBadge = (
+                        <span
+                          className="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 cursor-help"
+                          title={prereqDropInfo.reason}
+                        >
+                          Gugur Prasyarat
                         </span>
                       );
                     } else if (autoDropInfo) {
@@ -559,6 +572,13 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           <span className="text-[9.5px] font-bold text-emerald-700 shrink-0 px-1.5">
                             Seksyen B
                           </span>
+                        ) : prereqDropInfo ? (
+                          <span
+                            className="text-[9.5px] font-bold text-rose-700 shrink-0 px-1.5 cursor-help"
+                            title={prereqDropInfo.reason}
+                          >
+                            Auto (Prasyarat)
+                          </span>
                         ) : isManualDropped ? (
                           <button
                             type="button"
@@ -587,7 +607,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
           {/* Bahagian B: Tambah Kursus Mengulang / Tumpang */}
           <div className="lg:col-span-7 bg-amber-50/70 p-3.5 rounded-xl border border-amber-200 flex flex-col justify-between">
             <div>
-              <label className="block text-xs font-bold text-amber-900 uppercase mb-1.5 flex items-center justify-between gap-1">
+              <label className="text-xs font-bold text-amber-900 uppercase mb-1.5 flex items-center justify-between gap-1">
                 <span className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-amber-500"></span> 2. Tambah Kursus Bahagian B (MK / BD / Tumpang)
                 </span>
@@ -684,7 +704,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 min-h-[30px] items-center">
+              <div className="flex flex-wrap gap-1.5 min-h-7.5 items-center">
                 {selectedRepeatCourses.length === 0 ? (
                   <span className="text-[11px] text-amber-800/70 italic">
                     Tiada kursus tumpang dipilih. Pilih kursus di atas dan klik "+ Tambah".
@@ -699,7 +719,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         className="inline-flex items-center gap-1.5 bg-white border border-amber-300 text-amber-950 px-2.5 py-1 rounded-xl text-[11px] font-semibold shadow-xs"
                       >
                         <span className="font-bold text-amber-800 font-mono">{item.code}</span>
-                        <span className="text-slate-600 truncate max-w-[130px] hidden sm:inline">
+                        <span className="text-slate-600 truncate max-w-32.5 hidden sm:inline">
                           - {courseTitle}
                         </span>
                         <span className="bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.2 rounded text-[10px] font-mono font-bold">
@@ -711,13 +731,24 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           title={`Buang ${item.code}`}
                           className="ml-0.5 px-1.5 py-0.5 rounded-md bg-rose-50 hover:bg-rose-600 text-rose-700 hover:text-white border border-rose-200 text-[10px] font-bold transition flex items-center gap-0.5"
                         >
-                          <span>Buang</span> âœ•
+                          <span>Buang</span> ✕
                         </button>
                       </span>
                     );
                   })
                 )}
               </div>
+
+              {repeatPrereqViolations.length > 0 && (
+                <div className="mt-2 space-y-1 rounded-lg border border-rose-300 bg-rose-50 px-2.5 py-2">
+                  {repeatPrereqViolations.map(v => (
+                    <div key={`violation-${v.code}`} className="text-[10.5px] font-semibold text-rose-800">
+                      <b>{v.code}</b> memerlukan <b>{v.prerequisiteCode}</b> ({v.prerequisiteName}) yang juga
+                      sedang diulang. Pilih salah satu sahaja.
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -745,17 +776,17 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
             {totalCredits < 12 ? (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-rose-50 text-rose-800 border-rose-300 flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                <span>Kurang Had (&lt; 12 Kredit) Â· Perlu Kebenaran KJ</span>
+                <span>Kurang Had (&lt; 12 Kredit) · Perlu Kebenaran KJ</span>
               </div>
             ) : totalCredits > 18 ? (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-amber-50 text-amber-900 border-amber-300 flex items-center gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span>Melebihi Had (&gt; 18 Kredit) Â· Perlu Kebenaran KJ</span>
+                <span>Melebihi Had (&gt; 18 Kredit) · Perlu Kebenaran KJ</span>
               </div>
             ) : (
               <div className="px-2.5 sm:px-3 py-1.5 rounded-lg text-[10.5px] sm:text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>Beban Kredit Sah (12 â€“ 18 Jam Kredit)</span>
+                <span>Beban Kredit Sah (12 – 18 Jam Kredit)</span>
               </div>
             )}
           </div>
@@ -835,7 +866,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             ) : (
                               <span>Tumpang <b>{rp.Cohort}</b></span>
                             )}{' '}
-                            [{scheduleStr}] Â· Pensyarah: {lectStr}
+                            [{scheduleStr}] · Pensyarah: {lectStr}
                           </div>
 
                           {/* Candidate alternative section switcher */}
@@ -850,7 +881,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                 {rp.scoredCandidates.map((sc: any) => {
                                   const clashTag =
                                     sc.clashedBase.length === 0 && !sc.clashesWithOtherRepeat
-                                      ? '0 Terjejas âœ“'
+                                      ? '0 Terjejas ✓'
                                       : `Terjejas: ${sc.clashedBase.map((c: any) => c.Course_Code).join(', ') || 'MK berklash'}${sc.droppedCredits ? ` | gugur ${sc.droppedCredits} kr` : ''}`;
                                   return (
                                     <option key={sc.pkg.Cohort} value={sc.pkg.Cohort}>
@@ -864,7 +895,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
                           {rp.clashesWithOtherRepeat && (
                             <div className="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-rose-700 bg-rose-100 border border-rose-300 px-2 py-0.5 rounded-md">
-                              âš ï¸ Bertindih dengan kursus MK/BD lain â€” sila tukar seksyen jika ada
+                              ⚠️ Bertindih dengan kursus MK/BD lain — sila tukar seksyen jika ada
                             </div>
                           )}
                         </div>
@@ -890,12 +921,30 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
               <div className="text-[11px] font-black text-rose-800 uppercase mb-2">
                 2. Kursus Semasa Digugurkan:
               </div>
-              {autoDroppedCourses.length === 0 && manualDroppedPackages.length === 0 ? (
+              {autoDroppedCourses.length === 0 &&
+              manualDroppedPackages.length === 0 &&
+              prereqDroppedCourses.length === 0 ? (
                 <p className="text-xs text-emerald-700 font-semibold">
                   Tiada kursus semasa perlu digugurkan. Semua subjek kelas asal kekal!
                 </p>
               ) : (
                 <div className="space-y-2">
+                  {prereqDroppedCourses.map(pd => (
+                    <div key={`prereq-${pd.pkg.Course_Code}`} className="pb-2 border-b border-rose-200/70 last:border-b-0 last:pb-0">
+                      <div className="font-bold text-slate-900 text-xs">
+                        {pd.pkg.Course_Code} - {pd.pkg.Course_Name} ({pd.pkg.Credit} Jam)
+                      </div>
+                      <div className="text-[11px] text-rose-700 font-medium mt-0.5">
+                        {pd.reason}
+                      </div>
+                      {pd.chain.length > 2 && (
+                        <div className="text-[10.5px] font-mono text-rose-600 mt-0.5">
+                          {pd.chain.join(' → ')}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
                   {autoDroppedCourses.map(ad => (
                     <div key={ad.pkg.Course_Code} className="pb-2 border-b border-rose-200/70 last:border-b-0 last:pb-0">
                       <div className="font-bold text-slate-900 text-xs">
@@ -960,7 +1009,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   )}
                 </div>
                 <h3 className="font-bold text-slate-900 text-sm sm:text-base mt-1.5">
-                  Grafik Slot Masa Berlanggar (8.00 Pagi â€“ 5.00 Petang)
+                  Grafik Slot Masa Berlanggar (8.00 Pagi – 5.00 Petang)
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                   Sorotan jalur merah berjalur (<i>diagonal stripe overlay</i>) menunjukkan dengan jelas slot masa bertindih antara subjek semasa dan tumpang.
@@ -987,7 +1036,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         <span>{d}</span>
                         {clashBands.length > 0 ? (
                           <span className="px-1.5 py-0.2 rounded-full bg-rose-500 text-white text-[9.5px] font-bold">
-                            {clashBands.length} âš ï¸
+                            {clashBands.length} ⚠️
                           </span>
                         ) : events.length > 0 ? (
                           <span className="text-[10px] opacity-75 font-mono">({events.length})</span>
@@ -1023,7 +1072,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                   <div className="border border-slate-200 rounded-2xl p-3 sm:p-4 bg-slate-950 text-white shadow-inner overflow-x-auto space-y-3">
                     
                     {/* Time Header Scale Bar */}
-                    <div className="min-w-[720px]">
+                    <div className="min-w-180">
                       <div className="grid grid-cols-9 text-center font-mono text-[10.5px] font-bold text-slate-300 border-b border-slate-800 pb-2">
                         <div className="border-r border-slate-800">08:00 - 09:00</div>
                         <div className="border-r border-slate-800">09:00 - 10:00</div>
@@ -1037,7 +1086,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                       </div>
 
                       {/* Course Row Bars */}
-                      <div className="relative pt-3 space-y-2.5 min-h-[140px]">
+                      <div className="relative pt-3 space-y-2.5 min-h-35">
                         
                         {/* Render Overlap Red Bands (Highlighted Clash Window Overlay) */}
                         {clashBands.map((cb, cbIdx) => (
@@ -1050,7 +1099,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                             className="absolute top-0 bottom-0 bg-rose-600/30 border-x-2 border-rose-500 pointer-events-none z-10 flex flex-col items-center justify-start pt-1 animate-pulse"
                           >
                             <span className="bg-rose-900 text-rose-100 font-mono font-black text-[9px] px-1.5 py-0.5 rounded border border-rose-400 shadow-sm">
-                              âš ï¸ BERTINDIH {cb.startStr}-{cb.endStr}
+                              ⚠️ BERTINDIH {cb.startStr}-{cb.endStr}
                             </span>
                           </div>
                         ))}
@@ -1081,7 +1130,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                     width: `${width}%`
                                   }}
                                   className={`absolute top-0 bottom-0 rounded-xl p-2 flex items-center justify-between gap-1 overflow-hidden transition-all ${barColor}`}
-                                  title={`${ev.code} (${ev.start} - ${ev.end}) ${ev.venue} Â· ${ev.lecturer}${ev.hasClash ? ` [BERLANGGAR DENGAN ${ev.clashedWith?.join(', ')}]` : ''}`}
+                                  title={`${ev.code} (${ev.start} - ${ev.end}) ${ev.venue} · ${ev.lecturer}${ev.hasClash ? ` [BERLANGGAR DENGAN ${ev.clashedWith?.join(', ')}]` : ''}`}
                                 >
                                   <div className="min-w-0 truncate">
                                     <div className="flex items-center gap-1 truncate text-[11px] font-bold">
@@ -1090,7 +1139,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                       <span className="opacity-90 font-normal text-[10.5px] truncate">({ev.start} - {ev.end})</span>
                                     </div>
                                     <div className="text-[9.5px] opacity-85 truncate">
-                                      {ev.type === 'tumpang' ? `Tumpang ${ev.cohort}` : ev.cohort} Â· {ev.venue}
+                                      {ev.type === 'tumpang' ? `Tumpang ${ev.cohort}` : ev.cohort} · {ev.venue}
                                     </div>
                                   </div>
 
@@ -1151,7 +1200,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                                       </span>
                                     </div>
                                     <div className="text-slate-600 text-[10.5px]">
-                                      Masa: <b>{ce.start} - {ce.end}</b> Â· Bilik: <b>{ce.venue}</b> Â· Pensyarah: <b>{ce.lecturer}</b>
+                                      Masa: <b>{ce.start} - {ce.end}</b> · Bilik: <b>{ce.venue}</b> · Pensyarah: <b>{ce.lecturer}</b>
                                     </div>
 
                                     {/* Action Suggestions */}
@@ -1364,7 +1413,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                         }
 
                         const displayBadge = ev.hasInternalClash
-                          ? `âš ï¸ BERTINDIH Â· ${ev.statusLabel}`
+                          ? `⚠️ BERTINDIH · ${ev.statusLabel}`
                           : ev.statusLabel;
 
                         return (
@@ -1384,8 +1433,8 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                               {ev.code} - {ev.name}
                             </div>
                             <div className="flex items-center justify-between text-[10.5px] text-slate-600 pt-0.5">
-                              <span>ðŸ“ {ev.venue}</span>
-                              <span>ðŸ‘¨â€ðŸ« {ev.lecturer} ({ev.credit} Kr)</span>
+                              <span>📍 {ev.venue}</span>
+                              <span>👨‍🏫 {ev.lecturer} ({ev.credit} Kr)</span>
                             </div>
                           </div>
                         );
@@ -1400,7 +1449,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
 
         {/* 6B. DESKTOP VIEW: 8.00 AM - 5.00 PM FULL MATRIX GRID */}
         <div className="hidden lg:block overflow-x-auto border border-slate-200 rounded-xl">
-          <table className="w-full text-left border-collapse text-xs min-w-[760px]">
+          <table className="w-full text-left border-collapse text-xs min-w-190">
             <thead>
               <tr className="bg-slate-100 text-slate-700 border-b border-slate-200 text-center font-bold">
                 <th className="p-2.5 border-r border-slate-200 w-24">HARI</th>
@@ -1503,7 +1552,7 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                           <div className="font-bold text-[11px] leading-tight font-mono">{ev.code}</div>
                           <div className="text-[10px] leading-tight opacity-90 line-clamp-1">{ev.name}</div>
                           <div className="text-[9.5px] font-semibold mt-1 opacity-75">
-                            {ev.venue} Â· {ev.lecturer}
+                            {ev.venue} · {ev.lecturer}
                           </div>
                         </td>
                       );
@@ -1521,12 +1570,12 @@ export const PlannerView: React.FC<PlannerViewProps> = ({
                               className="p-1.5 rounded-lg bg-white/95 border border-rose-300 mb-1 last:mb-0 shadow-2xs"
                             >
                               <span className="inline-block bg-rose-600 text-white text-[8.5px] font-bold px-1.5 py-0.2 rounded mb-0.5">
-                                âš ï¸ BERTINDIH Â· {ev.cohort} ({ev.displayStatus || 'D'})
+                                ⚠️ BERTINDIH · {ev.cohort} ({ev.displayStatus || 'D'})
                               </span>
                               <div className="font-bold text-[10.5px] leading-tight text-rose-950 font-mono">
                                 {ev.code} ({ev.start}-{ev.end})
                               </div>
-                              <div className="text-[9px] text-slate-700">{ev.venue} Â· {ev.lecturer}</div>
+                              <div className="text-[9px] text-slate-700">{ev.venue} · {ev.lecturer}</div>
                             </div>
                           ))}
                         </td>

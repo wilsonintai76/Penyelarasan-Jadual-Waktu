@@ -17,12 +17,11 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
   analysis,
   student,
   officialLogoUrl = '',
-  institutionName = 'Politeknik Kuching Sarawak',
   onOpenLogoSettings
 }) => {
   const { keptBasePackages, sectionBPackages, creditsA, creditsB, totalCredits } = analysis;
   const programCode = (student.currentCohort || "").substring(0, 3).toUpperCase();
-  const isCreditOutOfRange = totalCredits < 12 || totalCredits > 18;
+  const isCreditOutOfRange = totalCredits < 12 || totalCredits > 20;
 
   // Custom logo state (Cloudflare R2 official logo takes precedence; falls back to local override)
   const [customLogo, setCustomLogo] = useState<string>(() => {
@@ -277,137 +276,166 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
         <div className={`overflow-x-auto ${isPrintPreview ? 'p-4 sm:p-8' : 'pb-4'}`}>
           <div
             id="printable-sheet-pk01"
-            className={`print-sheet bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-300 font-official text-black w-full min-w-[794px] max-w-[210mm] mx-auto text-xs leading-normal relative page-break transition-all ${
+            style={{ fontFamily: "Calibri, Carlito, 'Segoe UI', Arial, sans-serif" }}
+            className={`print-sheet bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-300 text-black w-full min-w-[794px] max-w-[210mm] mx-auto text-[8.5pt] leading-normal relative page-break transition-all ${
               isPrintPreview ? `print-preview-sheet ${isGrayscalePreview ? 'grayscale' : ''}` : ''
             }`}
           >
-          {/* Diagonal Red Official Submission Deadline Stamp */}
-          <div className="diagonal-stamp">
-            SILA KEMBALIKAN<br />
-            BORANG INI PADA<br />
-            SELEWAT-LEWATNYA<br />
-            <span className="text-xs uppercase font-black text-black">
-              {student.deadline}
-            </span>
-          </div>
-
-          {/* Official Document Header with Guaranteed Print Display */}
-          <div className="flex items-center gap-4 border-b border-black pb-3 mb-3">
-            {/* Image Placeholder supporting Base64 / URL */}
-            <div
-              className="w-20 shrink-0 flex items-center justify-center text-center overflow-hidden"
-              style={{
-                width: '80px',
-                minWidth: '80px',
-                height: '64px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                printColorAdjust: 'exact',
-                WebkitPrintColorAdjust: 'exact'
-              }}
-            >
-              <PKSLogo
-                size="md"
-                customLogo={effectiveLogo}
-                className="w-16 h-16 object-contain"
-              />
+          {/* Page frame — mirrors the official Borang PK01 border */}
+          <div className="border border-black px-[9mm] pt-[4mm] pb-[4mm]">
+            {/* Submission-deadline stamp, top-left as on the official printed form */}
+            <div className="absolute left-[3mm] top-[2mm] -rotate-[30deg] border-2 border-dashed border-red-600 bg-red-50/90 px-2 py-1 text-center text-[7pt] font-extrabold uppercase leading-tight text-red-600">
+              Sila kembalikan<br />borang ini pada<br />selewat-lewatnya
+              <br />
+              <span className="text-[8.5pt] font-black">{student.deadline}</span>
             </div>
-            <div className="flex-1 text-center pr-12">
-              <h2 className="text-sm font-bold uppercase tracking-wider">{institutionName}</h2>
-              <h1 className="text-base font-black uppercase tracking-normal mt-0.5">Borang Pendaftaran Kursus</h1>
-              <p className="text-[11px] italic font-semibold">
-                (*Bagi kes pelajar mengulang kursus [MK], belum daftar [BD] &amp; menumpang seksyen)
+
+            {/* Header: centred official logo + document title + Borang PK01 tag */}
+            <div className="relative">
+              <div className="flex justify-center">
+                <PKSLogo customLogo={effectiveLogo} boxClassName="w-[50mm] h-[19mm]" />
+              </div>
+              <h1 className="mt-[2.5mm] text-center text-[13pt] font-bold uppercase leading-tight">
+                Borang Pendaftaran Kursus
+              </h1>
+              <p className="text-center text-[8.5pt] font-bold italic leading-tight text-red-600">
+                (*Bagi kes pelajar menumpang seksyen)
               </p>
+              <div className="absolute right-0 top-[4mm] border border-black px-2 py-[0.5mm] text-[10pt] font-bold">
+                Borang PK01
+              </div>
             </div>
-            <div className="shrink-0 self-start">
-              <span className="font-bold text-xs border border-black px-2 py-0.5">Borang PK01</span>
+
+            {/* Student particulars, laid out like the official form */}
+            <div className="mt-[5mm] space-y-[1.2mm] text-[9.5pt]">
+              <div className="flex items-center gap-1">
+                <span className="w-[32mm] font-bold">JABATAN</span>
+                <span>:</span>
+                <span className="min-w-[60mm] border-b border-black px-1 font-semibold uppercase">{student.department}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="w-[32mm] font-bold">SESI</span>
+                <span>:</span>
+                <span className="min-w-[60mm] border-b border-black px-1 font-semibold">{student.session}</span>
+              </div>
+              <div className="flex items-center gap-1 pt-[2mm]">
+                <span className="w-[32mm] font-bold">NAMA.</span>
+                <span>:</span>
+                <span className="flex-1 border border-black px-1.5 py-[0.7mm] font-bold uppercase">{student.name}</span>
+              </div>
+              <div className="flex items-center gap-1 pt-[1mm]">
+                <span className="w-[32mm] font-bold">NO. PENDAFTARAN</span>
+                <span>:</span>
+                <span className="w-[50mm] border border-black px-1.5 py-[0.7mm] font-bold uppercase">{student.regNum}</span>
+                <span className="ml-auto font-bold">PROGRAM</span>
+                <span>:</span>
+                <span className="w-[33mm] border border-black px-1.5 py-[0.7mm] font-bold uppercase">{programCode}</span>
+              </div>
+              <div className="flex items-center gap-1 pt-[1mm]">
+                <span className="w-[32mm] font-bold">NO. TEL</span>
+                <span>:</span>
+                <span className="w-[50mm] border border-black px-1.5 py-[0.7mm] font-semibold">{student.phone}</span>
+                <span className="ml-auto font-bold">KELAS</span>
+                <span>:</span>
+                <span className="w-[33mm] border border-black px-1.5 py-[0.7mm] font-bold">{student.currentCohort}</span>
+              </div>
             </div>
-          </div>
 
-          {/* Student & Department Information Grid */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs mb-3">
-            <div className="flex"><span className="w-32 font-bold">JABATAN:</span> <span className="font-semibold">{student.department}</span></div>
-            <div className="flex"><span className="w-32 font-bold">PROGRAM:</span> <span className="font-semibold uppercase">{programCode}</span></div>
-            <div className="flex"><span className="w-32 font-bold">SESI:</span> <span className="font-semibold">{student.session}</span></div>
-            <div className="flex"><span className="w-32 font-bold">NO. TEL:</span> <span className="font-semibold">{student.phone}</span></div>
-            <div className="flex"><span className="w-32 font-bold">NAMA PELAJAR:</span> <span className="font-bold uppercase">{student.name}</span></div>
-            <div className="flex"><span className="w-32 font-bold">NO. PENDAFTARAN:</span> <span className="font-bold font-mono uppercase">{student.regNum}</span></div>
-            <div className="flex"><span className="w-32 font-bold">KELAS ASAL:</span> <span className="font-semibold">{student.currentCohort}</span></div>
-          </div>
-
-          {/* Special Credit Warning Notice (If < 12 or > 18 credits) */}
+          {/* Special Credit Warning Notice (If < 12 or > 20 credits) */}
           {isCreditOutOfRange && (
-            <div className="mb-3 p-2 border border-black bg-amber-50 text-[10.5px]">
-              <b>PERHATIAN BEBAN KREDIT KHAS:</b> Jumlah jam kredit semasa ialah <b>{totalCredits} jam kredit</b> {totalCredits < 12 ? '(kurang daripada had minimum 12 jam kredit)' : '(melebihi had maksimum 18 jam kredit)'}. Sila dapatkan kelulusan khas Ketua Jabatan (KJ) di ruangan pengesahan di bawah.
+            <div className="mt-[4mm] border border-black bg-amber-50 px-2 py-1 text-[8.5pt]">
+              <b>PERHATIAN BEBAN KREDIT KHAS:</b> Jumlah jam kredit semasa ialah <b>{totalCredits} jam kredit</b> {totalCredits < 12 ? '(kurang daripada had minimum 12 jam kredit)' : '(melebihi had maksimum 20 jam kredit)'}. Sila dapatkan kelulusan khas Ketua Jabatan (KJ) di ruangan pengesahan di bawah.
             </div>
           )}
 
           {/* (A) SENARAI KURSUS (SEKSYEN SEMASA) */}
-          <div className="mb-3">
-            <h3 className="font-bold text-xs uppercase mb-1">(A) SENARAI KURSUS (SEKSYEN SEMASA):</h3>
-            <table className="w-full text-xs border border-black border-collapse">
+          <div className="mt-[4mm]">
+            <div className="mb-[1mm] pl-[4mm] text-[9pt] font-bold uppercase">(A) SENARAI KURSUS (SEKSYEN SEMASA) :</div>
+            <table className="w-full table-fixed border border-black border-collapse text-[8.5pt]">
+              <colgroup>
+                <col style={{ width: '5.2%' }} />
+                <col style={{ width: '10.8%' }} />
+                <col style={{ width: '47.9%' }} />
+                <col style={{ width: '13.5%' }} />
+                <col style={{ width: '10.4%' }} />
+                <col style={{ width: '12.2%' }} />
+              </colgroup>
               <thead>
-                <tr className="bg-slate-100 text-center font-bold">
-                  <th className="border border-black p-1 w-8">BIL</th>
-                  <th className="border border-black p-1 w-24">KOD KURSUS</th>
-                  <th className="border border-black p-1 text-left px-2">NAMA KURSUS</th>
-                  <th className="border border-black p-1 w-24">SEKSYEN</th>
-                  <th className="border border-black p-1 w-16">STATUS</th>
-                  <th className="border border-black p-1 w-20">JAM KREDIT</th>
+                <tr className="text-center align-middle font-bold">
+                  <th className="border border-black py-[1mm]">BIL</th>
+                  <th className="border border-black">KOD<br />KURSUS</th>
+                  <th className="border border-black">NAMA KURSUS</th>
+                  <th className="border border-black py-[0.5mm]">
+                    SEKSYEN<br />
+                    <span className="text-[7pt] font-normal italic">(Contoh : DKA3-S2)</span>
+                  </th>
+                  <th className="border border-black">STATUS</th>
+                  <th className="border border-black">JAM<br />KREDIT</th>
                 </tr>
               </thead>
               <tbody>
                 {keptBasePackages.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="border border-black p-2 text-center italic text-slate-600">
+                  <tr className="h-[6mm]">
+                    <td colSpan={6} className="border border-black px-2 text-center italic">
                       Tiada kursus didaftarkan di Seksyen Semasa.
                     </td>
                   </tr>
                 ) : (
                   keptBasePackages.map((pkg, idx) => (
-                    <tr key={pkg.Course_Code}>
-                      <td className="border border-black p-1 text-center">{idx + 1}</td>
-                      <td className="border border-black p-1 text-center font-bold font-mono">{pkg.Course_Code}</td>
-                      <td className="border border-black p-1 px-2 uppercase">{pkg.Course_Name}</td>
-                      <td className="border border-black p-1 text-center">{pkg.Cohort}</td>
-                      <td className="border border-black p-1 text-center font-bold">D</td>
-                      <td className="border border-black p-1 text-center font-bold font-mono">{pkg.Credit}</td>
+                    <tr key={pkg.Course_Code} className="h-[6mm]">
+                      <td className="border border-black text-center">{idx + 1}</td>
+                      <td className="border border-black text-center font-bold">{pkg.Course_Code}</td>
+                      <td className="border border-black px-[1.5mm] uppercase leading-tight">{pkg.Course_Name}</td>
+                      <td className="border border-black text-center">{pkg.Cohort}</td>
+                      <td className="border border-black text-center font-bold">D</td>
+                      <td className="border border-black text-center font-bold">{pkg.Credit}</td>
                     </tr>
                   ))
                 )}
               </tbody>
               <tfoot>
-                <tr className="font-bold bg-slate-50">
-                  <td colSpan={5} className="border border-black p-1 text-right px-2">JUMLAH JAM KREDIT (A):</td>
-                  <td className="border border-black p-1 text-center font-black font-mono">{creditsA}</td>
+                <tr className="h-[5.5mm] font-bold">
+                  <td colSpan={3} className="border border-black pr-[2mm] text-right">JUMLAH JAM KREDIT</td>
+                  <td className="border border-black bg-[#cfcfcf]"></td>
+                  <td className="border border-black bg-[#cfcfcf]"></td>
+                  <td className="border border-black bg-[#cfcfcf] text-center font-black">{creditsA}</td>
                 </tr>
               </tfoot>
             </table>
           </div>
 
+
           {/* (B) SENARAI KURSUS (SEKSYEN TUMPANG) */}
-          <div className="mb-3">
-            <h3 className="font-bold text-xs uppercase mb-1">(B) SENARAI KURSUS (SEKSYEN TUMPANG):</h3>
-            <table className="w-full text-xs border border-black border-collapse">
+          <div className="mt-[4mm]">
+            <div className="mb-[1mm] pl-[4mm] text-[9pt] font-bold uppercase">(B) SENARAI KURSUS (SEKSYEN TUMPANG) :</div>
+            <table className="w-full table-fixed border border-black border-collapse text-[8.5pt]">
+              <colgroup>
+                <col style={{ width: '5.1%' }} />
+                <col style={{ width: '10.9%' }} />
+                <col style={{ width: '35.9%' }} />
+                <col style={{ width: '13.2%' }} />
+                <col style={{ width: '12.3%' }} />
+                <col style={{ width: '10.3%' }} />
+                <col style={{ width: '12.3%' }} />
+              </colgroup>
               <thead>
-                <tr className="bg-slate-100 text-center font-bold">
-                  <th className="border border-black p-1 w-8">BIL</th>
-                  <th className="border border-black p-1 w-24">KOD KURSUS</th>
-                  <th className="border border-black p-1 text-left px-2">NAMA KURSUS</th>
-                  <th className="border border-black p-1 w-24">SEKSYEN TUMPANG</th>
-                  <th className="border border-black p-1 w-36">
-                    NAMA &amp; T/T PENSYARAH<br />
-                    <span className="text-[9px] font-normal">(Yang Ditumpang)</span>
+                <tr className="text-center align-middle font-bold">
+                  <th className="border border-black py-[1mm]">BIL</th>
+                  <th className="border border-black">KOD<br />KURSUS</th>
+                  <th className="border border-black">NAMA KURSUS</th>
+                  <th className="border border-black py-[0.5mm]">
+                    SEKSYEN<br />TUMPANG<br />
+                    <span className="text-[7pt] font-normal italic">(Contoh : DKA3-S2)</span>
                   </th>
-                  <th className="border border-black p-1 w-16">STATUS</th>
-                  <th className="border border-black p-1 w-20">JAM KREDIT</th>
+                  <th className="border border-black">NAMA DAN<br />T/T<br />PENYARAH</th>
+                  <th className="border border-black">STATUS</th>
+                  <th className="border border-black">JAM<br />KREDIT</th>
                 </tr>
               </thead>
               <tbody>
                 {sectionBPackages.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="border border-black p-2 text-center italic text-slate-600">
+                  <tr className="h-[6mm]">
+                    <td colSpan={7} className="border border-black px-2 text-center italic">
                       Tiada kursus tumpang / mengulang didaftarkan.
                     </td>
                   </tr>
@@ -415,93 +443,96 @@ export const BorangPK01View: React.FC<BorangPK01ViewProps> = ({
                   sectionBPackages.map((pkg, idx) => {
                     const lect = getPackageLecturers(pkg);
                     return (
-                      <tr key={`${pkg.Course_Code}-${idx}`}>
-                        <td className="border border-black p-1 text-center">{idx + 1}</td>
-                        <td className="border border-black p-1 text-center font-bold font-mono">{pkg.Course_Code}</td>
-                        <td className="border border-black p-1 px-2 uppercase">{pkg.Course_Name}</td>
-                        <td className="border border-black p-1 text-center font-semibold">{pkg.Cohort}</td>
-                        <td className="border border-black p-1 px-1.5 text-[10px]">
-                          <div className="font-bold leading-tight">{lect}</div>
-                          <div className="text-[9px] text-slate-700 mt-1">T/T: _______________</div>
+                      <tr key={`${pkg.Course_Code}-${idx}`} className="h-[7.5mm]">
+                        <td className="border border-black text-center">{idx + 1}</td>
+                        <td className="border border-black text-center font-bold">{pkg.Course_Code}</td>
+                        <td className="border border-black px-[1.5mm] uppercase leading-tight">{pkg.Course_Name}</td>
+                        <td className="border border-black text-center font-semibold">{pkg.Cohort}</td>
+                        <td className="border border-black px-[1mm] text-center leading-tight">
+                          <div className="font-bold">{lect}</div>
+                          <div className="text-[7pt]">T/T: ______________</div>
                         </td>
-                        <td className="border border-black p-1 text-center font-bold font-mono">{pkg.displayStatus}</td>
-                        <td className="border border-black p-1 text-center font-bold font-mono">{pkg.Credit}</td>
+                        <td className="border border-black text-center font-bold">{pkg.displayStatus}</td>
+                        <td className="border border-black text-center font-bold">{pkg.Credit}</td>
                       </tr>
                     );
                   })
                 )}
               </tbody>
               <tfoot>
-                <tr className="font-bold bg-slate-50">
-                  <td colSpan={6} className="border border-black p-1 text-right px-2">JUMLAH JAM KREDIT (B):</td>
-                  <td className="border border-black p-1 text-center font-black font-mono">{creditsB}</td>
-                </tr>
-                <tr className="font-black bg-slate-100 text-sm">
-                  <td colSpan={6} className="border border-black p-1.5 text-right px-2">
-                    JUMLAH JAM KREDIT KESELURUHAN (A + B):
-                  </td>
-                  <td className="border border-black p-1.5 text-center font-black font-mono">{totalCredits}</td>
+                <tr className="h-[5.5mm] font-bold">
+                  <td colSpan={3} className="border border-black pr-[2mm] text-right">JUMLAH JAM KREDIT</td>
+                  <td className="border border-black"></td>
+                  <td className="border border-black bg-[#cfcfcf]"></td>
+                  <td className="border border-black bg-[#cfcfcf]"></td>
+                  <td className="border border-black bg-[#cfcfcf] text-center font-black">{creditsB}</td>
                 </tr>
               </tfoot>
             </table>
           </div>
 
-          {/* Signatures Section */}
-          <div className="grid grid-cols-3 gap-3 text-xs mt-4 pt-2 border-t border-black">
-            <div className="border border-black p-2 flex flex-col justify-between h-28">
-              <div>
-                <p className="font-bold">Nama Pelajar:</p>
-                <p className="font-semibold uppercase mt-0.5 truncate">{student.name}</p>
-              </div>
-              <div className="text-[10px]">
-                <div className="border-b border-dotted border-black mb-1"></div>
-                <p>Tandatangan: ___________________</p>
-                <p>Tarikh: ________________________</p>
+          {/* Grand total box, right aligned as on the official form */}
+          <div className="mt-[3mm] ml-auto flex w-[120mm] items-center justify-center gap-[6mm] border border-black py-[2mm] text-[10.5pt] font-bold">
+            <span>JUMLAH JAM KREDIT KESELURUHAN</span>
+            <span className="text-[13pt] font-black">{totalCredits}</span>
+          </div>
+
+          {/* Signature & endorsement block, laid out like the official form */}
+          <div className="mt-[7mm] flex justify-between gap-[6mm] text-[8pt]">
+            <div className="w-[47mm]">
+              <div className="h-[13mm]"></div>
+              <div className="border-t border-black pt-[1mm]">
+                <p className="font-bold">Nama Pelajar : <span className="font-normal uppercase">{student.name}</span></p>
+                <p className="mt-[3mm]">T a r i k h &nbsp;: ____________________</p>
               </div>
             </div>
 
-            <div className="border border-black p-2 flex flex-col justify-between h-28">
-              <div>
-                <p className="font-bold">Disokong Penasihat Akademik:</p>
-                <p className="font-semibold uppercase mt-0.5 truncate">{student.paName}</p>
-              </div>
-              <div className="text-[10px]">
-                <div className="border-b border-dotted border-black mb-1"></div>
-                <p>Tandatangan &amp; Cop: _____________</p>
-                <p>Tarikh: ________________________</p>
+            <div className="w-[52mm]">
+              <p className="text-center text-[9pt] font-bold">Disokong Penasihat Akademik</p>
+              <div className="mt-[11mm] border-t border-black pt-[1mm]">
+                <p className="font-semibold uppercase leading-tight">{student.paName}</p>
+                <p>Tandatangan &amp; Cop</p>
+                <p className="mt-[3mm]">Tarikh : ____________________</p>
               </div>
             </div>
 
-            <div className="border border-black p-2 flex flex-col justify-between h-28">
-              <div>
-                <p className="font-bold">Diluluskan KJ / PKJ / KPro:</p>
-                {isCreditOutOfRange ? (
-                  <p className="text-[9.5px] italic mt-0.5 font-bold">
-                    Kebenaran Beban Khas ({totalCredits} Kr):<br />
-                    [ &nbsp; ] Diluluskan &nbsp; [ &nbsp; ] Tidak Diluluskan
-                  </p>
-                ) : (
-                  <p className="text-[9.5px] italic mt-0.5">
-                    Kebenaran Beban Kredit Khas: [ &nbsp; ] Ya &nbsp; [ &nbsp; ] Tidak
-                  </p>
-                )}
-              </div>
-              <div className="text-[10px]">
-                <div className="border-b border-dotted border-black mb-1"></div>
-                <p>Tandatangan &amp; Cop: _____________</p>
-                <p>Tarikh: ________________________</p>
+            <div className="w-[69mm]">
+              <p className="text-center text-[9pt] font-bold">Diluluskan KJ/ PKJ / Kpro / KK</p>
+              {isCreditOutOfRange && (
+                <p className="mt-[1mm] text-center text-[7.5pt] font-bold italic">
+                  Kebenaran Beban Khas ({totalCredits} Kr): [ &nbsp; ] Diluluskan &nbsp; [ &nbsp; ] Tidak Diluluskan
+                </p>
+              )}
+              <div className={`${isCreditOutOfRange ? 'mt-[7mm]' : 'mt-[11mm]'} border-t border-black pt-[1mm]`}>
+                <p>Tandatangan &amp; Cop</p>
+                <p className="mt-[3mm]">Tarikh : _______________________________</p>
               </div>
             </div>
           </div>
 
-          {/* Official Footnotes & Status Descriptions */}
-          <div className="mt-3 pt-1 border-t border-slate-300 text-[9.5px] text-slate-700 leading-tight space-y-0.5">
-            <p>1. Borang ini perlu diisi oleh pelajar mengulang kursus (MK), belum daftar (BD) dan yang menumpang seksyen lain selewat-lewatnya pada <b>{student.deadline}</b>.</p>
-            <p>2. Jumlah jam kredit setiap semester adalah <b>12 – 18 jam kredit</b>. Jika jumlah jam kredit kurang dari 12 jam kredit atau melebihi 18 jam kredit, pelajar perlu mendapat kebenaran Ketua Jabatan.</p>
-            <p>3. Sila kembalikan borang ini berserta salinan Slip Pengesahan Pendaftaran Kursus kepada Penasihat Akademik (PA) dan seterusnya Penyelaras Pendaftaran Kursus Jabatan (PPKJ).</p>
-            <p className="font-semibold text-slate-900">
-              Status: D - Daftar kali pertama / Belum Daftar (BD) / Tumpang Semasa; C1 - Mengulang Kursus kali pertama (MK1); C2 - Mengulang Kursus kali kedua (MK2).
-            </p>
+          {/* NOTA — official wording from Borang PK01 */}
+          <div className="mt-[5mm] text-[7.5pt] leading-[1.3]">
+            <p className="font-bold">NOTA :</p>
+            <ul className="list-disc space-y-[0.8mm] pl-[7mm]">
+              <li>
+                Borang ini perlu diisi oleh pelajar yang menumpang seksyen selain daripada seksyen semasanya selewat-lewatnya pada minggu pertama Perkuliahan.
+              </li>
+              <li>
+                Jika jumlah jam kredit kurang dari 12 jam kredit atau melebihi 20 jam kredit, pelajar perlu mendapat kebenaran Ketua Jabatan.
+              </li>
+              <li>
+                Sila kembalikan borang ini yang telah lengkap di isi berserta salinan Slip Pengesahan Pendaftan Kursus selewat-lewatnya pada Minggu Pertama Perkuliahan kepada Penasihat Akademik (PA) atau Pegawai Pendaftaran Kursus Jabatan (PPKJ).
+              </li>
+              <li>
+                Salinan asal borang ini perlu disimpan oleh PPKJ di sepanjang sesi pengajian.
+              </li>
+            </ul>
+          </div>
+
+          {/* Status legend, centred at the foot of the official form */}
+          <div className="mt-[3mm] text-center text-[7.5pt] text-slate-500">
+            Status : D – Daftar kali pertama; MK1 (C1) – Mengulang Kursus kali pertama; MK2 (C2) – Mengulang Kursus kali kedua.
+          </div>
           </div>
           </div>
         </div>

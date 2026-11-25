@@ -52,7 +52,13 @@ export function triggerPrintDocument(target: 'pk01' | 'jadual' | 'all'): void {
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
-          @page { size: A4 portrait; margin: 7mm 8mm; }
+          /* Named pages keep Borang PK01 portrait and Jadual Waktu Kuliah landscape,
+             exactly like the official JKM templates. */
+          @page { size: A4 portrait; margin: 0; }
+          @page pk01sheet { size: A4 portrait; margin: 0; }
+          @page jadualsheet { size: A4 landscape; margin: 0; }
+          #printable-sheet-pk01 { page: pk01sheet; min-width: 0 !important; width: 100% !important; margin: 0 !important; }
+          #printable-sheet-jadual { page: jadualsheet; min-width: 0 !important; width: 100% !important; margin: 0 !important; max-width: none !important; }
           body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f1f5f9; margin: 0; padding: 16px; }
           .font-official { font-family: 'Tinos', 'Times New Roman', serif; }
           .font-mono-tabular { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
@@ -86,7 +92,7 @@ export function triggerPrintDocument(target: 'pk01' | 'jadual' | 'all'): void {
           @media print {
             body { background: #ffffff !important; padding: 0 !important; }
             .no-print-bar { display: none !important; }
-            .print-sheet { box-shadow: none !important; border: 1px solid #000 !important; margin: 0 auto !important; width: 100% !important; }
+            .print-sheet { box-shadow: none !important; border: 1px solid #000 !important; margin: 0 auto !important; width: 100% !important; padding: 6mm 10mm !important; }
             .diagonal-stamp { border-color: #000 !important; color: #000 !important; background: transparent !important; }
           }
         </style>

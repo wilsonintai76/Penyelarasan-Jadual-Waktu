@@ -9,6 +9,8 @@ const KV_JADUAL_FILE = path.join(SIM_DIR, 'kv-jadual.json');
 const KV_HISTORY_FILE = path.join(SIM_DIR, 'kv-history.json');
 const KV_SETTINGS_FILE = path.join(SIM_DIR, 'kv-settings.json');
 const KV_PIN_FILE = path.join(SIM_DIR, 'kv-pin.json');
+const KV_CURRICULUM_FILE = path.join(SIM_DIR, 'kv-curriculum.json');
+const CURRICULUM_ASSET_DIR = path.resolve(process.cwd(), 'public/assets/curriculum');
 const INITIAL_DEFAULT_PIN = '2026';
 const R2_DIR = path.join(SIM_DIR, 'r2');
 const R2_LOGO_BIN = path.join(R2_DIR, 'logo-politeknik.bin');
@@ -288,6 +290,141 @@ async function startServer() {
 
     writeJsonFile(KV_SETTINGS_FILE, updated);
     res.status(200).json({ ok: true, settings: updated });
+  });
+
+  // GET /api/curriculum (KV override, falls back to the bundled asset)
+  app.get('/api/curriculum', (req, res) => {
+    const store = readJsonFile<Record<string, any>>(KV_CURRICULUM_FILE, {});
+    const requested = String(req.query.programme || '').trim().toUpperCase();
+
+    if (requested) {
+      const kv = store[requested];
+      if (kv && kv.curriculum && kv.curriculum.courses) {
+        res.status(200).set({ 'Cache-Control': 'no-store' }).json({
+          programme: requested,
+          source: 'kv',
+          updatedAt: kv.updatedAt || '',
+          filename: kv.filename || '',
+          curriculum: kv.curriculum
+        });
+        return;
+      }
+      const asset = readJsonFile<any>(path.join(CURRICULUM_ASSET_DIR, `${requested.toLowerCase()}.json`), null);
+      if (asset && asset.courses && Object.keys(asset.courses).length > 0) {
+        res.status(200).set({ 'Cache-Control': 'no-store' }).json({
+          programme: requested,
+          source: 'asset',
+          curriculum: asset
+        });
+        return;
+      }
+      res.status(200).set({ 'Cache-Control': 'no-store' }).json({
+        programme: requested,
+        source: 'none',
+        curriculum: null
+      });
+      return;
+    }
+
+    const summarize = (programme: string, source: string, curriculum: any, extra: any = {}) => {
+      const courses = (curriculum && curriculum.courses) || {};
+      return {
+        programme,
+        source,
+        coursesCount: Object.keys(courses).length,
+        prerequisitesCount: Object.values<any>(courses).reduce(
+          (total, course) => total + ((course && course.prerequisites) || []).length,
+          0
+        ),
+        version: (curriculum && curriculum.meta && curriculum.meta.version) || '',
+        effective: (curriculum && curriculum.meta && curriculum.meta.effective) || '',
+        updatedAt: extra.updatedAt || '',
+        filename: extra.filename || ''
+      };
+    };
+
+    const programmes = Array.from(
+      new Set(['DKM', 'DAD', 'DPU', 'DTP', ...Object.keys(store)])
+    )
+      .sort()
+      .map(code => {
+        const kv = store[code];
+        if (kv && kv.curriculum && kv.curriculum.courses) return summarize(code, 'kv', kv.curriculum, kv);
+        const asset = readJsonFile<any>(path.join(CURRICULUM_ASSET_DIR, `${code.toLowerCase()}.json`), null);
+        return asset && asset.courses ? summarize(code, 'asset', asset) : summarize(code, 'none', null);
+      });
+
+    res.status(200).set({ 'Cache-Control': 'no-store' }).json({ programmes });
+  });
+
+  // POST /api/curriculum (Publish a per-programme KV override without redeploying)
+  app.post('/api/curriculum', (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'Kod akses penyelaras tidak sah.' });
+      return;
+    }
+    const body = req.body || {};
+    const curriculum = body.curriculum ?? body;
+    const programme = String(body.programme || curriculum?.meta?.programme || '')
+      .trim()
+      .toUpperCase();
+
+    if (!/^[A-Z]{2,5}$/.test(programme)) {
+      res.status(400).json({
+        error: 'INVALID_PROGRAMME',
+        message: 'Kod program tidak sah. Sertakan "programme" (cth. DKM) atau meta.programme.'
+      });
+      return;
+    }
+    if (!curriculum || !curriculum.courses || Object.keys(curriculum.courses).length === 0) {
+      res.status(400).json({
+        error: 'INVALID_CURRICULUM',
+        message: 'Struktur kurikulum tidak sah. Medan "courses" diperlukan.'
+      });
+      return;
+    }
+
+    const store = readJsonFile<Record<string, any>>(KV_CURRICULUM_FILE, {});
+    const existing = store[programme];
+    if (existing && body.overwrite !== true) {
+      res.status(409).json({
+        error: 'ALREADY_EXISTS',
+        message: `Kurikulum ${programme} sudah wujud di KV. Sahkan tindihan (overwrite: true) untuk menggantikannya.`,
+        existing: {
+          programme,
+          source: 'kv',
+          coursesCount: Object.keys(existing.curriculum?.courses || {}).length,
+          updatedAt: existing.updatedAt || '',
+          filename: existing.filename || ''
+        }
+      });
+      return;
+    }
+
+    store[programme] = {
+      curriculum,
+      filename: String(body.filename || ''),
+      updatedAt: new Date().toISOString()
+    };
+    writeJsonFile(KV_CURRICULUM_FILE, store);
+    res.status(200).json({ ok: true, key: `curriculum_${programme}`, programme });
+  });
+
+  // DELETE /api/curriculum?programme=DKM (Drop the override so the bundled asset is served again)
+  app.delete('/api/curriculum', (req, res) => {
+    if (!checkPasscode(req)) {
+      res.status(401).json({ error: 'UNAUTHORIZED', message: 'Kod akses penyelaras tidak sah.' });
+      return;
+    }
+    const programme = String(req.query.programme || '').trim().toUpperCase();
+    if (!programme) {
+      res.status(400).json({ error: 'PROGRAMME_REQUIRED', message: 'Sertakan ?programme=DKM.' });
+      return;
+    }
+    const store = readJsonFile<Record<string, any>>(KV_CURRICULUM_FILE, {});
+    delete store[programme];
+    writeJsonFile(KV_CURRICULUM_FILE, store);
+    res.status(200).json({ ok: true, message: `Override KV ${programme} dibuang.` });
   });
 
   // GET /api/logo (Serve logo stored in R2)

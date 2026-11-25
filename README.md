@@ -57,6 +57,53 @@ Source precedence in [externalTimetableLoader.ts](src/utils/externalTimetableLoa
 publish and restore, so the fallback tracks the latest upload instead of a build-time snapshot. If the
 mirror is missing it serves the bundled `/data/jadual.json`.
 
+## Curriculum prerequisites (per programme)
+
+Prerequisites are curriculum rules, not schedule data, so each programme has its own document and they
+never live in the master timetable (which is replaced on every upload):
+
+- [public/assets/curriculum/dkm.json](public/assets/curriculum/dkm.json) — canonical, git-versioned rules
+  extracted from *PROGRAMME INFORMATION DKM v3* (§11, pages 7–9): course name, semesters, credits and
+  normalized `prerequisites[]` per course code. `dad.json`, `dpu.json`, `dtp.json` are added the same way
+  once those programme structures are available.
+- `GET /api/curriculum` returns a status summary for DKM/DAD/DPU/DTP; `GET /api/curriculum?programme=DKM`
+  serves the KV override `curriculum_DKM` when present, otherwise the bundled asset.
+- `POST /api/curriculum` (`{ programme, curriculum, overwrite? }`, admin PIN) publishes an override without
+  redeploying. Publishing over an existing KV document is refused with `409 ALREADY_EXISTS` unless
+  `overwrite: true` is sent, and the UI always asks for confirmation first (showing the existing version,
+  course/prereq counts and timestamp next to the incoming ones). `DELETE /api/curriculum?programme=DKM`
+  drops the override (also confirmed in the UI) so the bundled asset is served again.
+- Upload/download is done in the app: **Tetapan → Kurikulum & Prasyarat** (per-programme JSON, validated
+  before publishing). A programme with no document simply contributes no rules.
+
+Registration rule enforced by [prerequisiteEngine.ts](src/utils/prerequisiteEngine.ts): **rules are keyed by
+course code and merged across every programme document**, because codes are shared between programmes (a
+DAD student taking `DBM20173` is still bound by the `DBM10163` prerequisite). When a student repeats a
+course (C1/C2/D), every course that requires it — directly or through the prerequisite chain — is
+automatically dropped from the default (Bahagian A) timetable and reported to the advisor. For example,
+repeating `DBM10163` drops `DBM20173` (and `DBM30183` when it is in the cohort's timetable). Dropped codes
+are derived on every run, never persisted, so removing the repeat restores the course.
+
+## Printable documents (Borang PK01 & Jadual Waktu Kuliah)
+
+Both printouts reproduce the official JKM templates supplied in `sample/` (`01_BORANG PK01 Sesi II
+2026_2027.pdf`, `JADUAL WAKTU KULIAH KOSONG.pdf`):
+
+- [BorangPK01View.tsx](src/components/BorangPK01View.tsx) — A4 **portrait**: page frame, Politeknik logo
+  centred at the top (53 × 20 mm), `Borang PK01` tag box at the top right, underlined/boxed student fields,
+  tables (A) and (B) with the shaded `JUMLAH JAM KREDIT` row, the right-aligned `JUMLAH JAM KREDIT
+  KESELURUHAN` box, signature lines, the official **NOTA** wording and the centred `Status : D / MK1 / MK2`
+  legend.
+- [JadualKuliahView.tsx](src/components/JadualKuliahView.tsx) — A4 **landscape**: frame, centred logo
+  (56 × 20 mm), underlined title, `JABATAN`/`SESI` and `Nama`/`Program`/`Penasihat Akademik` lines, and the
+  9-column `8.00 – 9.00am … 4.00 – 5.00pm` grid.
+- Paper orientation comes from named pages in [index.css](src/index.css) (`@page pk01sheet`,
+  `@page jadualsheet`) plus the same rules in the popup path of
+  [printHelper.ts](src/utils/printHelper.ts), so `window.print()` and the Google Sites iframe fallback
+  produce identical paper. The credit-load rule follows the official form: 12–20 jam kredit.
+- The logo can be pinned to an exact print footprint with `PKSLogo boxClassName="w-[..] h-[..]"`; the image
+  comes from `/api/logo` (R2), then the local override, then `/assets/logo_pks.svg`.
+
 ## Versioning
 
 The version lives in [package.json](./package.json) `version` — a single source of truth.
@@ -81,7 +128,7 @@ Release checklist:
 
 | Binding | Type | Resource | Used by |
 | --- | --- | --- | --- |
-| `JADUAL_KV` | KV namespace | `jkm-timetable-kv` | `/api/jadual`, `/api/jadual-history`, `/api/settings`, `/api/admin-pin`, `/api/verify-pin`, `/api/logo`, `/api/extract-pdf` |
+| `JADUAL_KV` | KV namespace | `jkm-timetable-kv` | `/api/jadual`, `/api/jadual-history`, `/api/settings`, `/api/admin-pin`, `/api/verify-pin`, `/api/logo`, `/api/extract-pdf`, `/api/curriculum` |
 | `JADUAL_R2` | R2 bucket | `jkm-timetable-r2` | `/api/logo` (custom logo upload) |
 | `AI` | Workers AI | — | `/api/extract-pdf` |
 | `ASSETS` | Static assets | `dist/` | SPA |

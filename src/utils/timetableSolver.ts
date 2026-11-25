@@ -6,8 +6,11 @@ import {
   AllocatedRepeatPackage,
   RescuedCourse,
   AutoDroppedCourse,
-  ScoredCandidate
+  ScoredCandidate,
+  CurriculumData,
+  CurriculumLibrary
 } from '../types';
+import { buildPrerequisiteGraph, findPrerequisiteDrops, findRepeatPrerequisiteViolations } from './prerequisiteEngine';
 
 export function parseTime(t: string): number {
   if (!t) return 0;
@@ -190,14 +193,31 @@ export function runFullAnalysis(
   currentCohort: string,
   timetable: MasterTimetableEntry[],
   selectedRepeatCourses: RepeatSelection[],
-  manualDroppedCourseCodes: string[]
+  manualDroppedCourseCodes: string[],
+  curriculum?: CurriculumData | CurriculumLibrary | null
 ): SolverAnalysis {
   const studentProgram = currentCohort.substring(0, 3).toUpperCase();
   const allPackages = getAllCoursePackages(timetable);
   const basePackages = allPackages.filter(p => p.Cohort === currentCohort);
 
+  // Prerequisite pass: a base course is dropped when a prerequisite of it is being
+  // repeated (not passed yet), cascading to every descendant course.
+  const prerequisiteGraph = buildPrerequisiteGraph(curriculum);
+  const prereqDroppedCourses = findPrerequisiteDrops(
+    basePackages.filter(p => !manualDroppedCourseCodes.includes(p.Course_Code)),
+    selectedRepeatCourses,
+    prerequisiteGraph
+  );
+  const prereqDroppedCodes = new Set(prereqDroppedCourses.map(d => d.pkg.Course_Code));
+  const repeatPrereqViolations = findRepeatPrerequisiteViolations(
+    selectedRepeatCourses.map(r => r.code),
+    prerequisiteGraph
+  );
+
   const manualDroppedPackages = basePackages.filter(p => manualDroppedCourseCodes.includes(p.Course_Code));
-  const activeBasePackages = basePackages.filter(p => !manualDroppedCourseCodes.includes(p.Course_Code));
+  const activeBasePackages = basePackages.filter(
+    p => !manualDroppedCourseCodes.includes(p.Course_Code) && !prereqDroppedCodes.has(p.Course_Code)
+  );
 
   const solverCtx: SolveContext = {
     currentCohort,
@@ -298,6 +318,8 @@ export function runFullAnalysis(
     sectionBPackages,
     rescuedBaseCourses,
     autoDroppedCourses,
+    prereqDroppedCourses,
+    repeatPrereqViolations,
     manualDroppedPackages,
     creditsA,
     creditsB,
